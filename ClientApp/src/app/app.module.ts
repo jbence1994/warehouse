@@ -9,6 +9,8 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { StockTableComponent } from './components/stock-table/stock-table.component';
 
+import { StockService } from './services/stock.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import { StockTableComponent } from './components/stock-table/stock-table.compon
       { path: 'raktarkeszlet', component: StockTableComponent },
     ])
   ],
-  providers: [],
+  providers: [
+    StockService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
