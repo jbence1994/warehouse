@@ -8,9 +8,11 @@ namespace Warehouse.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductResource>();
+            CreateMap<Product, ProductResource>()
+                .ForMember(productResource => productResource.SupplierName,
+                    opt => opt.MapFrom(product => product.Supplier.Name));
+
             CreateMap<StockSummary, StockResource>();
-            CreateMap<Supplier, KeyValuePairResource>();
         }
     }
 }

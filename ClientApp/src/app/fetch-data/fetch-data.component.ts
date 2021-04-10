@@ -19,12 +19,10 @@ interface Stock {
   quantity: number;
 }
 
-interface Product extends KeyValuePair {
-  price: number;
-  unit: string;
-}
-
-interface KeyValuePair {
+interface Product {
   id: number;
   name: string;
+  price: number;
+  unit: string;
+  supplierName: string;
 }
