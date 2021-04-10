@@ -1,24 +1,22 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<p class="text-center" *ngIf="!stocks">Betöltés...</p>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
+<table class='table table-sm table-hover' aria-labelledby="tableLabel" *ngIf="stocks">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>Termék</th>
+      <th>Beszállító</th>
+      <th>Egységár</th>
+      <th>Mennyiség</th>
+      <th>Egység</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let stock of stocks">
+      <td>{{ stock.product.name }}</td>
+      <td>{{ stock.product.supplier.name }}</td>
+      <td>{{ stock.product.price }}</td>
+      <td>{{ stock.quantity }}</td>
+      <td>{{ stock.product.unit }}</td>
     </tr>
   </tbody>
 </table>

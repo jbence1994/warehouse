@@ -6,18 +6,25 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  public stocks: Stock[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+    http.get<Stock[]>(baseUrl + 'api/stocks')
+      .subscribe(stocks => this.stocks = stocks);
   }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+interface Stock {
+  product: Product,
+  quantity: number;
+}
+
+interface Product extends KeyValuePair {
+  price: number;
+  unit: string;
+}
+
+interface KeyValuePair {
+  id: number;
+  name: string;
 }
