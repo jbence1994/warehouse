@@ -27,6 +27,7 @@ namespace Warehouse
             services.AddAutoMapper();
 
             services.AddScoped<IStockRepository, StockRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("Default")));

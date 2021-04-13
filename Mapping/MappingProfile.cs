@@ -13,6 +13,8 @@ namespace Warehouse.Mapping
                     opt => opt.MapFrom(product => product.Supplier.Name));
 
             CreateMap<StockSummary, StockResource>();
+            CreateMap<Product, KeyValuePairResource>();
+            CreateMap<Supplier, SupplierResource>();
         }
     }
 }
