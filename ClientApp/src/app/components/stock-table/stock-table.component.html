@@ -1,7 +1,7 @@
 <p class="text-center" *ngIf="!stocks">Betöltés...</p>
 
 <div class="form-group" *ngIf="stocks">
-  <button class="btn btn-sm btn-primary">Raktárkészlet bővítése</button>
+  <a [routerLink]="['/raktarkeszlet/uj']" class="btn btn-sm btn-primary">Raktárkészlet bővítése</a>
 </div>
 
 <table class='table table-sm table-hover' aria-labelledby="tableLabel" *ngIf="stocks">

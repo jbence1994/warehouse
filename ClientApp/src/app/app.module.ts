@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { StockTableComponent } from './components/stock-table/stock-table.component';
+import { StockFormComponent } from './components/stock-form/stock-form.component';
 
 import { StockService } from './services/stock.service';
 
@@ -16,7 +17,8 @@ import { StockService } from './services/stock.service';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    StockTableComponent
+    StockTableComponent,
+    StockFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -25,6 +27,7 @@ import { StockService } from './services/stock.service';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'raktarkeszlet', component: StockTableComponent },
+      { path: 'raktarkeszlet/uj', component: StockFormComponent },
     ])
   ],
   providers: [
