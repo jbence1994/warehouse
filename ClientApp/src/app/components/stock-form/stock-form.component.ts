@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { StockService } from 'src/app/services/stock.service';
 import { SaveStock } from './../../models/saveStock';
 import { Supplier } from 'src/app/models/supplier';
@@ -19,7 +20,10 @@ export class StockFormComponent implements OnInit {
         quantity: 1
     };
 
-    constructor(private stockService: StockService) { }
+    constructor(
+        private stockService: StockService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.populateSuppliers();
@@ -32,7 +36,8 @@ export class StockFormComponent implements OnInit {
     }
 
     submit() {
-        console.log(this.saveStock);
+        this.stockService.createStock(this.saveStock).subscribe();
+        this.router.navigate(['/raktarkeszlet/']);
     }
 
     populateSuppliers() {
