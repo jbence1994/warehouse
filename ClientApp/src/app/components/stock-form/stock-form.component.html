@@ -5,7 +5,7 @@
         <label for="supplier">Beszállító</label>
         <select id="supplier" class="form-control form-control-sm" (change)="onSupplierChange()" [(ngModel)]="saveStock.supplierId" name="supplierId" #supplier="ngModel" required>
             <option value=""></option>
-            <option *ngFor="let s of suppliers" value="{{ s.id }}">{{ s.name }}</option>
+            <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
         </select>
         <div class="alert alert-danger" *ngIf="supplier.touched && !supplier.valid">Kérem adja meg a beszállítót.</div>
     </div>
@@ -13,7 +13,7 @@
         <label for="product">Termék</label>
         <select id="product" class="form-control form-control-sm" [(ngModel)]="saveStock.productId" name="productId" #product="ngModel" required>
             <option value=""></option>
-            <option *ngFor="let p of products" value="{{ p.id }}">{{ p.name }}</option>
+            <option *ngFor="let p of products" [ngValue]="p.id">{{ p.name }}</option>
         </select>
         <div class="alert alert-danger" *ngIf="product.touched && !product.valid">Kérem adja meg a terméket.</div>
     </div>

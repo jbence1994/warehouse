@@ -1,11 +1,17 @@
+import { Component, OnInit } from "@angular/core";
+import { StockService } from 'src/app/services/stock.service';
 import { SaveStock } from './../../models/saveStock';
-import { Component } from "@angular/core";
+import { Supplier } from 'src/app/models/supplier';
+import { KeyValuePair } from './../../models/keyValuePair';
 
 @Component({
     selector: 'app-stock-form',
     templateUrl: './stock-form.component.html'
 })
-export class StockFormComponent {
+export class StockFormComponent implements OnInit {
+
+    suppliers: Supplier[];
+    products: KeyValuePair[];
 
     saveStock: SaveStock = {
         productId: 0,
@@ -13,9 +19,31 @@ export class StockFormComponent {
         quantity: 1
     };
 
-    constructor() { }
+    constructor(private stockService: StockService) { }
+
+    ngOnInit() {
+        this.populateSuppliers();
+    }
+
+    onSupplierChange() {
+        this.populateProducts();
+
+        delete this.saveStock.productId;
+    }
 
     submit() {
-        console.log('POST to API ...');
+        console.log(this.saveStock);
+    }
+
+    populateSuppliers() {
+        this.stockService.getSuppliers()
+            .subscribe(suppliers => this.suppliers = suppliers);
+    }
+
+    populateProducts() {
+        let selectedSupplier = this.suppliers
+            .find(supplier => supplier.id == this.saveStock.supplierId);
+        
+        this.products = selectedSupplier ? selectedSupplier.products : [];
     }
 }
