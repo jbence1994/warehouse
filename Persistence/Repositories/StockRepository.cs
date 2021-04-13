@@ -50,5 +50,18 @@ namespace Warehouse.Persistence.Repositories
                 Quantity = pair.Value
             });
         }
+
+        public async Task<Stock> GetStock(int id)
+        {
+            return await context.Stocks
+                .Include(s => s.Product)
+                .ThenInclude(s => s.Supplier)
+                .SingleOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task Add(Stock stock)
+        {
+            await context.Stocks.AddAsync(stock);
+        }
     }
 }

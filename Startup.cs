@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Warehouse.Core;
 using Warehouse.Core.Repositories;
 using Warehouse.Persistence;
 using Warehouse.Persistence.Repositories;
@@ -28,6 +29,8 @@ namespace Warehouse
 
             services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("Default")));
