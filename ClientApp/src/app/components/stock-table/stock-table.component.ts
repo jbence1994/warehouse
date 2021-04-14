@@ -7,7 +7,7 @@ import { Stock } from '../../models/stock';
   templateUrl: './stock-table.component.html'
 })
 export class StockTableComponent implements OnInit {
-  public stocks: Stock[];
+  stocks: Stock[];
 
   constructor(private stockService: StockService) { }
 
