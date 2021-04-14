@@ -1,12 +1,15 @@
+import { KeyValuePair } from './../../models/keyValuePair';
 import { ProductService } from './../../services/product.service';
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SaveProduct } from "src/app/models/saveProduct";
 
 @Component({
     selector: 'app-product-form',
     templateUrl: './product-form.component.html'
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnInit {
+
+    suppliers: KeyValuePair[];
     
     saveProduct: SaveProduct = {
         name: null,
@@ -16,4 +19,17 @@ export class ProductFormComponent {
     };
 
     constructor(private productService: ProductService) { }
+
+    ngOnInit() {
+        this.populateSuppliers();
+    }
+
+    submit() {
+        console.log('Post to API ...');
+    }
+
+    populateSuppliers() {
+        this.productService.getSuppliers()
+            .subscribe(suppliers => this.suppliers = suppliers);
+    }
 }

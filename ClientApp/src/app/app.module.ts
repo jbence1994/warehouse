@@ -12,6 +12,7 @@ import { StockFormComponent } from './components/stock-form/stock-form.component
 import { ProductFormComponent } from './components/product-form/product-form.component';
 
 import { StockService } from './services/stock.service';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { StockService } from './services/stock.service';
     ])
   ],
   providers: [
-    StockService
+    StockService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

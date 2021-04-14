@@ -19,6 +19,6 @@
       <label for="quantity">Mennyiség</label>
       <input id="quantity" type="number" class="form-control form-control-sm" [(ngModel)]="saveStock.quantity" name="quantity" #quantity="ngModel" required>
       <div class="alert alert-danger" *ngIf="quantity.touched && !quantity.valid">Kérem adja meg a mennyiséget.</div>
-  </div>
+    </div>
   <button class="btn btn-sm btn-primary">Mentés</button>
 </form>
