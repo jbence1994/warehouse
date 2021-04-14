@@ -1,26 +1,26 @@
-<p class="text-center" *ngIf="!stocks">Betöltés...</p>
+<p class="text-center" *ngIf="!products">Betöltés...</p>
 
-<div class="form-group" *ngIf="stocks">
-  <a [routerLink]="['/raktarkeszlet/uj']" class="btn btn-sm btn-primary">Raktárkészlet bővítése</a>
+<div class="form-group" *ngIf="products">
+  <a [routerLink]="['/termeklista/uj']" class="btn btn-sm btn-primary">Terméklista bővítése</a>
 </div>
 
-<table class='table table-sm table-hover' aria-labelledby="tableLabel" *ngIf="stocks">
+<table class='table table-sm table-hover' aria-labelledby="tableLabel" *ngIf="products">
   <thead>
     <tr>
-      <th>Termék</th>
-      <th>Beszállító</th>
+      <th>Név</th>
       <th>Egységár</th>
-      <th>Mennyiség</th>
       <th>Egység</th>
+      <th>Beszállító</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let stock of stocks">
-      <td>{{ stock.product.name }}</td>
-      <td>{{ stock.product.supplierName }}</td>
-      <td>{{ stock.product.price }}</td>
-      <td>{{ stock.quantity }}</td>
-      <td>{{ stock.product.unit }}</td>
+    <tr *ngFor="let p of products">
+      <td>{{ p.name }}</td>
+      <td>{{ p.price }}</td>
+      <td>{{ p.unit }}</td>
+      <td>{{ p.supplierName }}</td>
+      <td><button class="btn btn-sm btn-primary">Részletek</button></td>
     </tr>
   </tbody>
 </table>

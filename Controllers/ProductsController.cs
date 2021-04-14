@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,16 @@ namespace Warehouse.Controllers
             this.productRepository = productRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var products = await productRepository.GetProducts();
+
+            var productResources = mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
+
+            return Ok(productResources);
         }
 
         [HttpPost]
