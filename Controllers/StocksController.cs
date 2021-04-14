@@ -8,7 +8,7 @@ using Warehouse.Core.Repositories;
 using System;
 using Warehouse.Core;
 
-namespace eWarehouse.Controllers
+namespace Warehouse.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
