@@ -29,7 +29,7 @@ export class ProductFormComponent implements OnInit {
     }
 
     populateSuppliers() {
-        this.productService.getSuppliers()
+        this.productService.getSupplierKeyValuePairs()
             .subscribe(suppliers => this.suppliers = suppliers);
     }
 }

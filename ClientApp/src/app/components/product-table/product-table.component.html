@@ -1,0 +1,26 @@
+<p class="text-center" *ngIf="!stocks">Betöltés...</p>
+
+<div class="form-group" *ngIf="stocks">
+  <a [routerLink]="['/raktarkeszlet/uj']" class="btn btn-sm btn-primary">Raktárkészlet bővítése</a>
+</div>
+
+<table class='table table-sm table-hover' aria-labelledby="tableLabel" *ngIf="stocks">
+  <thead>
+    <tr>
+      <th>Termék</th>
+      <th>Beszállító</th>
+      <th>Egységár</th>
+      <th>Mennyiség</th>
+      <th>Egység</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stock of stocks">
+      <td>{{ stock.product.name }}</td>
+      <td>{{ stock.product.supplierName }}</td>
+      <td>{{ stock.product.price }}</td>
+      <td>{{ stock.quantity }}</td>
+      <td>{{ stock.product.unit }}</td>
+    </tr>
+  </tbody>
+</table>
