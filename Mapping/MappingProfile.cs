@@ -22,6 +22,7 @@ namespace Warehouse.Mapping
             // API resource to model
             
             CreateMap<SaveStockResource, Stock>();
+            CreateMap<SaveProductResource, Product>();
         }
     }
 }
