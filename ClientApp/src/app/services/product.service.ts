@@ -12,10 +12,10 @@ export class ProductService {
                 @Inject('BASE_URL') private baseUrl: string) { }
 
     createProduct(saveProduct: SaveProduct) {
-        return this.http.post<SaveProduct>(`${this.ProductsEndpoint}`, saveProduct);
+        return this.http.post<SaveProduct>(`${this.baseUrl}${this.ProductsEndpoint}`, saveProduct);
     }
 
-    getSuppliers() {
-        return this.http.get<KeyValuePair[]>(`${this.SuppliersEndpoint}`);
+    getSupplierKeyValuePairs() {
+        return this.http.get<KeyValuePair[]>(`${this.baseUrl}${this.SuppliersEndpoint}`);
     }
 }

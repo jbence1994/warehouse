@@ -17,7 +17,7 @@ export class StockService {
     }
 
     createStock(saveStock: SaveStock) {
-        return this.http.post<SaveStock>(`${this.StocksEndpoint}`, saveStock);
+        return this.http.post<SaveStock>(`${this.baseUrl}${this.StocksEndpoint}`, saveStock);
     }
 
     getSuppliers() {
