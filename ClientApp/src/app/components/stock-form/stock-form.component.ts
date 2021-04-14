@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { StockService } from 'src/app/services/stock.service';
 import { SaveStock } from './../../models/saveStock';
-import { Supplier } from 'src/app/models/supplier';
+import { SupplierWithProducts } from 'src/app/models/supplierWithProducts';
 import { KeyValuePair } from './../../models/keyValuePair';
 
 @Component({
@@ -11,7 +11,7 @@ import { KeyValuePair } from './../../models/keyValuePair';
 })
 export class StockFormComponent implements OnInit {
 
-    suppliers: Supplier[];
+    suppliers: SupplierWithProducts[];
     products: KeyValuePair[];
 
     saveStock: SaveStock = {

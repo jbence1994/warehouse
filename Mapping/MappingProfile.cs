@@ -16,7 +16,8 @@ namespace Warehouse.Mapping
 
             CreateMap<StockSummary, StockSummaryResource>();
             CreateMap<Product, KeyValuePairResource>();
-            CreateMap<Supplier, SupplierResource>();
+            CreateMap<Supplier, SupplierWithProductsResource>();
+            CreateMap<Supplier, KeyValuePairResource>();
             CreateMap<Stock, StockResource>();
 
             // API resource to model

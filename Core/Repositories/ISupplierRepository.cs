@@ -6,6 +6,6 @@ namespace Warehouse.Core.Repositories
 {
     public interface ISupplierRepository
     {
-        Task<IEnumerable<Supplier>> GetSuppliers();
+        Task<IEnumerable<Supplier>> GetSuppliers(bool includeRelated = true);
     }
 }

@@ -3,14 +3,11 @@ using System.Collections.ObjectModel;
 
 namespace Warehouse.Controllers.Resources
 {
-    public class SupplierResource : KeyValuePairResource
+    public class SupplierWithProductsResource : KeyValuePairResource
     {
-        public string City { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
         public ICollection<KeyValuePairResource> Products { get; set; }
 
-        public SupplierResource()
+        public SupplierWithProductsResource()
         {
             Products = new Collection<KeyValuePairResource>();
         }

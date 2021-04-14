@@ -15,11 +15,16 @@ namespace Warehouse.Persistence.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliers()
+        public async Task<IEnumerable<Supplier>> GetSuppliers(bool includeRelated = true)
         {
-            return await context.Suppliers
-                .Include(s => s.Products)
-                .ToListAsync();
+            if (includeRelated)
+            {
+                return await context.Suppliers
+                    .Include(s => s.Products)
+                    .ToListAsync();
+            }
+
+            return await context.Suppliers.ToListAsync();
         }
     }
 }

@@ -2,12 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Inject } from "@angular/core";
 import { Stock } from "../models/stock";
 import { SaveStock } from './../models/saveStock';
-import { Supplier } from './../models/supplier';
+import { SupplierWithProducts } from '../models/supplierWithProducts';
 
 export class StockService {
 
     private readonly StocksEndpoint = 'api/stocks';
-    private readonly SuppliersEndpoint = 'api/suppliers';
+    private readonly SuppliersWithProductsEndpoint = 'api/suppliers/suppliersWithProducts';
 
     constructor(private http: HttpClient,
                 @Inject('BASE_URL') private baseUrl: string) { }
@@ -21,6 +21,6 @@ export class StockService {
     }
 
     getSuppliers() {
-        return this.http.get<Supplier[]>(`${this.baseUrl}${this.SuppliersEndpoint}`);
+        return this.http.get<SupplierWithProducts[]>(`${this.baseUrl}${this.SuppliersWithProductsEndpoint}`);
     }
 }

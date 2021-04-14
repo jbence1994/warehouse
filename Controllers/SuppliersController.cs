@@ -21,12 +21,22 @@ namespace Warehouse.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetSuppliers()
+        [HttpGet("suppliersWithProducts")]
+        public async Task<IActionResult> GetSuppliersWithProductsResource()
         {
             var suppliers = await supplierRepository.GetSuppliers();
 
-            var supplierResources = mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierResource>>(suppliers);
+            var supplierResources = mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierWithProductsResource>>(suppliers);
+
+            return Ok(supplierResources);
+        }
+
+        [HttpGet("supplierKeyValuePairs")]
+        public async Task<IActionResult> GetSupplierKeyValuePairs()
+        {
+            var suppliers = await supplierRepository.GetSuppliers(includeRelated: false);
+
+            var supplierResources = mapper.Map<IEnumerable<Supplier>, IEnumerable<KeyValuePairResource>>(suppliers);
 
             return Ok(supplierResources);
         }
