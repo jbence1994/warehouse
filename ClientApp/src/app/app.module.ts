@@ -31,7 +31,7 @@ import { ProductService } from './services/product.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'raktarkeszlet', component: StockTableComponent },
       { path: 'raktarkeszlet/uj', component: StockFormComponent },
-      { path: 'termeklista', component: ProductFormComponent }
+      { path: 'termeklista/uj', component: ProductFormComponent }
     ])
   ],
   providers: [
