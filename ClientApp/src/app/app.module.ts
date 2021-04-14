@@ -9,6 +9,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { StockTableComponent } from './components/stock-table/stock-table.component';
 import { StockFormComponent } from './components/stock-form/stock-form.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 import { StockService } from './services/stock.service';
 
@@ -18,7 +19,8 @@ import { StockService } from './services/stock.service';
     NavMenuComponent,
     HomeComponent,
     StockTableComponent,
-    StockFormComponent
+    StockFormComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,6 +30,7 @@ import { StockService } from './services/stock.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'raktarkeszlet', component: StockTableComponent },
       { path: 'raktarkeszlet/uj', component: StockFormComponent },
+      { path: 'termeklista', component: ProductFormComponent }
     ])
   ],
   providers: [
