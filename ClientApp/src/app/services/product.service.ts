@@ -21,7 +21,7 @@ export class ProductService {
     }
     
     createProduct(saveProduct: SaveProduct) {
-        return this.http.post<SaveProduct>(`${this.baseUrl}${this.ProductsEndpoint}`, saveProduct);
+        return this.http.post<Product>(`${this.baseUrl}${this.ProductsEndpoint}`, saveProduct);
     }
 
     getSupplierKeyValuePairs() {
