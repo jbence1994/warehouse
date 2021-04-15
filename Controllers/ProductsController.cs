@@ -34,6 +34,21 @@ namespace Warehouse.Controllers
             return Ok(productResources);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var product = await productRepository.GetProduct(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var productResource = mapper.Map<Product, ProductResource>(product);
+
+            return Ok(productResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] SaveProductResource productResource)
         {
