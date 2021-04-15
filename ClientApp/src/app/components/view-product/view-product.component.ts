@@ -2,7 +2,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import { PhotoService } from './../../services/photo.service';
 import { Product } from 'src/app/models/product';
+import { Photo } from 'src/app/models/photo';
 
 @Component({
     selector: 'app-view-product',
@@ -18,11 +20,12 @@ export class ViewProductComponent implements OnInit {
     };
     
     productId: number;
-    photos: any[];
+    photos: Photo[];
     progess: any;
 
     constructor(
         private productService: ProductService,
+        private photoService: PhotoService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -37,6 +40,9 @@ export class ViewProductComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.photoService.getPhotos(this.productId)
+            .subscribe(photos => this.photos = photos);
+
         this.productService.getProduct(this.productId)
             .subscribe(product => this.product = product);
     }

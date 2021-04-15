@@ -9,13 +9,13 @@
 </fieldset>
 <fieldset>
   <legend>Fényképek</legend>
+  <img *ngFor="let photo of photos" src="/uploads/{{ photo.fileName }}" class="img-thumbnail">
   <input type="file" (change)="uploadPhoto()" #fileInput>
   <div class="progress" *ngIf="progress && progress.percentage < 100">
     <div class="progress-bar" [style.width]="progress.percentage + '%'">
-      <span class="sr-only">{{ progress.percentage }}% elkészült...</span>
+      <span class="sr-only">{{ progress.percentage }}%</span>
     </div>
   </div>
-  <img *ngFor="let photo of photos" src="/uploads/{{ photo.fileName }}" class="img-thumbnail">
 </fieldset>
 <div class="form-group">
   <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista']">Vissza a terméklistához</a>

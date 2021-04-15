@@ -15,6 +15,7 @@ import { ViewProductComponent } from './components/view-product/view-product.com
 
 import { StockService } from './services/stock.service';
 import { ProductService } from './services/product.service';
+import { PhotoService } from './services/photo.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProductService } from './services/product.service';
   ],
   providers: [
     StockService,
-    ProductService
+    ProductService,
+    PhotoService
   ],
   bootstrap: [AppComponent]
 })
