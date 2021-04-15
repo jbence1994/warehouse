@@ -20,7 +20,7 @@
       <td>{{ p.price }}</td>
       <td>{{ p.unit }}</td>
       <td>{{ p.supplierName }}</td>
-      <td><button class="btn btn-sm btn-primary">Részletek</button></td>
+      <td><a class="btn btn-sm btn-primary" [routerLink]="['/termeklista/', p.id]">Részletek</a></td>
     </tr>
   </tbody>
 </table>

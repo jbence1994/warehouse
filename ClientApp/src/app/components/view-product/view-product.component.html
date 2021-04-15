@@ -1,0 +1,22 @@
+<code>{{ product | json }}</code>
+<fieldset>
+  <legend>Adatok</legend>
+  <ul>
+    <li>Név: {{ product.name }}</li>
+    <li>Egységár: {{ product.price }} Forint</li>
+    <li>Egység: {{ product.unit }}</li>
+    <li>Beszállító: {{ product.supplierName }}</li>  </ul>
+</fieldset>
+<fieldset>
+  <legend>Fényképek</legend>
+  <input type="file" (change)="uploadPhoto()" #fileInput>
+  <div class="progress" *ngIf="progress && progress.percentage < 100">
+    <div class="progress-bar" [style.width]="progress.percentage + '%'">
+      <span class="sr-only">{{ progress.percentage }}% elkészült...</span>
+    </div>
+  </div>
+  <img *ngFor="let photo of photos" src="/uploads/{{ photo.fileName }}" class="img-thumbnail">
+</fieldset>
+<div class="form-group">
+  <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista']">Vissza a terméklistához</a>
+</div>

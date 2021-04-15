@@ -15,6 +15,10 @@ export class ProductService {
     getProducts() {
         return this.http.get<Product[]>(`${this.baseUrl}${this.ProductsEndpoint}`);
     }
+
+    getProduct(id: number) {
+        return this.http.get<Product>(`${this.baseUrl}${this.ProductsEndpoint}/${id}`);
+    }
     
     createProduct(saveProduct: SaveProduct) {
         return this.http.post<SaveProduct>(`${this.baseUrl}${this.ProductsEndpoint}`, saveProduct);
