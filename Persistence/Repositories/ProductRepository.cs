@@ -22,11 +22,16 @@ namespace Warehouse.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Product> GetProduct(int id)
+        public async Task<Product> GetProduct(int id, bool includeRelated = true)
         {
-            return await context.Products
-                .Include(p => p.Supplier)
-                .SingleOrDefaultAsync(p => p.Id == id);
+            if (includeRelated)
+            {
+                return await context.Products
+                    .Include(p => p.Supplier)
+                    .SingleOrDefaultAsync(p => p.Id == id);
+            }
+
+            return await context.Products.FindAsync(id);
         }
 
         public async Task Add(Product product)

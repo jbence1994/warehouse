@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehouse.Core;
+using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Core.Services;
 using Warehouse.Persistence;
 using Warehouse.Persistence.Repositories;
 
@@ -25,6 +27,8 @@ namespace Warehouse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
+
             services.AddAutoMapper();
 
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -35,6 +39,10 @@ namespace Warehouse
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("Default")));
+            
+            services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
+            services.AddTransient<IPhotoService, PhotoService>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
