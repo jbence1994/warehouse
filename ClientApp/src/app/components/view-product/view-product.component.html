@@ -1,6 +1,8 @@
-<code>{{ product | json }}</code>
+<div class="form-group">
+  <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista']">Vissza a terméklistához</a>
+</div>
 <fieldset>
-  <legend>Adatok</legend>
+  <legend>Termék adatai</legend>
   <ul>
     <li>Név: {{ product.name }}</li>
     <li>Egységár: {{ product.price }} Forint</li>
@@ -8,15 +10,18 @@
     <li>Beszállító: {{ product.supplierName }}</li>  </ul>
 </fieldset>
 <fieldset>
-  <legend>Fényképek</legend>
+  <legend>Fényképek a termékről</legend>
+  <p *ngIf="photos.length == 0">A termékről még nincs egyetlen fénykép sem.</p>
   <img *ngFor="let photo of photos" src="/uploads/{{ photo.fileName }}" class="img-thumbnail">
-  <input type="file" (change)="uploadPhoto()" #fileInput>
+  <div class="form-group">
+    <div class="photo-upload">
+      <button class="btn btn-sm btn-primary">Fénykép feltöltése</button>
+      <input type="file" (change)="uploadPhoto()" #fileInput>
+    </div>
+  </div>
   <div class="progress" *ngIf="progress && progress.percentage < 100">
     <div class="progress-bar" [style.width]="progress.percentage + '%'">
       <span class="sr-only">{{ progress.percentage }}%</span>
     </div>
   </div>
 </fieldset>
-<div class="form-group">
-  <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista']">Vissza a terméklistához</a>
-</div>
