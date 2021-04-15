@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { PhotoService } from './../../services/photo.service';
@@ -8,7 +8,8 @@ import { Photo } from 'src/app/models/photo';
 
 @Component({
     selector: 'app-view-product',
-    templateUrl: './view-product.component.html'
+    templateUrl: './view-product.component.html',
+    styleUrls: ['./view-product.component.css']
 })
 export class ViewProductComponent implements OnInit {
     product: Product = {
@@ -19,6 +20,7 @@ export class ViewProductComponent implements OnInit {
         supplierName: null
     };
     
+    @ViewChild('fileInput', { read: '', static: true }) fileInput: ElementRef;
     productId: number;
     photos: Photo[];
     progess: any;
@@ -48,6 +50,15 @@ export class ViewProductComponent implements OnInit {
     }
 
     uploadPhoto() {
-        console.log("uploading photo to API ...");
+        let nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+        let file = nativeElement.files[0];
+        nativeElement.value = '';
+        
+        this.photoService.uploadPhoto(this.productId, file)
+            .subscribe(photo => {
+                this.photos.push(photo);
+            },
+            err => { console.error(err);
+            });
     }
 }

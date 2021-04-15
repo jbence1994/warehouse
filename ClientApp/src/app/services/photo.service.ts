@@ -10,4 +10,11 @@ export class PhotoService {
     getPhotos(productId: number) {
         return this.http.get<Photo[]>(`${this.baseUrl}api/products/${productId}/photos`);
     }
+
+    uploadPhoto(productId: number, photoToUpload: File) {
+        var formData = new FormData();
+        formData.append('photoToUpload', photoToUpload);
+
+        return this.http.post<Photo>(`${this.baseUrl}api/products/${productId}/photos`, formData);
+    }
 }
