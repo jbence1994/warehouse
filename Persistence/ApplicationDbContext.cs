@@ -6,6 +6,7 @@ namespace Warehouse.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
@@ -17,6 +18,7 @@ namespace Warehouse.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new PhotoConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new StockConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());

@@ -1,4 +1,7 @@
-﻿namespace Warehouse.Core.Models
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace Warehouse.Core.Models
 {
     public class Product
     {
@@ -8,5 +11,11 @@
         public string Unit { get; set; }
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+
+        public Product()
+        {
+            Photos = new Collection<Photo>();
+        }
     }
 }
