@@ -11,6 +11,7 @@ namespace Warehouse.Persistence
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Technician> Technicians { get; set; }
+        public DbSet<TechnicianPhoto> TechnicianPhotos { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,6 +25,7 @@ namespace Warehouse.Persistence
             modelBuilder.ApplyConfiguration(new StockConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
             modelBuilder.ApplyConfiguration(new TechnicianConfiguration());
+            modelBuilder.ApplyConfiguration(new TechnicianPhotoConfiguration());
         }
     }
 }

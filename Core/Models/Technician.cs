@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace Warehouse.Core.Models
 {
     public class Technician
@@ -7,5 +10,11 @@ namespace Warehouse.Core.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public ICollection<TechnicianPhoto> Photos { get; set; }
+
+        public Technician()
+        {
+            Photos = new Collection<TechnicianPhoto>();
+        }
     }
 }
