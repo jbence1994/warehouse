@@ -17,3 +17,7 @@ img {
     top: 0;
     opacity: 0;
 }
+
+ul li {
+    list-style-type: none;
+}
