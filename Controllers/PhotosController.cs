@@ -40,7 +40,7 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(int productId, IFormFile photoToUpload)
+        public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
         {
             var product = await productRepository.GetProduct(productId, includeRelated: false);
 
