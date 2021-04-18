@@ -19,5 +19,10 @@ namespace Warehouse.Persistence.Repositories
         {
             return await context.Technicians.ToListAsync();
         }
+
+        public async Task<Technician> GetTechnician(int id)
+        {
+            return await context.Technicians.FindAsync(id);
+        }
     }
 }
