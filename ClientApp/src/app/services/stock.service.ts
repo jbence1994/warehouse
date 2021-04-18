@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Stock } from "../models/stock";
 import { SaveStock } from './../models/saveStock';
 import { SupplierWithProducts } from '../models/supplierWithProducts';
 
+@Injectable()
 export class StockService {
 
     private readonly StocksEndpoint = 'api/stocks';

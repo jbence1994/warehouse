@@ -59,6 +59,6 @@ export class ViewProductComponent implements OnInit {
                 this.photos.push(photo);
             },
             err => { console.error(err);
-            });
+        });
     }
 }

@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { SaveProduct } from './../models/saveProduct';
 import { KeyValuePair } from './../models/keyValuePair';
 import { Product } from "../models/product";
 
+@Injectable()
 export class ProductService {
 
     private readonly ProductsEndpoint = 'api/products';

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Photo } from '../models/photo';
 
+@Injectable()
 export class PhotoService {
 
     constructor(private http: HttpClient,
