@@ -43,8 +43,12 @@ namespace Warehouse
                 options.UseMySQL(Configuration.GetConnectionString("Default")));
             
             services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
+
             services.AddTransient<IProductPhotoService, ProductPhotoService>();
             services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
+
+            services.AddTransient<ITechnicianPhotoService, TechnicianPhotoService>();
+            services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
