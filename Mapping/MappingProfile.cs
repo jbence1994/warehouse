@@ -20,6 +20,7 @@ namespace Warehouse.Mapping
             CreateMap<Supplier, KeyValuePairResource>();
             CreateMap<Stock, StockResource>();
             CreateMap<Photo, PhotoResource>();
+            CreateMap<Technician, TechnicianResource>();
 
             // API resource to model
             

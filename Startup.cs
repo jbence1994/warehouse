@@ -34,6 +34,7 @@ namespace Warehouse
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ITechnicianRepository, TechnicianRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
