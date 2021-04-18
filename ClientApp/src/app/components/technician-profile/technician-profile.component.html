@@ -1,7 +1,14 @@
 <div class="form-group">
   <a class="btn btn-sm btn-primary" [routerLink]="['/technikus-info']">Vissza a technikus infoba</a>
 </div>
-<img src="uploads/59934194_940282633094852_5940565804801064960_n.jpg">
+
+<div class="photo-upload" *ngIf="photos?.length == 0">
+  <button class="btn btn-sm btn-primary">Profilkép feltöltése</button>
+  <input type="file" (change)="uploadPhoto()" #fileInput>
+</div>
+
+<img *ngFor="let photo of photos" src="/uploads/technicians/{{ photo.fileName }}" class="img-thumbnail">
+
 <div class="form-group text-center">
   <h2>{{ technician.lastName }} {{ technician.firstName }}</h2>
   <p>{{ technician.email }}</p>

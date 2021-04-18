@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TechnicianService } from 'src/app/services/technician.service';
+import { PhotoService } from "src/app/services/photo.service";
 import { Technician } from "src/app/models/technician";
+import { Photo } from "src/app/models/photo";
 
 @Component({
     selector: 'app-technician-profile',
@@ -17,10 +19,13 @@ export class TechnicianProfileComponent implements OnInit {
         phone: null,
     };
 
+    @ViewChild('fileInput', { read: '', static: true }) fileInput: ElementRef;
     technicianId: number;
+    photos: Photo[];
 
     constructor(
         private technicianService: TechnicianService,
+        private photoService: PhotoService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -35,7 +40,19 @@ export class TechnicianProfileComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.photoService.getTechnicianPhotos(this.technicianId)
+            .subscribe(photos => this.photos = photos);
+        
         this.technicianService.getTechnician(this.technicianId)
             .subscribe(technician => this.technician = technician);
+    }
+
+    uploadPhoto() {
+        let nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+        let file = nativeElement.files[0];
+        nativeElement.value = '';
+        
+        this.photoService.uploadTechnicianPhoto(this.technicianId, file)
+            .subscribe(photo => this.photos.push(photo));
     }
 }

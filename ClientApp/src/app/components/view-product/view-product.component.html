@@ -10,18 +10,13 @@
     <li>Beszállító: {{ product.supplierName }}</li>  </ul>
 </fieldset>
 <fieldset>
-  <legend>Fényképek a termékről</legend>
+  <legend>Fényképek</legend>
   <p *ngIf="photos?.length == 0">A termékről még nincs egyetlen fénykép sem.</p>
   <img *ngFor="let photo of photos" src="/uploads/products/{{ photo.fileName }}" class="img-thumbnail">
   <div class="form-group">
     <div class="photo-upload">
       <button class="btn btn-sm btn-primary">Fénykép feltöltése</button>
       <input type="file" (change)="uploadPhoto()" #fileInput>
-    </div>
-  </div>
-  <div class="progress" *ngIf="progress && 100 > progress.percentage">
-    <div class="progress-bar" [style.width]="progress.percentage + '%'">
-      <span class="sr-only">{{ progress.percentage }}%</span>
     </div>
   </div>
 </fieldset>

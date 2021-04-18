@@ -8,14 +8,25 @@ export class PhotoService {
     constructor(private http: HttpClient,
                 @Inject('BASE_URL') private baseUrl: string) { }
     
-    getPhotos(productId: number) {
+    getProductPhotos(productId: number) {
         return this.http.get<Photo[]>(`${this.baseUrl}api/products/${productId}/photos`);
     }
 
-    uploadPhoto(productId: number, photoToUpload: File) {
+    getTechnicianPhotos(technicianId: number) {
+        return this.http.get<Photo[]>(`${this.baseUrl}api/technicians/${technicianId}/photos`);
+    }
+
+    uploadProductPhoto(productId: number, photoToUpload: File) {
         var formData = new FormData();
         formData.append('photoToUpload', photoToUpload);
 
         return this.http.post<Photo>(`${this.baseUrl}api/products/${productId}/photos`, formData);
+    }
+
+    uploadTechnicianPhoto(technicianId: number, photoToUpload: File) {
+        var formData = new FormData();
+        formData.append('photoToUpload', photoToUpload);
+
+        return this.http.post<Photo>(`${this.baseUrl}api/technicians/${technicianId}/photos`, formData);
     }
 }

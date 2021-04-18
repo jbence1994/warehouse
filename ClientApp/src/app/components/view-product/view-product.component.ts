@@ -23,7 +23,6 @@ export class ViewProductComponent implements OnInit {
     @ViewChild('fileInput', { read: '', static: true }) fileInput: ElementRef;
     productId: number;
     photos: Photo[];
-    progess: any;
 
     constructor(
         private productService: ProductService,
@@ -42,7 +41,7 @@ export class ViewProductComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.photoService.getPhotos(this.productId)
+        this.photoService.getProductPhotos(this.productId)
             .subscribe(photos => this.photos = photos);
 
         this.productService.getProduct(this.productId)
@@ -54,11 +53,7 @@ export class ViewProductComponent implements OnInit {
         let file = nativeElement.files[0];
         nativeElement.value = '';
         
-        this.photoService.uploadPhoto(this.productId, file)
-            .subscribe(photo => {
-                this.photos.push(photo);
-            },
-            err => { console.error(err);
-        });
+        this.photoService.uploadProductPhoto(this.productId, file)
+            .subscribe(photo => this.photos.push(photo));
     }
 }
