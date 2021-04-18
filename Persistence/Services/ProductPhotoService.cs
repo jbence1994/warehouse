@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Core.Services;
 
-namespace Warehouse.Core.Services
+namespace Warehouse.Persistence.Services
 {
     public class ProductPhotoService : IProductPhotoService
     {
@@ -24,7 +26,7 @@ namespace Warehouse.Core.Services
 
             var photo = new ProductPhoto { FileName = fileName };
             product.Photos.Add(photo);
-            
+
             await unitOfWork.CompleteAsync();
 
             return photo;

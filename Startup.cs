@@ -12,6 +12,7 @@ using Warehouse.Core.Repositories;
 using Warehouse.Core.Services;
 using Warehouse.Persistence;
 using Warehouse.Persistence.Repositories;
+using Warehouse.Persistence.Services;
 
 namespace Warehouse
 {

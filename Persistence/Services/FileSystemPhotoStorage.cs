@@ -2,8 +2,9 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Warehouse.Core.Services;
 
-namespace Warehouse.Core.Services
+namespace Warehouse.Persistence.Services
 {
     public class FileSystemPhotoStorage : IPhotoStorage
     {
