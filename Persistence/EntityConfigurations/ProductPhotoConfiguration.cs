@@ -4,12 +4,12 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class PhotoConfiguration : IEntityTypeConfiguration<Photo>
+    public class ProductPhotoConfiguration : IEntityTypeConfiguration<ProductPhoto>
     {
-        public void Configure(EntityTypeBuilder<Photo> builder)
+        public void Configure(EntityTypeBuilder<ProductPhoto> builder)
         {
             builder
-                .ToTable("photos");
+                .ToTable("product_photos");
 
             builder
                 .Property(p => p.Id)

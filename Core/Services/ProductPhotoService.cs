@@ -5,24 +5,24 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Core.Services
 {
-    public class PhotoService : IPhotoService
+    public class ProductPhotoService : IProductPhotoService
     {
         private readonly IPhotoStorage photoStorage;
-        private readonly IPhotoRepository photoRepository;
+        private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public PhotoService(IPhotoStorage photoStorage, IPhotoRepository photoRepository, IUnitOfWork unitOfWork)
+        public ProductPhotoService(IPhotoStorage photoStorage, IProductPhotoRepository productPhotoRepository, IUnitOfWork unitOfWork)
         {
             this.photoStorage = photoStorage;
-            this.photoRepository = photoRepository;
+            this.productPhotoRepository = productPhotoRepository;
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Photo> UploadPhoto(Product product, IFormFile file, string uploadsFolderPath)
+        public async Task<ProductPhoto> UploadPhoto(Product product, IFormFile file, string uploadsFolderPath)
         {
             var fileName = await photoStorage.StorePhoto(uploadsFolderPath, file);
 
-            var photo = new Photo { FileName = fileName };
+            var photo = new ProductPhoto { FileName = fileName };
             product.Photos.Add(photo);
             
             await unitOfWork.CompleteAsync();

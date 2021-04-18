@@ -14,26 +14,26 @@ using Warehouse.Core.Services;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/products/{productId}/[controller]")]
-    public class PhotosController : ControllerBase
+    [Route("api/products/{productId}/photos")]
+    public class ProductPhotosController : ControllerBase
     {
-        private readonly IPhotoRepository photoRepository;
+        private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IProductRepository productRepository;
-        private readonly IPhotoService photoService;
+        private readonly IProductPhotoService productPhotoService;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
         private readonly PhotoSettings photoSettings;
 
-        public PhotosController(IPhotoRepository photoRepository,
+        public ProductPhotosController(IProductPhotoRepository productPhotoRepository,
                                 IProductRepository productRepository,
-                                IPhotoService photoService,
+                                IProductPhotoService productPhotoService,
                                 IMapper mapper,
                                 IWebHostEnvironment host,
                                 IOptionsSnapshot<PhotoSettings> options)
         {
-            this.photoRepository = photoRepository;
+            this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;
-            this.photoService = photoService;
+            this.productPhotoService = productPhotoService;
             this.mapper = mapper;
             this.host = host;
             photoSettings = options.Value;
@@ -69,18 +69,18 @@ namespace Warehouse.Controllers
                 return BadRequest("Invalid file type.");
             }
 
-            var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
-            var photo = await photoService.UploadPhoto(product, photoToUpload, uploadsFolderPath);
+            var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/products");
+            var photo = await productPhotoService.UploadPhoto(product, photoToUpload, uploadsFolderPath);
 
-            return Ok(mapper.Map<Photo, PhotoResource>(photo));
+            return Ok(mapper.Map<ProductPhoto, PhotoResource>(photo));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPhotos(int productId)
         {
-            var photos = await photoRepository.GetPhotos(productId);
+            var photos = await productPhotoRepository.GetPhotos(productId);
 
-            var photoResources = mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
+            var photoResources = mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<PhotoResource>>(photos);
 
             return Ok(photoResources);
         }

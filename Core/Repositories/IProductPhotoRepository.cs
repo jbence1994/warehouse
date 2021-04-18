@@ -4,8 +4,8 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Core.Repositories
 {
-    public interface IPhotoRepository
+    public interface IProductPhotoRepository
     {
-        Task<IEnumerable<Photo>> GetPhotos(int productId);
+        Task<IEnumerable<ProductPhoto>> GetPhotos(int productId);
     }
 }

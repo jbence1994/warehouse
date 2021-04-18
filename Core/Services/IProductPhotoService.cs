@@ -4,8 +4,8 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Core.Services
 {
-    public interface IPhotoService
+    public interface IProductPhotoService
     {
-        Task<Photo> UploadPhoto(Product product, IFormFile file, string uploadsFolderPath);
+        Task<ProductPhoto> UploadPhoto(Product product, IFormFile file, string uploadsFolderPath);
     }
 }

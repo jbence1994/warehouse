@@ -1,8 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Warehouse.Core.Models
 {
-    public class Photo
+    public class ProductPhoto
     {
         public int Id { get; set; }
         public string FileName { get; set; }

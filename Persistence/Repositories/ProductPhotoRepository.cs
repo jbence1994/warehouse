@@ -7,18 +7,18 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Persistence.Repositories
 {
-    public class PhotoRepository : IPhotoRepository
+    public class ProductPhotoRepository : IProductPhotoRepository
     {
         private readonly ApplicationDbContext context;
 
-        public PhotoRepository(ApplicationDbContext context)
+        public ProductPhotoRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public async Task<IEnumerable<Photo>> GetPhotos(int productId)
+        public async Task<IEnumerable<ProductPhoto>> GetPhotos(int productId)
         {
-            return await context.Photos
+            return await context.ProductPhotos
                 .Where(p => p.ProductId == productId)
                 .ToListAsync();
         }
