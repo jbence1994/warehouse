@@ -1,0 +1,11 @@
+img {
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+ul li {
+    list-style-type: none;
+}

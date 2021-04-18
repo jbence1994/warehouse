@@ -13,4 +13,8 @@ export class TechnicianService {
     getTechnicians() {
         return this.http.get<Technician[]>(`${this.baseUrl}${this.TechniciansEndpoint}`);
     }
+
+    getTechnician(id: number) {
+        return this.http.get<Technician>(`${this.baseUrl}${this.TechniciansEndpoint}/${id}`);
+    }
 }
