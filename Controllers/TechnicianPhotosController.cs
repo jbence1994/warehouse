@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Warehouse.Controllers.Resources;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 using Warehouse.Core.Services;
+using Warehouse.Extensions;
 
 namespace Warehouse.Controllers
 {
@@ -49,24 +51,13 @@ namespace Warehouse.Controllers
                 return NotFound();
             }
 
-            if (photoToUpload == null)
+            try
             {
-                return BadRequest("Null file.");
+                photoToUpload.Validate(photoSettings);
             }
-
-            if (photoToUpload.Length == 0)
+            catch (Exception ex)
             {
-                return BadRequest("Empty file.");
-            }
-
-            if (photoToUpload.Length > photoSettings.MaxBytes)
-            {
-                return BadRequest("Maximum file size exceeded.");
-            }
-
-            if (!photoSettings.IsSupportedType(photoToUpload.FileName))
-            {
-                return BadRequest("Invalid file type.");
+                return BadRequest(ex.Message);
             }
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/technicians");
