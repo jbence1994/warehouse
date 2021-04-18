@@ -12,10 +12,12 @@ import { StockFormComponent } from './components/stock-form/stock-form.component
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ViewProductComponent } from './components/view-product/view-product.component';
+import { TechniciansTableComponent } from './components/technician-table/technicians-table.component';
 
 import { StockService } from './services/stock.service';
 import { ProductService } from './services/product.service';
 import { PhotoService } from './services/photo.service';
+import { TechnicianService } from 'src/app/services/technician.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { PhotoService } from './services/photo.service';
     StockFormComponent,
     ProductTableComponent,
     ProductFormComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    TechniciansTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,13 +41,15 @@ import { PhotoService } from './services/photo.service';
       { path: 'raktarkeszlet/uj', component: StockFormComponent },
       { path: 'termeklista', component: ProductTableComponent },
       { path: 'termeklista/uj', component: ProductFormComponent },
-      { path: 'termeklista/:id', component: ViewProductComponent }
+      { path: 'termeklista/:id', component: ViewProductComponent },
+      { path: 'technikus-info', component: TechniciansTableComponent }
     ])
   ],
   providers: [
     StockService,
     ProductService,
-    PhotoService
+    PhotoService,
+    TechnicianService
   ],
   bootstrap: [AppComponent]
 })
