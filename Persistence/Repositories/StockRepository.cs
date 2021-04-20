@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -16,39 +15,12 @@ namespace Warehouse.Persistence.Repositories
             this.context = context;
         }
 
-        private async Task<IDictionary<Product, int>> GetStockSummary()
+        public async Task<IEnumerable<Stock>> GetStocks()
         {
-            var stockSummary = new Dictionary<Product, int>();
-
-            var stocks = await context.Stocks
-                .Include(s =>s.Product)
+            return await context.Stocks
+                .Include(s => s.Product)
                 .ThenInclude(p => p.Supplier)
                 .ToListAsync();
-
-            foreach (var stock in stocks)
-            {
-                if (stockSummary.ContainsKey(stock.Product))
-                {
-                    stockSummary[stock.Product] += stock.Quantity;
-                }
-                else
-                {
-                    stockSummary.Add(stock.Product, stock.Quantity);
-                }
-            }
-
-            return stockSummary;
-        }
-
-        public async Task<IEnumerable<StockSummary>> GetStocks()
-        {
-            var stockSummary = await GetStockSummary();
-
-            return stockSummary.Select(pair => new StockSummary
-            {
-                Product = pair.Key,
-                Quantity = pair.Value
-            });
         }
 
         public async Task<Stock> GetStock(int id)
@@ -62,6 +34,11 @@ namespace Warehouse.Persistence.Repositories
         public async Task Add(Stock stock)
         {
             await context.Stocks.AddAsync(stock);
+        }
+
+        public async Task Add(StockSummary stockSummary)
+        {
+            await context.StockSummaries.AddAsync(stockSummary);
         }
     }
 }
