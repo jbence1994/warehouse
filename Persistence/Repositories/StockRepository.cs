@@ -26,7 +26,10 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<IEnumerable<StockSummary>> GetSummarizedStocks()
         {
-            return await context.SummarizedStocks.ToListAsync();
+            return await context.SummarizedStocks
+                .Include(s => s.Product)
+                .ThenInclude(p => p.Supplier)
+                .ToListAsync();
         }
 
         public async Task<Stock> GetStock(int id)
