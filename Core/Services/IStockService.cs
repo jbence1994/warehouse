@@ -8,6 +8,6 @@ namespace Warehouse.Core.Services
     {
         Task<IEnumerable<StockSummary>> GetStocks();
         Task<IDictionary<Product, int>> SummarizeStocks();
-        Task<bool> IsExistingStockProduct(int id);
+        Task Add(Stock stock);
     }
 }

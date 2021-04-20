@@ -49,7 +49,7 @@ namespace Warehouse.Controllers
             var stock = mapper.Map<SaveStockResource, Stock>(stockResource);
             stock.CreatedAt = DateTime.Now;
 
-            await stockRepository.Add(stock);
+            await stockService.Add(stock);
             await unitOfWork.CompleteAsync();
 
             stock = await stockRepository.GetStock(stock.Id);

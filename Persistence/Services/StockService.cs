@@ -46,19 +46,24 @@ namespace Warehouse.Persistence.Services
             return stockSummary;
         }
 
-        public async Task<bool> IsExistingStockProduct(int id)
+        public async Task Add(Stock stock)
         {
             var stocks = await stockRepository.GetStocks();
 
-            foreach (var stock in stocks)
+            if (stocks.Any(s => s.ProductId == stock.ProductId))
             {
-                if (stock.ProductId == id)
-                {
-                    return true;
-                }
-            }
+                var stockSummary = await stockRepository.GetStockSummary(stock.ProductId);
+                stockSummary.Quantity += stock.Quantity;
 
-            return false;
+                await stockRepository.Add(stock);
+            }
+            else
+            {
+                var stockSummary = new StockSummary { ProductId = stock.ProductId, Quantity = stock.Quantity };
+                await stockRepository.Add(stockSummary);
+
+                await stockRepository.Add(stock);
+            }
         }
     }
 }

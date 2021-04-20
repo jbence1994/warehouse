@@ -8,6 +8,7 @@ namespace Warehouse.Core.Repositories
     {
         Task<IEnumerable<Stock>> GetStocks();
         Task<Stock> GetStock(int id);
+        Task<StockSummary> GetStockSummary(int productId);
         Task Add(Stock stock);
         Task Add(StockSummary stockSummary);
     }
