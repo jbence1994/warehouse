@@ -24,19 +24,17 @@ namespace Warehouse.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<StockSummary>> GetSummarizedStocks()
+        {
+            return await context.SummarizedStocks.ToListAsync();
+        }
+
         public async Task<Stock> GetStock(int id)
         {
             return await context.Stocks
                 .Include(s => s.Product)
                 .ThenInclude(s => s.Supplier)
                 .SingleOrDefaultAsync(s => s.Id == id);
-        }
-
-        public async Task<StockSummary> GetStockSummary(int productId)
-        {
-            return await context.StockSummaries
-                .Where(s => s.ProductId == productId)
-                .SingleOrDefaultAsync();
         }
 
         public async Task Add(Stock stock)
@@ -46,7 +44,7 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task Add(StockSummary stockSummary)
         {
-            await context.StockSummaries.AddAsync(stockSummary);
+            await context.SummarizedStocks.AddAsync(stockSummary);
         }
     }
 }

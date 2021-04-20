@@ -31,7 +31,7 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStocks()
         {
-            var stocks = await stockService.GetStocks();
+            var stocks = await stockRepository.GetSummarizedStocks();
 
             var stockResources = mapper.Map<IEnumerable<StockSummary>, IEnumerable<StockSummaryResource>>(stocks);
 
