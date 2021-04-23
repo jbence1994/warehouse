@@ -11,6 +11,8 @@ namespace Warehouse.Persistence
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockSummary> SummarizedStocks { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<TechnicianBalance> TechnicianBalances { get; set; }
+        public DbSet<TechnicianBalanceSummary> SummarizedTechnicianBalances { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<TechnicianPhoto> TechnicianPhotos { get; set; }
 
@@ -26,6 +28,8 @@ namespace Warehouse.Persistence
             modelBuilder.ApplyConfiguration(new StockConfiguration());
             modelBuilder.ApplyConfiguration(new StockSummaryConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+            modelBuilder.ApplyConfiguration(new TechnicianBalanceConfiguration());
+            modelBuilder.ApplyConfiguration(new TechnicianBalanceSummaryConfiguration());
             modelBuilder.ApplyConfiguration(new TechnicianConfiguration());
             modelBuilder.ApplyConfiguration(new TechnicianPhotoConfiguration());
         }
