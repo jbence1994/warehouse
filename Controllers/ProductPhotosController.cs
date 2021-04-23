@@ -24,21 +24,21 @@ namespace Warehouse.Controllers
         private readonly IProductPhotoService productPhotoService;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
-        private readonly PhotoSettings photoSettings;
+        private readonly FileSettings fileSettings;
 
         public ProductPhotosController(IProductPhotoRepository productPhotoRepository,
                                 IProductRepository productRepository,
                                 IProductPhotoService productPhotoService,
                                 IMapper mapper,
                                 IWebHostEnvironment host,
-                                IOptionsSnapshot<PhotoSettings> options)
+                                IOptionsSnapshot<FileSettings> options)
         {
             this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;
             this.productPhotoService = productPhotoService;
             this.mapper = mapper;
             this.host = host;
-            photoSettings = options.Value;
+            fileSettings = options.Value;
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace Warehouse.Controllers
 
             try
             {
-                photoToUpload.Validate(photoSettings);
+                photoToUpload.Validate(fileSettings);
             }
             catch (Exception ex)
             {

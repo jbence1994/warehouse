@@ -6,24 +6,24 @@ namespace Warehouse.Extensions
 {
     public static class IFormFileExtensions
     {
-        public static void Validate(this IFormFile photoToUpload, PhotoSettings photoSettings)
+        public static void Validate(this IFormFile file, FileSettings fileSettings)
         {
-            if (photoToUpload == null)
+            if (file == null)
             {
                 throw new Exception("Null file.");
             }
 
-            if (photoToUpload.Length == 0)
+            if (file.Length == 0)
             {
                 throw new Exception("Empty file.");
             }
 
-            if (photoToUpload.Length > photoSettings.MaxBytes)
+            if (file.Length > fileSettings.MaxBytes)
             {
                 throw new Exception("Maximum file size exceeded.");
             }
 
-            if (!photoSettings.IsSupportedType(photoToUpload.FileName))
+            if (!fileSettings.IsSupportedType(file.FileName))
             {
                 throw new Exception("Invalid file type.");
             }

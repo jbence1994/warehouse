@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Warehouse.Core.Models
 {
-    public class PhotoSettings
+    public class FileSettings
     {
         public int MaxBytes { get; set; }
         public string[] AcceptedFileTypes { get; set; }
