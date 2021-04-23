@@ -9,7 +9,7 @@ using Warehouse.Persistence;
 namespace Warehouse.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210423125620_Create Technician Balance Table And Technician Balance Summary Table")]
+    [Migration("20210423131420_Create Technician Balance Table And Technician Balance Summary Table")]
     partial class CreateTechnicianBalanceTableAndTechnicianBalanceSummaryTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,7 +225,8 @@ namespace Warehouse.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     b.Property<double>("Amount")
                         .HasColumnType("double")

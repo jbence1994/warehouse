@@ -12,6 +12,10 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("technician_balance_summary");
             
             builder
+                .Property(t => t.Id)
+                .HasColumnName("id");
+            
+            builder
                 .Property(t => t.TechnicianId)
                 .HasColumnName("technician_id");
             

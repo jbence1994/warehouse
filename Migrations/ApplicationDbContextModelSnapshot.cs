@@ -223,7 +223,8 @@ namespace Warehouse.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     b.Property<double>("Amount")
                         .HasColumnType("double")

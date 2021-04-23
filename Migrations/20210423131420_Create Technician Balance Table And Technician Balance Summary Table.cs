@@ -12,14 +12,14 @@ namespace Warehouse.Migrations
                 name: "technician_balance_summary",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     technician_id = table.Column<int>(type: "int", nullable: false),
                     amount = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_technician_balance_summary", x => x.Id);
+                    table.PrimaryKey("PK_technician_balance_summary", x => x.id);
                     table.ForeignKey(
                         name: "FK_technician_balance_summary_technicians_technician_id",
                         column: x => x.technician_id,
