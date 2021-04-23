@@ -11,6 +11,7 @@ namespace Warehouse.Core.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public ICollection<TechnicianPhoto> Photos { get; set; }
+        public TechnicianBalanceSummary Balance { get; set; }
 
         public Technician()
         {
