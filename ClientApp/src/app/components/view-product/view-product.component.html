@@ -1,22 +1,33 @@
-<div class="form-group">
-  <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista']">Vissza a terméklistához</a>
-</div>
-<fieldset>
-  <legend>Termék adatai</legend>
-  <ul>
-    <li>Név: {{ product.name }}</li>
-    <li>Egységár: {{ product.price }} Forint</li>
-    <li>Egység: {{ product.unit }}</li>
-    <li>Beszállító: {{ product.supplierName }}</li>  </ul>
-</fieldset>
-<fieldset>
-  <legend>Fényképek</legend>
-  <p *ngIf="photos?.length == 0">A termékről még nincs egyetlen fénykép sem.</p>
-  <img *ngFor="let photo of photos" src="/uploads/products/{{ photo.fileName }}" class="img-thumbnail">
-  <div class="form-group">
-    <div class="photo-upload">
-      <button class="btn btn-sm btn-primary">Fénykép feltöltése</button>
-      <input type="file" (change)="uploadPhoto()" #fileInput>
+<div class="row">
+  <div class="col-12">
+    <div class="form-group">
+      <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista']">Vissza a terméklistához</a>
     </div>
   </div>
-</fieldset>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <fieldset>
+      <legend>Termék adatai</legend>
+      <ul>
+        <li>Név: {{ product.name }}</li>
+        <li>Egységár: {{ product.price }} Forint</li>
+        <li>Egység: {{ product.unit }}</li>
+        <li>Beszállító: {{ product.supplierName }}</li>
+      </ul>
+    </fieldset>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <fieldset>
+      <legend>Fényképek</legend>
+      <p *ngIf="photos?.length == 0">A termékről még nincs egyetlen fénykép sem.</p>
+      <img *ngFor="let photo of photos" src="/uploads/products/{{ photo.fileName }}" class="img-thumbnail">
+      <div class="form-group">
+        <div class="photo-upload">
+          <button class="btn btn-sm btn-primary">Fénykép feltöltése</button>
+          <input type="file" (change)="uploadPhoto()" #fileInput>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
