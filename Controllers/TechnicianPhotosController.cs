@@ -63,7 +63,9 @@ namespace Warehouse.Controllers
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/technicians");
             var photo = await technicianPhotoService.UploadPhoto(technician, photoToUpload, uploadsFolderPath);
 
-            return Ok(mapper.Map<TechnicianPhoto, PhotoResource>(photo));
+            var result = mapper.Map<TechnicianPhoto, PhotoResource>(photo);
+
+            return Ok(result);
         }
 
         [HttpGet]

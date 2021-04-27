@@ -25,11 +25,15 @@ namespace Warehouse.Mapping
                     opt => opt.MapFrom(technician => technician.Balance.Amount));
             
             CreateMap<TechnicianPhoto, PhotoResource>();
+            CreateMap<Sale, SaleResource>();
+            CreateMap<SaleDetail, SaleDetailResource>();
 
             // API resource to model
             
             CreateMap<SaveStockResource, Stock>();
             CreateMap<SaveProductResource, Product>();
+            CreateMap<SaveSaleResource, Sale>();
+            CreateMap<SaveSaleDetailResource, SaleDetail>();
         }
     }
 }

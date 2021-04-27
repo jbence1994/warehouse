@@ -33,7 +33,6 @@ namespace Warehouse
             services.AddAutoMapper();
 
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
 
@@ -51,6 +50,9 @@ namespace Warehouse
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
 
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<IStockRepository, StockRepository>();
+
+            services.AddScoped<ISaleService, SaleService>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
