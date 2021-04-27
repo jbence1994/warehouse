@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Warehouse.Core;
 using Warehouse.Core.Models;
@@ -24,26 +26,18 @@ namespace Warehouse.Persistence.Services
 
         public async Task<Sale> Checkout(Sale sale)
         {
-            var technician = await technicianRepository.GetTechnician(sale.TechnicianId);
-
             foreach (var saleDetail in sale.SaleDetails)
             {
                 var product = await productRepository.GetProduct(saleDetail.ProductId);
                 saleDetail.SubTotal = product.Price * saleDetail.Quantity;
             }
 
-            double total = 0;
-
-            foreach (var saleDetail in sale.SaleDetails)
-            {
-                total += saleDetail.SubTotal;
-            }
-
+            var total = sale.SaleDetails.Sum(s => s.SubTotal);
             sale.Total = total;
 
-            technician.Sales.Add(sale);
-
+            var technician = await technicianRepository.GetTechnician(sale.TechnicianId);
             technician.Balance.Amount -= total;
+            technician.Sales.Add(sale);
 
             var technicianBalance = new TechnicianBalance
             {
