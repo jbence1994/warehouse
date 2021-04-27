@@ -17,11 +17,20 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<IEnumerable<Technician>> GetTechnicians()
         {
-            return await context.Technicians.ToListAsync();
+            return await context.Technicians
+                .Include(t => t.Balance)
+                .ToListAsync();
         }
 
-        public async Task<Technician> GetTechnician(int id)
+        public async Task<Technician> GetTechnician(int id, bool includeRelated = true)
         {
+            if (includeRelated)
+            {
+                return await context.Technicians
+                    .Include(t => t.Balance)
+                    .SingleOrDefaultAsync(t => t.Id == id);
+            }
+
             return await context.Technicians.FindAsync(id);
         }
     }

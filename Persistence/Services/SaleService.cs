@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Warehouse.Core;
 using Warehouse.Core.Models;
@@ -10,12 +11,14 @@ namespace Warehouse.Persistence.Services
     {
         private readonly IProductRepository productRepository;
         private readonly ITechnicianRepository technicianRepository;
+        private readonly ITechnicianBalanceRepository technicianBalanceRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public SaleService(IProductRepository productRepository, ITechnicianRepository technicianRepository, IUnitOfWork unitOfWork)
+        public SaleService(IProductRepository productRepository, ITechnicianRepository technicianRepository, ITechnicianBalanceRepository technicianBalanceRepository, IUnitOfWork unitOfWork)
         {
             this.productRepository = productRepository;
             this.technicianRepository = technicianRepository;
+            this.technicianBalanceRepository = technicianBalanceRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -39,11 +42,19 @@ namespace Warehouse.Persistence.Services
             sale.Total = total;
 
             technician.Sales.Add(sale);
+
+            technician.Balance.Amount -= total;
+
+            var technicianBalance = new TechnicianBalance
+            {
+                TechnicianId = technician.Id,
+                Amount = technician.Balance.Amount,
+                CreatedAt = DateTime.Now
+            };
+
+            await technicianBalanceRepository.Add(technicianBalance);
+
             await unitOfWork.CompleteAsync();
-
-            // a) decrement technician's balance ...
-
-            // b) insert a new record to archive technician's balance in a summary
 
             return sale;
         }

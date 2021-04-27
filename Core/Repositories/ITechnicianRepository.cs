@@ -7,6 +7,6 @@ namespace Warehouse.Core.Repositories
     public interface ITechnicianRepository
     {
         Task<IEnumerable<Technician>> GetTechnicians();
-        Task<Technician> GetTechnician(int id);
+        Task<Technician> GetTechnician(int id, bool includeRelated = true);
     }
 }
