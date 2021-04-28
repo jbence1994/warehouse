@@ -15,10 +15,36 @@
     <img *ngFor="let photo of photos" src="/uploads/technicians/{{ photo.fileName }}" class="img-thumbnail">
     
     <div class="form-group text-center">
-      <h2>{{ technician.lastName }} {{ technician.firstName }}</h2>
-      <p>E-mail cím: {{ technician.email }}</p>
-      <p>Telefonszám: {{ technician.phone }}</p>
-      <p>Aktuális egyenleg: {{ technician.balance }} Forint</p>
+      <h3>{{ technician.lastName }} {{ technician.firstName }}</h3>
+      <h5>{{ technician.email }}</h5>
+      <h5>{{ technician.phone }}</h5>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <div class="form-group technician-sales">
+      <fieldset>
+        <legend>Vásárlások</legend>
+        <p>Aktuális egyenleg: {{ technician.balance }} Forint</p>
+        <p *ngIf="sales?.length === 0">A technikusnak még nincsenek vásárlásai.</p>
+        <table *ngIf="sales?.length > 0" class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>Azonosító</th>
+              <th>Végösszeg</th>
+              <th>Dátum</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of sales">
+              <td>{{ s.id }}</td>
+              <td>{{ s.total }}</td>
+              <td>{{ s.createdAt }}</td>
+              <td><button class="btn btn-sm btn-primary">Részletek</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
     </div>
   </div>
 </div>

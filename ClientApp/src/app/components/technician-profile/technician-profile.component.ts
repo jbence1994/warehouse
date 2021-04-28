@@ -4,6 +4,7 @@ import { TechnicianService } from 'src/app/services/technician.service';
 import { PhotoService } from "src/app/services/photo.service";
 import { Technician } from "src/app/models/technician";
 import { Photo } from "src/app/models/photo";
+import { Sale } from "src/app/models/sale";
 
 @Component({
     selector: 'app-technician-profile',
@@ -22,6 +23,7 @@ export class TechnicianProfileComponent implements OnInit {
     @ViewChild('fileInput', { read: '', static: true }) fileInput: ElementRef;
     technicianId: number;
     photos: Photo[];
+    sales: Sale[];
 
     constructor(
         private technicianService: TechnicianService,
@@ -40,11 +42,9 @@ export class TechnicianProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.photoService.getTechnicianPhotos(this.technicianId)
-            .subscribe(photos => this.photos = photos);
-        
-        this.technicianService.getTechnician(this.technicianId)
-            .subscribe(technician => this.technician = technician);
+        this.populatePhotos();
+        this.populateTechnician();
+        this.populateSales();
     }
 
     uploadPhoto() {
@@ -54,5 +54,20 @@ export class TechnicianProfileComponent implements OnInit {
         
         this.photoService.uploadTechnicianPhoto(this.technicianId, file)
             .subscribe(photo => this.photos.push(photo));
+    }
+
+    populatePhotos() {
+        this.photoService.getTechnicianPhotos(this.technicianId)
+            .subscribe(photos => this.photos = photos);
+    }
+
+    populateTechnician() {
+        this.technicianService.getTechnician(this.technicianId)
+            .subscribe(technician => this.technician = technician);
+    }
+
+    populateSales() {
+        this.technicianService.getTechnicianSales(this.technicianId)
+            .subscribe(sales => this.sales = sales);
     }
 }
