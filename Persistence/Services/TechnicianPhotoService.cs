@@ -19,9 +19,9 @@ namespace Warehouse.Persistence.Services
             IUnitOfWork unitOfWork
         )
         {
-            this.unitOfWork = unitOfWork;
-            this.technicianPhotoRepository = technicianPhotoRepository;
             this.photoStorage = photoStorage;
+            this.technicianPhotoRepository = technicianPhotoRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<TechnicianPhoto> UploadPhoto(Technician technician, IFormFile file, string uploadsFolderPath)

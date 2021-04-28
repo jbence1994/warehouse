@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -31,12 +32,25 @@ namespace Warehouse.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<StockSummary> GetStockSummary(int productId)
+        {
+            return await context.SummarizedStocks
+                .Where(s => s.ProductId == productId)
+                .SingleOrDefaultAsync();
+        }
+        
         public async Task<Stock> GetStock(int id)
         {
             return await context.Stocks
                 .Include(s => s.Product)
                 .ThenInclude(s => s.Supplier)
                 .SingleOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<bool> IsOnStock(int productId)
+        {
+            return await context.Stocks
+                .AnyAsync(s => s.ProductId == productId);
         }
 
         public async Task Add(Stock stock)
