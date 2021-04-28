@@ -19,7 +19,6 @@ namespace Warehouse.Controllers
         {
             this.mapper = mapper;
             this.technicianRepository = technicianRepository;
-
         }
 
         [HttpGet]

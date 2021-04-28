@@ -32,16 +32,16 @@ namespace Warehouse
 
             services.AddAutoMapper();
 
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySQL(Configuration.GetConnectionString("Default")));
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<ITechnicianBalanceRepository, TechnicianBalanceRepository>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("Default")));
-            
             services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
 
             services.AddTransient<IProductPhotoService, ProductPhotoService>();
@@ -54,6 +54,7 @@ namespace Warehouse
             services.AddScoped<IStockRepository, StockRepository>();
 
             services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<ISaleRepository, SaleRepository>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
