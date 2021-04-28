@@ -28,7 +28,11 @@ namespace Warehouse.Persistence.Services
         {
             var fileName = await photoStorage.StorePhoto(uploadsFolderPath, file);
 
-            var photo = new ProductPhoto { FileName = fileName };
+            var photo = new ProductPhoto
+            {
+                FileName = fileName
+            };
+
             product.Photos.Add(photo);
 
             await unitOfWork.CompleteAsync();
