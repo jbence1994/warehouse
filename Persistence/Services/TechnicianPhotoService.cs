@@ -13,7 +13,11 @@ namespace Warehouse.Persistence.Services
         private readonly ITechnicianPhotoRepository technicianPhotoRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public TechnicianPhotoService(IPhotoStorage photoStorage, ITechnicianPhotoRepository technicianPhotoRepository, IUnitOfWork unitOfWork)
+        public TechnicianPhotoService(
+            IPhotoStorage photoStorage,
+            ITechnicianPhotoRepository technicianPhotoRepository,
+            IUnitOfWork unitOfWork
+        )
         {
             this.unitOfWork = unitOfWork;
             this.technicianPhotoRepository = technicianPhotoRepository;
@@ -24,7 +28,11 @@ namespace Warehouse.Persistence.Services
         {
             var fileName = await photoStorage.StorePhoto(uploadsFolderPath, file);
 
-            var photo = new TechnicianPhoto { FileName = fileName };
+            var photo = new TechnicianPhoto
+            {
+                FileName = fileName
+            };
+
             technician.Photos.Add(photo);
 
             await unitOfWork.CompleteAsync();

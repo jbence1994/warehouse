@@ -26,12 +26,14 @@ namespace Warehouse.Controllers
         private readonly IWebHostEnvironment host;
         private readonly FileSettings fileSettings;
 
-        public TechnicianPhotosController(ITechnicianPhotoRepository technicianPhotoRepository,
-                                ITechnicianRepository technicianRepository,
-                                ITechnicianPhotoService technicianPhotoService,
-                                IMapper mapper,
-                                IWebHostEnvironment host,
-                                IOptionsSnapshot<FileSettings> options)
+        public TechnicianPhotosController(
+            ITechnicianPhotoRepository technicianPhotoRepository,
+            ITechnicianRepository technicianRepository,
+            ITechnicianPhotoService technicianPhotoService,
+            IMapper mapper,
+            IWebHostEnvironment host,
+            IOptionsSnapshot<FileSettings> options
+        )
         {
             this.technicianPhotoRepository = technicianPhotoRepository;
             this.technicianRepository = technicianRepository;

@@ -15,7 +15,10 @@ namespace Warehouse.Controllers
         private readonly ISaleService saleService;
         private readonly IMapper mapper;
 
-        public SalesController(ISaleService saleService, IMapper mapper)
+        public SalesController(
+            ISaleService saleService,
+            IMapper mapper
+        )
         {
             this.saleService = saleService;
             this.mapper = mapper;

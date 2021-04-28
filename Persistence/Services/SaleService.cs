@@ -16,7 +16,13 @@ namespace Warehouse.Persistence.Services
         private readonly ITechnicianBalanceRepository technicianBalanceRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public SaleService(IStockRepository stockRepository, IProductRepository productRepository, ITechnicianRepository technicianRepository, ITechnicianBalanceRepository technicianBalanceRepository, IUnitOfWork unitOfWork)
+        public SaleService(
+            IStockRepository stockRepository,
+            IProductRepository productRepository,
+            ITechnicianRepository technicianRepository,
+            ITechnicianBalanceRepository technicianBalanceRepository,
+            IUnitOfWork unitOfWork
+        )
         {
             this.stockRepository = stockRepository;
             this.productRepository = productRepository;

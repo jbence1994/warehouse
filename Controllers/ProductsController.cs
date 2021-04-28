@@ -17,7 +17,11 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public ProductsController(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductsController(
+            IProductRepository productRepository,
+            IUnitOfWork unitOfWork,
+            IMapper mapper
+        )
         {
             this.productRepository = productRepository;
             this.unitOfWork = unitOfWork;

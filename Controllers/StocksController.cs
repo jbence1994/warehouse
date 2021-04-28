@@ -20,7 +20,12 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public StocksController(IStockRepository stockRepository, IStockService stockService, IUnitOfWork unitOfWork, IMapper mapper)
+        public StocksController(
+            IStockRepository stockRepository,
+            IStockService stockService,
+            IUnitOfWork unitOfWork,
+            IMapper mapper
+        )
         {
             this.stockRepository = stockRepository;
             this.stockService = stockService;

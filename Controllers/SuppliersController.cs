@@ -15,7 +15,10 @@ namespace Warehouse.Controllers
         private readonly ISupplierRepository supplierRepository;
         private readonly IMapper mapper;
 
-        public SuppliersController(ISupplierRepository supplierRepository, IMapper mapper)
+        public SuppliersController(
+            ISupplierRepository supplierRepository,
+            IMapper mapper
+        )
         {
             this.supplierRepository = supplierRepository;
             this.mapper = mapper;

@@ -26,12 +26,14 @@ namespace Warehouse.Controllers
         private readonly IWebHostEnvironment host;
         private readonly FileSettings fileSettings;
 
-        public ProductPhotosController(IProductPhotoRepository productPhotoRepository,
-                                IProductRepository productRepository,
-                                IProductPhotoService productPhotoService,
-                                IMapper mapper,
-                                IWebHostEnvironment host,
-                                IOptionsSnapshot<FileSettings> options)
+        public ProductPhotosController(
+            IProductPhotoRepository productPhotoRepository,
+            IProductRepository productRepository,
+            IProductPhotoService productPhotoService,
+            IMapper mapper,
+            IWebHostEnvironment host,
+            IOptionsSnapshot<FileSettings> options
+        )
         {
             this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;

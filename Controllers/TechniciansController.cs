@@ -15,7 +15,10 @@ namespace Warehouse.Controllers
         private readonly ITechnicianRepository technicianRepository;
         private readonly IMapper mapper;
 
-        public TechniciansController(ITechnicianRepository technicianRepository, IMapper mapper)
+        public TechniciansController(
+            ITechnicianRepository technicianRepository,
+            IMapper mapper
+        )
         {
             this.mapper = mapper;
             this.technicianRepository = technicianRepository;

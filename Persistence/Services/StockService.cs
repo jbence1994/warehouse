@@ -30,7 +30,11 @@ namespace Warehouse.Persistence.Services
             }
             else
             {
-                var stockSummary = new StockSummary { ProductId = stock.ProductId, Quantity = stock.Quantity };
+                var stockSummary = new StockSummary
+                {
+                    ProductId = stock.ProductId,
+                    Quantity = stock.Quantity
+                };
                 
                 await stockRepository.Add(stockSummary);
             }

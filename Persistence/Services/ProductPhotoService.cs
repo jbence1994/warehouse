@@ -13,7 +13,11 @@ namespace Warehouse.Persistence.Services
         private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public ProductPhotoService(IPhotoStorage photoStorage, IProductPhotoRepository productPhotoRepository, IUnitOfWork unitOfWork)
+        public ProductPhotoService(
+            IPhotoStorage photoStorage,
+            IProductPhotoRepository productPhotoRepository,
+            IUnitOfWork unitOfWork
+        )
         {
             this.photoStorage = photoStorage;
             this.productPhotoRepository = productPhotoRepository;
