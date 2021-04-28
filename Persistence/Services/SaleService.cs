@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse.Core;
@@ -11,13 +10,15 @@ namespace Warehouse.Persistence.Services
 {
     public class SaleService : ISaleService
     {
+        private readonly IStockRepository stockRepository;
         private readonly IProductRepository productRepository;
         private readonly ITechnicianRepository technicianRepository;
         private readonly ITechnicianBalanceRepository technicianBalanceRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public SaleService(IProductRepository productRepository, ITechnicianRepository technicianRepository, ITechnicianBalanceRepository technicianBalanceRepository, IUnitOfWork unitOfWork)
+        public SaleService(IStockRepository stockRepository, IProductRepository productRepository, ITechnicianRepository technicianRepository, ITechnicianBalanceRepository technicianBalanceRepository, IUnitOfWork unitOfWork)
         {
+            this.stockRepository = stockRepository;
             this.productRepository = productRepository;
             this.technicianRepository = technicianRepository;
             this.technicianBalanceRepository = technicianBalanceRepository;
@@ -47,6 +48,19 @@ namespace Warehouse.Persistence.Services
             };
 
             await technicianBalanceRepository.Add(technicianBalance);
+
+            var summarizedStocks = await stockRepository.GetSummarizedStocks();
+
+            foreach (var saleDetail in sale.SaleDetails)
+            {
+                foreach (var stockSummary in summarizedStocks)
+                {
+                    if (saleDetail.ProductId == stockSummary.ProductId)
+                    {
+                        stockSummary.Quantity -= saleDetail.Quantity;
+                    }
+                }
+            }
 
             await unitOfWork.CompleteAsync();
 
