@@ -46,14 +46,12 @@ namespace Warehouse.Persistence.Services
             technician.Balance.Amount -= total;
             technician.Sales.Add(sale);
 
-            var technicianBalance = new TechnicianBalance
+            await technicianBalanceRepository.Add(new TechnicianBalance
             {
                 TechnicianId = technician.Id,
                 Amount = technician.Balance.Amount,
                 CreatedAt = DateTime.Now
-            };
-
-            await technicianBalanceRepository.Add(technicianBalance);
+            });
 
             var summarizedStocks = await stockRepository.GetSummarizedStocks();
 

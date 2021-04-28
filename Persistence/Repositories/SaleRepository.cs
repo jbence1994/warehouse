@@ -19,10 +19,10 @@ namespace Warehouse.Persistence.Repositories
         public async Task<IEnumerable<Sale>> GetSales(int technicianId)
         {
             return await context.Sales
-                .Where(s => s.TechnicianId == technicianId)
                 .Include(s => s.SaleDetails)
                 .ThenInclude(s => s.Product)
                 .ThenInclude(s => s.Supplier)
+                .Where(s => s.TechnicianId == technicianId)
                 .ToListAsync();
         }
     }
