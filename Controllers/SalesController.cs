@@ -31,12 +31,19 @@ namespace Warehouse.Controllers
             
             var sale = mapper.Map<SaveSaleResource, Sale>(saleResource);
             sale.CreatedAt = DateTime.Now;
-            
-            sale = await saleService.Checkout(sale);
 
-            var result = mapper.Map<Sale, SaleResource>(sale);
+            try
+            {
+                sale = await saleService.Checkout(sale);
 
-            return Ok(result);
+                var result = mapper.Map<Sale, SaleResource>(sale);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -57,6 +57,11 @@ namespace Warehouse.Persistence.Services
                 {
                     if (saleDetail.ProductId == stockSummary.ProductId)
                     {
+                        if (stockSummary.Quantity <= 0 || stockSummary.Quantity < saleDetail.Quantity)
+                        {
+                            throw new Exception("There is not enough product on stock to sell.");
+                        }
+
                         stockSummary.Quantity -= saleDetail.Quantity;
                     }
                 }
