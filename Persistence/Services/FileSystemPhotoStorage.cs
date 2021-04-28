@@ -15,7 +15,7 @@ namespace Warehouse.Persistence.Services
                 Directory.CreateDirectory(uploadsFolderPath);
             }
 
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             var filePath = Path.Combine(uploadsFolderPath, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
