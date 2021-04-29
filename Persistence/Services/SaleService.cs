@@ -64,8 +64,18 @@ namespace Warehouse.Persistence.Services
 
             technician.Sales.Add(sale);
 
-            technician.Balance.Amount -= sale.Total;
+            DecrementTechnicianBalance(technician, sale.Total);
+            
+            await AddActualBalanceSummary(technician);
+        }
 
+        private void DecrementTechnicianBalance(Technician technician, double amount)
+        {
+            technician.Balance.Amount -= amount;
+        }
+
+        private async Task AddActualBalanceSummary(Technician technician)
+        {
             await technicianBalanceRepository.Add(new TechnicianBalance
             {
                 TechnicianId = technician.Id,
