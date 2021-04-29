@@ -10,7 +10,7 @@ namespace Warehouse.Core.Repositories
         Task<IEnumerable<StockSummary>> GetSummarizedStocks();
         Task<StockSummary> GetStockSummary(int productId);
         Task<Stock> GetStock(int id);
-        Task<bool> IsOnStock(int productId);
+        Task<bool> IsProductOnStock(int productId);
         Task Add(Stock stock);
         Task Add(StockSummary stockSummary);
     }
