@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Warehouse.Core;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 using Warehouse.Core.Services;
 
 namespace Warehouse.Persistence.Services
@@ -10,17 +9,14 @@ namespace Warehouse.Persistence.Services
     public class ProductPhotoService : IProductPhotoService
     {
         private readonly IPhotoStorage photoStorage;
-        private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public ProductPhotoService(
             IPhotoStorage photoStorage,
-            IProductPhotoRepository productPhotoRepository,
             IUnitOfWork unitOfWork
         )
         {
             this.photoStorage = photoStorage;
-            this.productPhotoRepository = productPhotoRepository;
             this.unitOfWork = unitOfWork;
         }
 
