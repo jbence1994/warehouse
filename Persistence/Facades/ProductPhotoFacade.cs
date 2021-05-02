@@ -1,17 +1,17 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
-using Warehouse.Core.Services;
 
-namespace Warehouse.Persistence.Services
+namespace Warehouse.Persistence.Facades
 {
-    public class TechnicianPhotoService : ITechnicianPhotoService
+    public class ProductPhotoFacade : IProductPhotoFacade
     {
         private readonly IPhotoStorage photoStorage;
         private readonly IUnitOfWork unitOfWork;
 
-        public TechnicianPhotoService(
+        public ProductPhotoFacade(
             IPhotoStorage photoStorage,
             IUnitOfWork unitOfWork
         )
@@ -20,16 +20,16 @@ namespace Warehouse.Persistence.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<TechnicianPhoto> UploadPhoto(Technician technician, IFormFile file, string uploadsFolderPath)
+        public async Task<ProductPhoto> UploadPhoto(Product product, IFormFile file, string uploadsFolderPath)
         {
             var fileName = await photoStorage.StorePhoto(uploadsFolderPath, file);
 
-            var photo = new TechnicianPhoto
+            var photo = new ProductPhoto
             {
                 FileName = fileName
             };
 
-            technician.Photos.Add(photo);
+            product.Photos.Add(photo);
 
             await unitOfWork.CompleteAsync();
 

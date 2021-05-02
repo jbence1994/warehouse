@@ -10,11 +10,9 @@ using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Core.Services;
 using Warehouse.Persistence;
 using Warehouse.Persistence.Facades;
 using Warehouse.Persistence.Repositories;
-using Warehouse.Persistence.Services;
 
 namespace Warehouse
 {
@@ -43,20 +41,17 @@ namespace Warehouse
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<ITechnicianBalanceRepository, TechnicianBalanceRepository>();
-
-            services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
-
-            services.AddTransient<IProductPhotoService, ProductPhotoService>();
             services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
-
-            services.AddTransient<ITechnicianPhotoService, TechnicianPhotoService>();
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
-
-            services.AddScoped<IStockFacade, StockFacade>();
             services.AddScoped<IStockRepository, StockRepository>();
-
-            services.AddScoped<ISaleFacade, SaleFacade>();
             services.AddScoped<ISaleRepository, SaleRepository>();
+
+            services.AddScoped<IProductPhotoFacade, ProductPhotoFacade>();
+            services.AddScoped<IStockFacade, StockFacade>();
+            services.AddScoped<ITechnicianPhotoFacade, TechnicianPhotoFacade>();
+            services.AddScoped<ISaleFacade, SaleFacade>();
+            
+            services.AddScoped<IPhotoStorage, FileSystemPhotoStorage>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

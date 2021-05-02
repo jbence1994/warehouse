@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Controllers.Resources;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Core.Services;
 using Warehouse.Extensions;
 
 namespace Warehouse.Controllers
@@ -21,7 +21,7 @@ namespace Warehouse.Controllers
     {
         private readonly ITechnicianPhotoRepository technicianPhotoRepository;
         private readonly ITechnicianRepository technicianRepository;
-        private readonly ITechnicianPhotoService technicianPhotoService;
+        private readonly ITechnicianPhotoFacade technicianPhotoFacade;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
         private readonly FileSettings fileSettings;
@@ -29,7 +29,7 @@ namespace Warehouse.Controllers
         public TechnicianPhotosController(
             ITechnicianPhotoRepository technicianPhotoRepository,
             ITechnicianRepository technicianRepository,
-            ITechnicianPhotoService technicianPhotoService,
+            ITechnicianPhotoFacade technicianPhotoFacade,
             IMapper mapper,
             IWebHostEnvironment host,
             IOptionsSnapshot<FileSettings> options
@@ -37,7 +37,7 @@ namespace Warehouse.Controllers
         {
             this.technicianPhotoRepository = technicianPhotoRepository;
             this.technicianRepository = technicianRepository;
-            this.technicianPhotoService = technicianPhotoService;
+            this.technicianPhotoFacade = technicianPhotoFacade;
             this.mapper = mapper;
             this.host = host;
             fileSettings = options.Value;
@@ -63,7 +63,7 @@ namespace Warehouse.Controllers
             }
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/technicians");
-            var photo = await technicianPhotoService.UploadPhoto(technician, photoToUpload, uploadsFolderPath);
+            var photo = await technicianPhotoFacade.UploadPhoto(technician, photoToUpload, uploadsFolderPath);
 
             var result = mapper.Map<TechnicianPhoto, PhotoResource>(photo);
 

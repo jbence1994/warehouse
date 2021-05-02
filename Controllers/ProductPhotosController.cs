@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Controllers.Resources;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Core.Services;
 using Warehouse.Extensions;
 
 namespace Warehouse.Controllers
@@ -21,7 +21,7 @@ namespace Warehouse.Controllers
     {
         private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IProductRepository productRepository;
-        private readonly IProductPhotoService productPhotoService;
+        private readonly IProductPhotoFacade productPhotoFacade;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
         private readonly FileSettings fileSettings;
@@ -29,7 +29,7 @@ namespace Warehouse.Controllers
         public ProductPhotosController(
             IProductPhotoRepository productPhotoRepository,
             IProductRepository productRepository,
-            IProductPhotoService productPhotoService,
+            IProductPhotoFacade productPhotoFacade,
             IMapper mapper,
             IWebHostEnvironment host,
             IOptionsSnapshot<FileSettings> options
@@ -37,7 +37,7 @@ namespace Warehouse.Controllers
         {
             this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;
-            this.productPhotoService = productPhotoService;
+            this.productPhotoFacade = productPhotoFacade;
             this.mapper = mapper;
             this.host = host;
             fileSettings = options.Value;
@@ -63,7 +63,7 @@ namespace Warehouse.Controllers
             }
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/products");
-            var photo = await productPhotoService.UploadPhoto(product, photoToUpload, uploadsFolderPath);
+            var photo = await productPhotoFacade.UploadPhoto(product, photoToUpload, uploadsFolderPath);
 
             var result = mapper.Map<ProductPhoto, PhotoResource>(photo);
 
