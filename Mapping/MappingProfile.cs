@@ -23,17 +23,18 @@ namespace Warehouse.Mapping
             CreateMap<Technician, TechnicianResource>()
                 .ForMember(technicianResource => technicianResource.Balance,
                     opt => opt.MapFrom(technician => technician.Balance.Amount));
-            
+
             CreateMap<TechnicianPhoto, PhotoResource>();
             CreateMap<Order, OrderResource>();
             CreateMap<OrderDetail, OrderDetailResource>();
 
             // API resource to model
-            
+
             CreateMap<SaveStockResource, Stock>();
             CreateMap<SaveProductResource, Product>();
             CreateMap<SaveOrderResource, Order>();
             CreateMap<SaveOrderDetailResource, OrderDetail>();
+            CreateMap<SaveTechnicianResource, Technician>();
         }
     }
 }

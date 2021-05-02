@@ -8,6 +8,6 @@ namespace Warehouse.Core.Repositories
     {
         Task<IEnumerable<Technician>> GetTechnicians();
         Task<Technician> GetTechnician(int id, bool includeRelated = true);
-        Task Add(TechnicianBalance technicianBalance);
+        Task Add(Technician technician);
     }
 }

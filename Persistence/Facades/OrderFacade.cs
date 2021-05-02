@@ -14,18 +14,21 @@ namespace Warehouse.Persistence.Facades
         private readonly IStockRepository stockRepository;
         private readonly IProductRepository productRepository;
         private readonly ITechnicianRepository technicianRepository;
+        private readonly ITechnicianBalanceRepository technicianBalanceRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public OrderFacade(
             IStockRepository stockRepository,
             IProductRepository productRepository,
             ITechnicianRepository technicianRepository,
+            ITechnicianBalanceRepository technicianBalanceRepository,
             IUnitOfWork unitOfWork
         )
         {
             this.stockRepository = stockRepository;
             this.productRepository = productRepository;
             this.technicianRepository = technicianRepository;
+            this.technicianBalanceRepository = technicianBalanceRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -73,7 +76,7 @@ namespace Warehouse.Persistence.Facades
 
         private async Task AddActualBalanceSummary(Technician technician)
         {
-            await technicianRepository.Add(new TechnicianBalance
+            await technicianBalanceRepository.Add(new TechnicianBalance
             {
                 TechnicianId = technician.Id,
                 Amount = technician.Balance.Amount,

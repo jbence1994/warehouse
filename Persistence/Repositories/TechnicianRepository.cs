@@ -34,9 +34,9 @@ namespace Warehouse.Persistence.Repositories
             return await context.Technicians.FindAsync(id);
         }
         
-        public async Task Add(TechnicianBalance technicianBalance)
+        public async Task Add(Technician technician)
         {
-            await context.TechnicianBalances.AddAsync(technicianBalance);
+            await context.Technicians.AddAsync(technician);
         }
     }
 }
