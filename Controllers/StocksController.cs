@@ -7,7 +7,7 @@ using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 using System;
 using Warehouse.Core;
-using Warehouse.Core.Services;
+using Warehouse.Core.Facades;
 
 namespace Warehouse.Controllers
 {
@@ -16,13 +16,13 @@ namespace Warehouse.Controllers
     public class StocksController : ControllerBase
     {
         private readonly IStockRepository stockRepository;
-        private readonly IStockService stockService;
+        private readonly IStockFacade stockService;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public StocksController(
             IStockRepository stockRepository,
-            IStockService stockService,
+            IStockFacade stockService,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )

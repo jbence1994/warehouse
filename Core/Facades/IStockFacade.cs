@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Warehouse.Core.Models;
 
-namespace Warehouse.Core.Services
+namespace Warehouse.Core.Facades
 {
-    public interface IStockService
+    public interface IStockFacade
     {
         Task Add(Stock stock);
     }

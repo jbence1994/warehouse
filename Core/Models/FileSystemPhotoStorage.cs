@@ -2,9 +2,8 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Warehouse.Core.Services;
 
-namespace Warehouse.Persistence.Services
+namespace Warehouse.Core.Models
 {
     public class FileSystemPhotoStorage : IPhotoStorage
     {
@@ -18,10 +17,8 @@ namespace Warehouse.Persistence.Services
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             var filePath = Path.Combine(uploadsFolderPath, fileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            await using var stream = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(stream);
 
             return fileName;
         }

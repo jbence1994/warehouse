@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Warehouse.Core.Services
+namespace Warehouse.Core.Models
 {
     public interface IPhotoStorage
     {

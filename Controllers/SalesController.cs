@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
-using Warehouse.Core.Services;
 
 namespace Warehouse.Controllers
 {
@@ -12,11 +12,11 @@ namespace Warehouse.Controllers
     [Route("/api/[controller]")]
     public class SalesController : ControllerBase
     {
-        private readonly ISaleService saleService;
+        private readonly ISaleFacade saleService;
         private readonly IMapper mapper;
 
         public SalesController(
-            ISaleService saleService,
+            ISaleFacade saleService,
             IMapper mapper
         )
         {

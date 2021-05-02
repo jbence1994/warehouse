@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 using Warehouse.Core.Services;
 using Warehouse.Persistence;
+using Warehouse.Persistence.Facades;
 using Warehouse.Persistence.Repositories;
 using Warehouse.Persistence.Services;
 
@@ -50,10 +52,10 @@ namespace Warehouse
             services.AddTransient<ITechnicianPhotoService, TechnicianPhotoService>();
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
 
-            services.AddScoped<IStockService, StockService>();
+            services.AddScoped<IStockFacade, StockFacade>();
             services.AddScoped<IStockRepository, StockRepository>();
 
-            services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<ISaleFacade, SaleFacade>();
             services.AddScoped<ISaleRepository, SaleRepository>();
 
             services.AddControllersWithViews();

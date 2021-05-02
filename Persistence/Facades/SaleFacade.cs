@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Core.Services;
 
-namespace Warehouse.Persistence.Services
+namespace Warehouse.Persistence.Facades
 {
-    public class SaleService : ISaleService
+    public class SaleFacade : ISaleFacade
     {
         private readonly IStockRepository stockRepository;
         private readonly IProductRepository productRepository;
@@ -17,7 +17,7 @@ namespace Warehouse.Persistence.Services
         private readonly ITechnicianBalanceRepository technicianBalanceRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public SaleService(
+        public SaleFacade(
             IStockRepository stockRepository,
             IProductRepository productRepository,
             ITechnicianRepository technicianRepository,

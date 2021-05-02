@@ -1,15 +1,15 @@
 using System.Threading.Tasks;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Core.Services;
 
-namespace Warehouse.Persistence.Services
+namespace Warehouse.Persistence.Facades
 {
-    public class StockService : IStockService
+    public class StockFacade : IStockFacade
     {
         private readonly IStockRepository stockRepository;
 
-        public StockService(IStockRepository stockRepository)
+        public StockFacade(IStockRepository stockRepository)
         {
             this.stockRepository = stockRepository;
         }
