@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse.Core;
@@ -29,63 +28,30 @@ namespace Warehouse.Persistence.Facades
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Order> Checkout(Order order)
+        public async Task Checkout(Order order)
         {
-            await CalculateOrderDetailSubTotals(order.OrderDetails);
-            CalculateOrderTotal(order);
-            await AssignOrderToTechnician(order);
-            await DecrementProductQuantityInStockSummary(order.OrderDetails);
-            await CompleteOrder();
-
-            return order;
-        }
-
-        private async Task CalculateOrderDetailSubTotals(ICollection<OrderDetail> orderDetails)
-        {
-            foreach (var orderDetail in orderDetails)
+            foreach (var orderDetail in order.OrderDetails)
             {
                 var product = await productRepository.GetProduct(orderDetail.ProductId);
                 orderDetail.SubTotal = product.Price * orderDetail.Quantity;
             }
-        }
 
-        private void CalculateOrderTotal(Order order)
-        {
-            var total = order.OrderDetails.Sum(s => s.SubTotal);
-            order.Total = total;
-        }
+            order.Total = order.OrderDetails.Sum(s => s.SubTotal);
 
-        private async Task AssignOrderToTechnician(Order order)
-        {
             var technician = await technicianRepository.GetTechnician(order.TechnicianId);
-
             technician.Orders.Add(order);
+            technician.Balance -= order.Total;
 
-            DecrementTechnicianBalance(technician, order.Total);
-            
-            await AddActualBalanceSummary(technician);
-        }
-
-        private void DecrementTechnicianBalance(Technician technician, double amount)
-        {
-            technician.Balance -= amount;
-        }
-
-        private async Task AddActualBalanceSummary(Technician technician)
-        {
             technician.TechnicianBalances.Add(new TechnicianBalance
             {
                 TechnicianId = technician.Id,
                 Amount = technician.Balance,
                 CreatedAt = DateTime.Now
             });
-        }
 
-        private async Task DecrementProductQuantityInStockSummary(ICollection<OrderDetail> orderDetails)
-        {
             var summarizedStocks = await stockRepository.GetSummarizedStocks();
 
-            foreach (var orderDetail in orderDetails)
+            foreach (var orderDetail in order.OrderDetails)
             {
                 foreach (var stockSummary in summarizedStocks)
                 {
@@ -102,10 +68,7 @@ namespace Warehouse.Persistence.Facades
                     stockSummary.Quantity -= orderDetail.Quantity;
                 }
             }
-        }
 
-        private async Task CompleteOrder()
-        {
             await unitOfWork.CompleteAsync();
         }
     }

@@ -37,8 +37,8 @@ namespace Warehouse.Controllers
 
             try
             {
-                order = await orderFacade.Checkout(order);
-
+                await orderFacade.Checkout(order);
+                
                 var result = mapper.Map<Order, OrderResource>(order);
 
                 return Ok(result);

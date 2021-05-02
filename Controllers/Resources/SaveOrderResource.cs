@@ -10,11 +10,11 @@ namespace Warehouse.Controllers.Resources
         public int TechnicianId { get; set; }
 
         [Required]
-        public ICollection<SaveOrderDetailResource> SaleDetails { get; set; }
+        public ICollection<SaveOrderDetailResource> OrderDetails { get; set; }
 
         public SaveOrderResource()
         {
-            SaleDetails = new Collection<SaveOrderDetailResource>();
+            OrderDetails = new Collection<SaveOrderDetailResource>();
         }
     }
 }

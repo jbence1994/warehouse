@@ -5,6 +5,6 @@ namespace Warehouse.Core.Facades
 {
     public interface IOrderFacade
     {
-        Task<Order> Checkout(Order order);
+        Task Checkout(Order order);
     }
 }
