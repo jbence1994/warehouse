@@ -30,6 +30,14 @@ namespace Warehouse.Persistence.Facades
 
         public async Task Checkout(Order order)
         {
+            await CalculatePrices(order);
+            await AssignToTechnician(order);
+            await UpdateStockQuantity(order);
+            await CompleteOrder();
+        }
+
+        private async Task CalculatePrices(Order order)
+        {
             foreach (var orderDetail in order.OrderDetails)
             {
                 var product = await productRepository.GetProduct(orderDetail.ProductId);
@@ -37,9 +45,13 @@ namespace Warehouse.Persistence.Facades
             }
 
             order.Total = order.OrderDetails.Sum(s => s.SubTotal);
+        }
 
+        private async Task AssignToTechnician(Order order)
+        {
             var technician = await technicianRepository.GetTechnician(order.TechnicianId);
             technician.Orders.Add(order);
+
             technician.Balance -= order.Total;
 
             technician.TechnicianBalances.Add(new TechnicianBalance
@@ -48,12 +60,13 @@ namespace Warehouse.Persistence.Facades
                 Amount = technician.Balance,
                 CreatedAt = DateTime.Now
             });
+        }
 
-            var summarizedStocks = await stockRepository.GetSummarizedStocks();
-
+        private async Task UpdateStockQuantity(Order order)
+        {
             foreach (var orderDetail in order.OrderDetails)
             {
-                foreach (var stockSummary in summarizedStocks)
+                foreach (var stockSummary in await stockRepository.GetSummarizedStocks())
                 {
                     if (orderDetail.ProductId != stockSummary.ProductId)
                     {
@@ -68,7 +81,10 @@ namespace Warehouse.Persistence.Facades
                     stockSummary.Quantity -= orderDetail.Quantity;
                 }
             }
+        }
 
+        private async Task CompleteOrder()
+        {
             await unitOfWork.CompleteAsync();
         }
     }
