@@ -42,10 +42,10 @@ namespace Warehouse
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
-            services.AddScoped<ITechnicianBalanceRepository, TechnicianBalanceRepository>();
             services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
 
+            services.AddScoped<ITechnicianFacade, TechnicianFacade>();
             services.AddScoped<IProductPhotoFacade, ProductPhotoFacade>();
             services.AddScoped<IStockFacade, StockFacade>();
             services.AddScoped<ITechnicianPhotoFacade, TechnicianPhotoFacade>();

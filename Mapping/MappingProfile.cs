@@ -20,10 +20,7 @@ namespace Warehouse.Mapping
             CreateMap<Supplier, KeyValuePairResource>();
             CreateMap<Stock, StockResource>();
             CreateMap<ProductPhoto, PhotoResource>();
-            CreateMap<Technician, TechnicianResource>()
-                .ForMember(technicianResource => technicianResource.Balance,
-                    opt => opt.MapFrom(technician => technician.Balance.Amount));
-
+            CreateMap<Technician, TechnicianResource>();
             CreateMap<TechnicianPhoto, PhotoResource>();
             CreateMap<Order, OrderResource>();
             CreateMap<OrderDetail, OrderDetailResource>();

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources;
-using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
@@ -14,17 +14,17 @@ namespace Warehouse.Controllers
     public class TechniciansController : ControllerBase
     {
         private readonly ITechnicianRepository technicianRepository;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ITechnicianFacade technicianFacade;
         private readonly IMapper mapper;
 
         public TechniciansController(
             ITechnicianRepository technicianRepository,
-            IUnitOfWork unitOfWork,
+            ITechnicianFacade technicianFacade,
             IMapper mapper
         )
         {
             this.technicianRepository = technicianRepository;
-            this.unitOfWork = unitOfWork;
+            this.technicianFacade = technicianFacade;
             this.mapper = mapper;
         }
 
@@ -52,7 +52,7 @@ namespace Warehouse.Controllers
 
             return Ok(technicianResource);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateTechnician([FromBody] SaveTechnicianResource technicianResource)
         {
@@ -63,8 +63,7 @@ namespace Warehouse.Controllers
 
             var technician = mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
-            await technicianRepository.Add(technician);
-            await unitOfWork.CompleteAsync();
+            await technicianFacade.Add(technician);
 
             technician = await technicianRepository.GetTechnician(technician.Id);
 

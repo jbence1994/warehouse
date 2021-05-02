@@ -18,7 +18,7 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<IEnumerable<StockSummary>> GetSummarizedStocks()
         {
-            return await context.SummarizedStocks
+            return await context.StockSummaries
                 .Include(s => s.Product)
                 .ThenInclude(p => p.Supplier)
                 .ToListAsync();
@@ -26,7 +26,7 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<StockSummary> GetStockSummary(int productId)
         {
-            return await context.SummarizedStocks
+            return await context.StockSummaries
                 .Where(s => s.ProductId == productId)
                 .SingleOrDefaultAsync();
         }
@@ -52,7 +52,7 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task Add(StockSummary stockSummary)
         {
-            await context.SummarizedStocks.AddAsync(stockSummary);
+            await context.StockSummaries.AddAsync(stockSummary);
         }
     }
 }

@@ -22,15 +22,8 @@ namespace Warehouse.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Technician> GetTechnician(int id, bool includeRelated = true)
+        public async Task<Technician> GetTechnician(int id)
         {
-            if (includeRelated)
-            {
-                return await context.Technicians
-                    .Include(t => t.Balance)
-                    .SingleOrDefaultAsync(t => t.Id == id);
-            }
-
             return await context.Technicians.FindAsync(id);
         }
         
