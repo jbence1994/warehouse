@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
-export interface SaleDetail {
+export interface OrderDetail {
     product: Product;
     quantity: number;
     subTotal: number;

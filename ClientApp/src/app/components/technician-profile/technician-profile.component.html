@@ -11,9 +11,9 @@
       <button *ngIf="photos?.length == 0" class="btn btn-sm btn-primary">Profilkép feltöltése</button>
       <input type="file" (change)="uploadPhoto()" #fileInput>
     </div>
-    
+
     <img *ngFor="let photo of photos" src="/uploads/technicians/{{ photo.fileName }}" class="img-thumbnail">
-    
+
     <div class="form-group text-center">
       <h3>{{ technician.lastName }} {{ technician.firstName }}</h3>
       <h5>{{ technician.email }}</h5>
@@ -21,12 +21,12 @@
     </div>
   </div>
   <div class="col-md-6 col-sm-12">
-    <div class="form-group technician-sales">
+    <div class="form-group technician-orders">
       <fieldset>
         <legend>Vásárlások</legend>
         <p>Aktuális egyenleg: {{ technician.balance }} Forint</p>
-        <p *ngIf="sales?.length === 0">A technikusnak még nincsenek vásárlásai.</p>
-        <table *ngIf="sales?.length > 0" class="table table-sm table-hover">
+        <p *ngIf="orders?.length === 0">A technikusnak még nincsenek vásárlásai.</p>
+        <table *ngIf="orders?.length > 0" class="table table-sm table-hover">
           <thead>
             <tr>
               <th>Azonosító</th>
@@ -36,10 +36,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let s of sales">
-              <td>{{ s.id }}</td>
-              <td>{{ s.total }}</td>
-              <td>{{ s.createdAt }}</td>
+            <tr *ngFor="let o of orders">
+              <td>{{ o.id }}</td>
+              <td>{{ o.total }}</td>
+              <td>{{ o.createdAt }}</td>
               <td><button class="btn btn-sm btn-primary">Részletek</button></td>
             </tr>
           </tbody>

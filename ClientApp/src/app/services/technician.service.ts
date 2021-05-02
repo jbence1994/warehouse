@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Technician } from 'src/app/models/technician';
-import { Sale } from './../models/sale';
+import { Order } from '../models/order';
 
 @Injectable()
 export class TechnicianService {
@@ -10,7 +10,7 @@ export class TechnicianService {
 
     constructor(private http: HttpClient,
                 @Inject('BASE_URL') private baseUrl: string) { }
-    
+
     getTechnicians() {
         return this.http.get<Technician[]>(`${this.baseUrl}${this.TechniciansEndpoint}`);
     }
@@ -19,7 +19,7 @@ export class TechnicianService {
         return this.http.get<Technician>(`${this.baseUrl}${this.TechniciansEndpoint}/${id}`);
     }
 
-    getTechnicianSales(id: number) {
-        return this.http.get<Sale[]>(`${this.baseUrl}${this.TechniciansEndpoint}/${id}/sales`);
+    getTechnicianOrders(id: number) {
+        return this.http.get<Order[]>(`${this.baseUrl}${this.TechniciansEndpoint}/${id}/orders`);
     }
 }

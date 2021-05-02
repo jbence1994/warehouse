@@ -4,7 +4,7 @@ import { TechnicianService } from 'src/app/services/technician.service';
 import { PhotoService } from "src/app/services/photo.service";
 import { Technician } from "src/app/models/technician";
 import { Photo } from "src/app/models/photo";
-import { Sale } from "src/app/models/sale";
+import { Order } from "src/app/models/order";
 
 @Component({
     selector: 'app-technician-profile',
@@ -18,12 +18,13 @@ export class TechnicianProfileComponent implements OnInit {
         lastName: null,
         email: null,
         phone: null,
+        balance: 0
     };
 
     @ViewChild('fileInput', { read: '', static: true }) fileInput: ElementRef;
     technicianId: number;
     photos: Photo[];
-    sales: Sale[];
+    orders: Order[];
 
     constructor(
         private technicianService: TechnicianService,
@@ -36,7 +37,7 @@ export class TechnicianProfileComponent implements OnInit {
 
             if (isNaN(this.technicianId) || this.technicianId <= 0) {
               this.router.navigate(['/technikus-info']);
-              return; 
+              return;
             }
         });
     }
@@ -51,7 +52,7 @@ export class TechnicianProfileComponent implements OnInit {
         let nativeElement: HTMLInputElement = this.fileInput.nativeElement;
         let file = nativeElement.files[0];
         nativeElement.value = '';
-        
+
         this.photoService.uploadTechnicianPhoto(this.technicianId, file)
             .subscribe(photo => this.photos.push(photo));
     }
@@ -67,7 +68,7 @@ export class TechnicianProfileComponent implements OnInit {
     }
 
     populateSales() {
-        this.technicianService.getTechnicianSales(this.technicianId)
-            .subscribe(sales => this.sales = sales);
+        this.technicianService.getTechnicianOrders(this.technicianId)
+            .subscribe(orders => this.orders = orders);
     }
 }

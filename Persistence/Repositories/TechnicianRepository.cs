@@ -17,9 +17,7 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<IEnumerable<Technician>> GetTechnicians()
         {
-            return await context.Technicians
-                .Include(t => t.Balance)
-                .ToListAsync();
+            return await context.Technicians.ToListAsync();
         }
 
         public async Task<Technician> GetTechnician(int id)

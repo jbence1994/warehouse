@@ -4,4 +4,5 @@ export interface Technician {
     lastName: string;
     email: string;
     phone: string;
+    balance: number;
 }
