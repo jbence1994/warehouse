@@ -3,8 +3,8 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Core.Facades
 {
-    public interface ISaleFacade
+    public interface IOrderFacade
     {
-        Task<Sale> Checkout(Sale sale);
+        Task<Order> Checkout(Order order);
     }
 }

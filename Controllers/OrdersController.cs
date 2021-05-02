@@ -10,36 +10,36 @@ namespace Warehouse.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    public class SalesController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        private readonly ISaleFacade saleService;
+        private readonly IOrderFacade orderFacade;
         private readonly IMapper mapper;
 
-        public SalesController(
-            ISaleFacade saleService,
+        public OrdersController(
+            IOrderFacade orderFacade,
             IMapper mapper
         )
         {
-            this.saleService = saleService;
+            this.orderFacade = orderFacade;
             this.mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSale([FromBody] SaveSaleResource saleResource)
+        public async Task<IActionResult> CreateOrder([FromBody] SaveOrderResource orderResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-            var sale = mapper.Map<SaveSaleResource, Sale>(saleResource);
-            sale.CreatedAt = DateTime.Now;
+
+            var order = mapper.Map<SaveOrderResource, Order>(orderResource);
+            order.CreatedAt = DateTime.Now;
 
             try
             {
-                sale = await saleService.Checkout(sale);
+                order = await orderFacade.Checkout(order);
 
-                var result = mapper.Map<Sale, SaleResource>(sale);
+                var result = mapper.Map<Order, OrderResource>(order);
 
                 return Ok(result);
             }

@@ -7,19 +7,19 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Persistence.Repositories
 {
-    public class SaleRepository : ISaleRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly ApplicationDbContext context;
 
-        public SaleRepository(ApplicationDbContext context)
+        public OrderRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public async Task<IEnumerable<Sale>> GetSales(int technicianId)
+        public async Task<IEnumerable<Order>> GetOrders(int technicianId)
         {
-            return await context.Sales
-                .Include(s => s.SaleDetails)
+            return await context.Orders
+                .Include(s => s.OrderDetails)
                 .ThenInclude(s => s.Product)
                 .ThenInclude(s => s.Supplier)
                 .Where(s => s.TechnicianId == technicianId)

@@ -4,8 +4,8 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Core.Repositories
 {
-    public interface ISaleRepository
+    public interface IOrderRepository
     {
-        Task<IEnumerable<Sale>> GetSales(int technicianId);
+        Task<IEnumerable<Order>> GetOrders(int technicianId);
     }
 }

@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Warehouse.Controllers.Resources
 {
-    public class SaveSaleResource
+    public class SaveOrderResource
     {
         [Required]
         public int TechnicianId { get; set; }
 
         [Required]
-        public ICollection<SaveSaleDetailResource> SaleDetails { get; set; }
+        public ICollection<SaveOrderDetailResource> SaleDetails { get; set; }
 
-        public SaveSaleResource()
+        public SaveOrderResource()
         {
-            SaleDetails = new Collection<SaveSaleDetailResource>();
+            SaleDetails = new Collection<SaveOrderDetailResource>();
         }
     }
 }

@@ -9,62 +9,59 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Persistence.Facades
 {
-    public class SaleFacade : ISaleFacade
+    public class OrderFacade : IOrderFacade
     {
         private readonly IStockRepository stockRepository;
         private readonly IProductRepository productRepository;
         private readonly ITechnicianRepository technicianRepository;
-        private readonly ITechnicianBalanceRepository technicianBalanceRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public SaleFacade(
+        public OrderFacade(
             IStockRepository stockRepository,
             IProductRepository productRepository,
             ITechnicianRepository technicianRepository,
-            ITechnicianBalanceRepository technicianBalanceRepository,
             IUnitOfWork unitOfWork
         )
         {
             this.stockRepository = stockRepository;
             this.productRepository = productRepository;
             this.technicianRepository = technicianRepository;
-            this.technicianBalanceRepository = technicianBalanceRepository;
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Sale> Checkout(Sale sale)
+        public async Task<Order> Checkout(Order order)
         {
-            await CalculateSaleDetailSubTotals(sale.SaleDetails);
-            CalculateSaleTotal(sale);
-            await AssignSaleToTechnician(sale);
-            await DecrementProductQuantityInStockSummary(sale.SaleDetails);
-            await CompleteSale();
+            await CalculateOrderDetailSubTotals(order.OrderDetails);
+            CalculateOrderTotal(order);
+            await AssignOrderToTechnician(order);
+            await DecrementProductQuantityInStockSummary(order.OrderDetails);
+            await CompleteOrder();
 
-            return sale;
+            return order;
         }
 
-        private async Task CalculateSaleDetailSubTotals(ICollection<SaleDetail> saleDetails)
+        private async Task CalculateOrderDetailSubTotals(ICollection<OrderDetail> orderDetails)
         {
-            foreach (var saleDetail in saleDetails)
+            foreach (var orderDetail in orderDetails)
             {
-                var product = await productRepository.GetProduct(saleDetail.ProductId);
-                saleDetail.SubTotal = product.Price * saleDetail.Quantity;
+                var product = await productRepository.GetProduct(orderDetail.ProductId);
+                orderDetail.SubTotal = product.Price * orderDetail.Quantity;
             }
         }
 
-        private void CalculateSaleTotal(Sale sale)
+        private void CalculateOrderTotal(Order order)
         {
-            var total = sale.SaleDetails.Sum(s => s.SubTotal);
-            sale.Total = total;
+            var total = order.OrderDetails.Sum(s => s.SubTotal);
+            order.Total = total;
         }
 
-        private async Task AssignSaleToTechnician(Sale sale)
+        private async Task AssignOrderToTechnician(Order order)
         {
-            var technician = await technicianRepository.GetTechnician(sale.TechnicianId);
+            var technician = await technicianRepository.GetTechnician(order.TechnicianId);
 
-            technician.Sales.Add(sale);
+            technician.Orders.Add(order);
 
-            DecrementTechnicianBalance(technician, sale.Total);
+            DecrementTechnicianBalance(technician, order.Total);
             
             await AddActualBalanceSummary(technician);
         }
@@ -76,7 +73,7 @@ namespace Warehouse.Persistence.Facades
 
         private async Task AddActualBalanceSummary(Technician technician)
         {
-            await technicianBalanceRepository.Add(new TechnicianBalance
+            await technicianRepository.Add(new TechnicianBalance
             {
                 TechnicianId = technician.Id,
                 Amount = technician.Balance.Amount,
@@ -84,30 +81,30 @@ namespace Warehouse.Persistence.Facades
             });
         }
 
-        private async Task DecrementProductQuantityInStockSummary(ICollection<SaleDetail> saleDetails)
+        private async Task DecrementProductQuantityInStockSummary(ICollection<OrderDetail> orderDetails)
         {
             var summarizedStocks = await stockRepository.GetSummarizedStocks();
 
-            foreach (var saleDetail in saleDetails)
+            foreach (var orderDetail in orderDetails)
             {
                 foreach (var stockSummary in summarizedStocks)
                 {
-                    if (saleDetail.ProductId != stockSummary.ProductId)
+                    if (orderDetail.ProductId != stockSummary.ProductId)
                     {
                         continue;
                     }
 
-                    if (stockSummary.Quantity <= 0 || stockSummary.Quantity < saleDetail.Quantity)
+                    if (stockSummary.Quantity <= 0 || stockSummary.Quantity < orderDetail.Quantity)
                     {
                         throw new Exception("There is not enough product on stock to sell.");
                     }
 
-                    stockSummary.Quantity -= saleDetail.Quantity;
+                    stockSummary.Quantity -= orderDetail.Quantity;
                 }
             }
         }
 
-        private async Task CompleteSale()
+        private async Task CompleteOrder()
         {
             await unitOfWork.CompleteAsync();
         }

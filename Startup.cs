@@ -40,16 +40,15 @@ namespace Warehouse
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
-            services.AddScoped<ITechnicianBalanceRepository, TechnicianBalanceRepository>();
             services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
             services.AddScoped<IStockRepository, StockRepository>();
-            services.AddScoped<ISaleRepository, SaleRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IProductPhotoFacade, ProductPhotoFacade>();
             services.AddScoped<IStockFacade, StockFacade>();
             services.AddScoped<ITechnicianPhotoFacade, TechnicianPhotoFacade>();
-            services.AddScoped<ISaleFacade, SaleFacade>();
+            services.AddScoped<IOrderFacade, OrderFacade>();
             
             services.AddScoped<IPhotoStorage, FileSystemPhotoStorage>();
 

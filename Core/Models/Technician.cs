@@ -12,12 +12,12 @@ namespace Warehouse.Core.Models
         public string Phone { get; set; }
         public ICollection<TechnicianPhoto> Photos { get; set; }
         public TechnicianBalanceSummary Balance { get; set; }
-        public ICollection<Sale> Sales { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         public Technician()
         {
             Photos = new Collection<TechnicianPhoto>();
-            Sales = new Collection<Sale>();
+            Orders = new Collection<Order>();
         }
     }
 }

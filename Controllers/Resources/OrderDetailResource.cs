@@ -1,6 +1,6 @@
 namespace Warehouse.Controllers.Resources
 {
-    public class SaleDetailResource
+    public class OrderDetailResource
     {
         public ProductResource Product { get; set; }
         public int Quantity { get; set; }

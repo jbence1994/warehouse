@@ -4,20 +4,20 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class SaleDetailConfiguration : IEntityTypeConfiguration<SaleDetail>
+    public class OrderDetailConfiguration : IEntityTypeConfiguration<OrderDetail>
     {
-        public void Configure(EntityTypeBuilder<SaleDetail> builder)
+        public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
             builder
-                .ToTable("sale_details");
+                .ToTable("order_details");
             
             builder
                 .Property(s => s.Id)
                 .HasColumnName("id");
             
             builder
-                .Property(s => s.SaleId)
-                .HasColumnName("sale_id");
+                .Property(s => s.OrderId)
+                .HasColumnName("order_id");
             
             builder
                 .Property(s => s.ProductId)

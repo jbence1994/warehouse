@@ -4,18 +4,18 @@ using System.Collections.ObjectModel;
 
 namespace Warehouse.Core.Models
 {
-    public class Sale
+    public class Order
     {
         public int Id { get; set; }
         public int TechnicianId { get; set; }
         public Technician Technician { get; set; }
         public double Total { get; set; }
         public DateTime CreatedAt { get; set; }
-        public ICollection<SaleDetail> SaleDetails { get; set; }
+        public ICollection<OrderDetail> OrderDetails { get; set; }
 
-        public Sale()
+        public Order()
         {
-            SaleDetails = new Collection<SaleDetail>();
+            OrderDetails = new Collection<OrderDetail>();
         }
     }
 }

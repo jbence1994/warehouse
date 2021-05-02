@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Warehouse.Controllers.Resources
 {
-    public class SaveSaleDetailResource
+    public class SaveOrderDetailResource
     {
         [Required]
         public int ProductId { get; set; }

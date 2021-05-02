@@ -4,16 +4,16 @@ using System.Collections.ObjectModel;
 
 namespace Warehouse.Controllers.Resources
 {
-    public class SaleResource
+    public class OrderResource
     {
         public int Id { get; set; }
         public double Total { get; set; }
         public DateTime CreatedAt { get; set; }
-        public ICollection<SaleDetailResource> SaleDetails { get; set; }
+        public ICollection<OrderDetailResource> OrderDetails { get; set; }
 
-        public SaleResource()
+        public OrderResource()
         {
-            SaleDetails = new Collection<SaleDetailResource>();
+            OrderDetails = new Collection<OrderDetailResource>();
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Warehouse.Persistence
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Sale> Sales { get; set; }
-        public DbSet<SaleDetail> SaleDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<StockSummary> SummarizedStocks { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<TechnicianBalance> TechnicianBalances { get; set; }
@@ -25,10 +25,10 @@ namespace Warehouse.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelBuilder.ApplyConfiguration(new ProductPhotoConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            modelBuilder.ApplyConfiguration(new SaleConfiguration());
-            modelBuilder.ApplyConfiguration(new SaleDetailConfiguration());
             modelBuilder.ApplyConfiguration(new StockConfiguration());
             modelBuilder.ApplyConfiguration(new StockSummaryConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
