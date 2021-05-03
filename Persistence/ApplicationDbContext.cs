@@ -6,13 +6,12 @@ namespace Warehouse.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<ProductPhoto> ProductPhotos { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductPhoto> ProductPhotos { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockSummary> StockSummaries { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<TechnicianBalance> TechnicianBalances { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<TechnicianPhoto> TechnicianPhotos { get; set; }
 
