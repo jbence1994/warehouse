@@ -15,7 +15,7 @@ namespace Warehouse.Mapping
                 .ForMember(productResource => productResource.SupplierName,
                     opt => opt.MapFrom(product => product.Supplier.Name));
 
-            CreateMap<StockSummary, StockSummaryResource>();
+            CreateMap<Stock, StockResource>();
             CreateMap<Product, KeyValuePairResource>();
             CreateMap<Supplier, SupplierWithProductsResource>();
             CreateMap<Supplier, KeyValuePairResource>();

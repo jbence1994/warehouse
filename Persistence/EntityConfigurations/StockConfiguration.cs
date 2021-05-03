@@ -4,21 +4,21 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class StockSummaryConfiguration : IEntityTypeConfiguration<StockSummary>
+    public class StockConfiguration : IEntityTypeConfiguration<Stock>
     {
-        public void Configure(EntityTypeBuilder<StockSummary> builder)
+        public void Configure(EntityTypeBuilder<Stock> builder)
         {
             builder
-                .ToTable("stock_summary");
-            
+                .ToTable("stocks");
+
             builder
                 .Property(s => s.Id)
                 .HasColumnName("id");
-            
+
             builder
                 .Property(s => s.ProductId)
                 .HasColumnName("product_id");
-            
+
             builder
                 .Property(s => s.Quantity)
                 .HasColumnName("quantity")

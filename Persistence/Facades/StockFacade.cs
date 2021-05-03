@@ -18,32 +18,32 @@ namespace Warehouse.Persistence.Facades
         {
             if (await stockRepository.IsProductOnStock(stockEntry.ProductId))
             {
-                await UpdateProductQuantityInStockSummary(stockEntry.ProductId, stockEntry.Quantity);
+                await UpdateProductQuantityInStock(stockEntry.ProductId, stockEntry.Quantity);
             }
             else
             {
-                await AddProductToStockSummaryWithInitialQuantity(stockEntry.ProductId, stockEntry.Quantity);
+                await AddProductToStockWithInitialQuantity(stockEntry.ProductId, stockEntry.Quantity);
             }
 
-            await AddStock(stockEntry);
+            await AddStockEntry(stockEntry);
         }
 
-        private async Task UpdateProductQuantityInStockSummary(int productId, int quantity)
+        private async Task UpdateProductQuantityInStock(int productId, int quantity)
         {
-            var stockSummary = await stockRepository.GetStockSummary(productId);
-            stockSummary.Quantity += quantity;
+            var stock = await stockRepository.GetStock(productId);
+            stock.Quantity += quantity;
         }
 
-        private async Task AddProductToStockSummaryWithInitialQuantity(int productId, int quantity)
+        private async Task AddProductToStockWithInitialQuantity(int productId, int quantity)
         {
-            await stockRepository.Add(new StockSummary
+            await stockRepository.Add(new Stock
             {
                 ProductId = productId,
                 Quantity = quantity
             });
         }
 
-        private async Task AddStock(StockEntry stockEntry)
+        private async Task AddStockEntry(StockEntry stockEntry)
         {
             await stockRepository.Add(stockEntry);
         }

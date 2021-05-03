@@ -37,15 +37,15 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStocks()
         {
-            var stocks = await stockRepository.GetStockSummaries();
+            var stocks = await stockRepository.GetStocks();
 
-            var stockResources = mapper.Map<IEnumerable<StockSummary>, IEnumerable<StockSummaryResource>>(stocks);
+            var stockResources = mapper.Map<IEnumerable<Stock>, IEnumerable<StockResource>>(stocks);
 
             return Ok(stockResources);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStock([FromBody] SaveStockEntryResource stockEntryResource)
+        public async Task<IActionResult> CreateStockEntry([FromBody] SaveStockEntryResource stockEntryResource)
         {
             if (!ModelState.IsValid)
             {

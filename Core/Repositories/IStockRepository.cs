@@ -6,11 +6,11 @@ namespace Warehouse.Core.Repositories
 {
     public interface IStockRepository
     {
-        Task<IEnumerable<StockSummary>> GetStockSummaries();
-        Task<StockSummary> GetStockSummary(int productId);
+        Task<IEnumerable<Stock>> GetStocks();
+        Task<Stock> GetStock(int productId);
         Task<StockEntry> GetStockEntry(int id);
         Task<bool> IsProductOnStock(int productId);
         Task Add(StockEntry stockEntry);
-        Task Add(StockSummary stockSummary);
+        Task Add(Stock stock);
     }
 }
