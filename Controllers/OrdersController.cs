@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Requests;
 using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 
@@ -14,14 +15,17 @@ namespace Warehouse.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderFacade orderFacade;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public OrdersController(
             IOrderFacade orderFacade,
+            IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             this.orderFacade = orderFacade;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
@@ -39,6 +43,7 @@ namespace Warehouse.Controllers
             try
             {
                 await orderFacade.Checkout(order);
+                await unitOfWork.CompleteAsync();
                 
                 var result = mapper.Map<Order, OrderResource>(order);
 

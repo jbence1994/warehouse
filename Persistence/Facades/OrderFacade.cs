@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
@@ -13,19 +12,16 @@ namespace Warehouse.Persistence.Facades
         private readonly IStockRepository stockRepository;
         private readonly IProductRepository productRepository;
         private readonly ITechnicianRepository technicianRepository;
-        private readonly IUnitOfWork unitOfWork;
 
         public OrderFacade(
             IStockRepository stockRepository,
             IProductRepository productRepository,
-            ITechnicianRepository technicianRepository,
-            IUnitOfWork unitOfWork
+            ITechnicianRepository technicianRepository
         )
         {
             this.stockRepository = stockRepository;
             this.productRepository = productRepository;
             this.technicianRepository = technicianRepository;
-            this.unitOfWork = unitOfWork;
         }
 
         public async Task Checkout(Order order)
@@ -33,7 +29,6 @@ namespace Warehouse.Persistence.Facades
             await CalculatePrices(order);
             await AssignToTechnician(order);
             await UpdateStockQuantity(order);
-            await CompleteOrder();
         }
 
         private async Task CalculatePrices(Order order)
@@ -81,11 +76,6 @@ namespace Warehouse.Persistence.Facades
                     stockSummary.Quantity -= orderDetail.Quantity;
                 }
             }
-        }
-
-        private async Task CompleteOrder()
-        {
-            await unitOfWork.CompleteAsync();
         }
     }
 }
