@@ -4,12 +4,12 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class StockConfiguration : IEntityTypeConfiguration<Stock>
+    public class StockEntryConfiguration : IEntityTypeConfiguration<StockEntry>
     {
-        public void Configure(EntityTypeBuilder<Stock> builder)
+        public void Configure(EntityTypeBuilder<StockEntry> builder)
         {
             builder
-                .ToTable("stocks");
+                .ToTable("stock_entries");
 
             builder
                 .Property(s => s.Id)

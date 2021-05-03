@@ -14,18 +14,18 @@ namespace Warehouse.Persistence.Facades
             this.stockRepository = stockRepository;
         }
 
-        public async Task Add(Stock stock)
+        public async Task Add(StockEntry stockEntry)
         {
-            if (await stockRepository.IsProductOnStock(stock.ProductId))
+            if (await stockRepository.IsProductOnStock(stockEntry.ProductId))
             {
-                await UpdateProductQuantityInStockSummary(stock.ProductId, stock.Quantity);
+                await UpdateProductQuantityInStockSummary(stockEntry.ProductId, stockEntry.Quantity);
             }
             else
             {
-                await AddProductToStockSummaryWithInitialQuantity(stock.ProductId, stock.Quantity);
+                await AddProductToStockSummaryWithInitialQuantity(stockEntry.ProductId, stockEntry.Quantity);
             }
 
-            await AddStock(stock);
+            await AddStock(stockEntry);
         }
 
         private async Task UpdateProductQuantityInStockSummary(int productId, int quantity)
@@ -43,9 +43,9 @@ namespace Warehouse.Persistence.Facades
             });
         }
 
-        private async Task AddStock(Stock stock)
+        private async Task AddStock(StockEntry stockEntry)
         {
-            await stockRepository.Add(stock);
+            await stockRepository.Add(stockEntry);
         }
     }
 }

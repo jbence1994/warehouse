@@ -1,11 +1,12 @@
 using System;
 
-namespace Warehouse.Controllers.Resources.Responses
+namespace Warehouse.Core.Models
 {
-    public class StockResource
+    public class StockEntry
     {
         public int Id { get; set; }
-        public ProductResource Product { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
         public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; }
     }

@@ -30,10 +30,10 @@ namespace Warehouse.Persistence.Repositories
                 .Where(s => s.ProductId == productId)
                 .SingleOrDefaultAsync();
         }
-        
-        public async Task<Stock> GetStock(int id)
+
+        public async Task<StockEntry> GetStockEntry(int id)
         {
-            return await context.Stocks
+            return await context.StockEntries
                 .Include(s => s.Product)
                 .ThenInclude(s => s.Supplier)
                 .SingleOrDefaultAsync(s => s.Id == id);
@@ -41,13 +41,13 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<bool> IsProductOnStock(int productId)
         {
-            return await context.Stocks
+            return await context.StockEntries
                 .AnyAsync(s => s.ProductId == productId);
         }
 
-        public async Task Add(Stock stock)
+        public async Task Add(StockEntry stockEntry)
         {
-            await context.Stocks.AddAsync(stock);
+            await context.StockEntries.AddAsync(stockEntry);
         }
 
         public async Task Add(StockSummary stockSummary)

@@ -45,22 +45,22 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStock([FromBody] SaveStockResource stockResource)
+        public async Task<IActionResult> CreateStock([FromBody] SaveStockEntryResource stockEntryResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var stock = mapper.Map<SaveStockResource, Stock>(stockResource);
-            stock.CreatedAt = DateTime.Now;
+            var stockEntry = mapper.Map<SaveStockEntryResource, StockEntry>(stockEntryResource);
+            stockEntry.CreatedAt = DateTime.Now;
 
-            await stockFacade.Add(stock);
+            await stockFacade.Add(stockEntry);
             await unitOfWork.CompleteAsync();
 
-            stock = await stockRepository.GetStock(stock.Id);
+            stockEntry = await stockRepository.GetStockEntry(stockEntry.Id);
 
-            var result = mapper.Map<Stock, StockResource>(stock);
+            var result = mapper.Map<StockEntry, StockEntryResource>(stockEntry);
 
             return Ok(result);
         }
