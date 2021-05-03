@@ -12,22 +12,22 @@ namespace Warehouse.Controllers
     [Route("/api/technicians/{technicianId}/orders")]
     public class TechnicianOrdersController : ControllerBase
     {
-        private readonly IOrderRepository orderRepository;
+        private readonly ITechnicianOrderRepository technicianOrderRepository;
         private readonly IMapper mapper;
 
         public TechnicianOrdersController(
-            IOrderRepository orderRepository,
+            ITechnicianOrderRepository technicianOrderRepository,
             IMapper mapper
         )
         {
-            this.orderRepository = orderRepository;
+            this.technicianOrderRepository = technicianOrderRepository;
             this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetOrders(int technicianId)
         {
-            var orders = await orderRepository.GetOrders(technicianId);
+            var orders = await technicianOrderRepository.GetOrders(technicianId);
 
             var orderResources = mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
 

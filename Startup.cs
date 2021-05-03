@@ -43,7 +43,7 @@ namespace Warehouse
             services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
             services.AddScoped<IStockRepository, StockRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
             services.AddScoped<ITechnicianFacade, TechnicianFacade>();
             services.AddScoped<IProductPhotoFacade, ProductPhotoFacade>();

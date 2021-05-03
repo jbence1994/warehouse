@@ -4,7 +4,7 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Core.Repositories
 {
-    public interface IOrderRepository
+    public interface ITechnicianOrderRepository
     {
         Task<IEnumerable<Order>> GetOrders(int technicianId);
     }

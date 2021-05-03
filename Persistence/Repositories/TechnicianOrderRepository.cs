@@ -7,11 +7,11 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Persistence.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class TechnicianOrderRepository : ITechnicianOrderRepository
     {
         private readonly ApplicationDbContext context;
 
-        public OrderRepository(ApplicationDbContext context)
+        public TechnicianOrderRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
