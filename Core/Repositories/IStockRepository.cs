@@ -6,7 +6,7 @@ namespace Warehouse.Core.Repositories
 {
     public interface IStockRepository
     {
-        Task<IEnumerable<StockSummary>> GetSummarizedStocks();
+        Task<IEnumerable<StockSummary>> GetStockSummaries();
         Task<StockSummary> GetStockSummary(int productId);
         Task<Stock> GetStock(int id);
         Task<bool> IsProductOnStock(int productId);

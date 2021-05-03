@@ -17,19 +17,19 @@ namespace Warehouse.Controllers
     public class StocksController : ControllerBase
     {
         private readonly IStockRepository stockRepository;
-        private readonly IStockFacade stockService;
+        private readonly IStockFacade stockFacade;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public StocksController(
             IStockRepository stockRepository,
-            IStockFacade stockService,
+            IStockFacade stockFacade,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             this.stockRepository = stockRepository;
-            this.stockService = stockService;
+            this.stockFacade = stockFacade;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
@@ -37,7 +37,7 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStocks()
         {
-            var stocks = await stockRepository.GetSummarizedStocks();
+            var stocks = await stockRepository.GetStockSummaries();
 
             var stockResources = mapper.Map<IEnumerable<StockSummary>, IEnumerable<StockSummaryResource>>(stocks);
 
@@ -55,7 +55,7 @@ namespace Warehouse.Controllers
             var stock = mapper.Map<SaveStockResource, Stock>(stockResource);
             stock.CreatedAt = DateTime.Now;
 
-            await stockService.Add(stock);
+            await stockFacade.Add(stock);
             await unitOfWork.CompleteAsync();
 
             stock = await stockRepository.GetStock(stock.Id);

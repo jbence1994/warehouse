@@ -66,7 +66,7 @@ namespace Warehouse.Persistence.Facades
         {
             foreach (var orderDetail in order.OrderDetails)
             {
-                foreach (var stockSummary in await stockRepository.GetSummarizedStocks())
+                foreach (var stockSummary in await stockRepository.GetStockSummaries())
                 {
                     if (orderDetail.ProductId != stockSummary.ProductId)
                     {
