@@ -1,8 +1,7 @@
-using System;
-using Microsoft.AspNetCore.Http;
+﻿using System;
 using Warehouse.Core.Models;
 
-namespace Warehouse.Extensions
+namespace Microsoft.AspNetCore.Http
 {
     public static class IFormFileExtensions
     {

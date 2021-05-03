@@ -11,7 +11,6 @@ using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Extensions;
 
 namespace Warehouse.Controllers
 {
