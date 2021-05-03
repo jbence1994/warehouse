@@ -29,7 +29,7 @@ namespace Warehouse.Persistence
             modelBuilder.ApplyConfiguration(new StockConfiguration());
             modelBuilder.ApplyConfiguration(new StockEntryConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
-            modelBuilder.ApplyConfiguration(new TechnicianBalanceConfiguration());
+            modelBuilder.ApplyConfiguration(new TechnicianBalanceEntryConfiguration());
             modelBuilder.ApplyConfiguration(new TechnicianConfiguration());
             modelBuilder.ApplyConfiguration(new TechnicianPhotoConfiguration());
         }

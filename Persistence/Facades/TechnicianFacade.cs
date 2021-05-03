@@ -19,7 +19,7 @@ namespace Warehouse.Persistence.Facades
         {
             await technicianRepository.Add(technician);
 
-            technician.TechnicianBalances.Add(new TechnicianBalance
+            technician.BalanceEntries.Add(new TechnicianBalanceEntry
             {
                 TechnicianId = technician.Id,
                 Amount = technician.Balance,

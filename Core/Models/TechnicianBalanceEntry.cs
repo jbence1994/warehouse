@@ -2,7 +2,7 @@ using System;
 
 namespace Warehouse.Core.Models
 {
-    public class TechnicianBalance
+    public class TechnicianBalanceEntry
     {
         public int Id { get; set; }
         public int TechnicianId { get; set; }
