@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Requests;
 using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
@@ -16,16 +17,19 @@ namespace Warehouse.Controllers
     {
         private readonly ITechnicianRepository technicianRepository;
         private readonly ITechnicianFacade technicianFacade;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public TechniciansController(
             ITechnicianRepository technicianRepository,
             ITechnicianFacade technicianFacade,
+            IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             this.technicianRepository = technicianRepository;
             this.technicianFacade = technicianFacade;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
@@ -65,6 +69,7 @@ namespace Warehouse.Controllers
             var technician = mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
             await technicianFacade.Add(technician);
+            await unitOfWork.CompleteAsync();
 
             technician = await technicianRepository.GetTechnician(technician.Id);
 
