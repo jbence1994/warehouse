@@ -10,7 +10,8 @@ namespace Warehouse.Core.Models
 
         public bool IsSupportedType(string fileName)
         {
-            return AcceptedFileTypes.Any(s => s == Path.GetExtension(fileName).ToLower());
+            return AcceptedFileTypes
+                .Any(type => type == Path.GetExtension(fileName).ToLower());
         }
     }
 }
