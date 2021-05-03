@@ -1,5 +1,6 @@
 using AutoMapper;
-using Warehouse.Controllers.Resources;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
 
 namespace Warehouse.Mapping

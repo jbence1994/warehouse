@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Warehouse.Controllers.Resources
+namespace Warehouse.Controllers.Resources.Requests
 {
     public class SaveProductResource
     {

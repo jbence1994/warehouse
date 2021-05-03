@@ -1,6 +1,6 @@
 using System;
 
-namespace Warehouse.Controllers.Resources
+namespace Warehouse.Controllers.Resources.Responses
 {
     public class StockResource
     {
