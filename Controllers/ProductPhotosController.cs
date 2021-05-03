@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
@@ -21,6 +22,7 @@ namespace Warehouse.Controllers
         private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IProductRepository productRepository;
         private readonly IProductPhotoFacade productPhotoFacade;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
         private readonly FileSettings fileSettings;
@@ -29,6 +31,7 @@ namespace Warehouse.Controllers
             IProductPhotoRepository productPhotoRepository,
             IProductRepository productRepository,
             IProductPhotoFacade productPhotoFacade,
+            IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
             IOptionsSnapshot<FileSettings> options
@@ -37,6 +40,7 @@ namespace Warehouse.Controllers
             this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;
             this.productPhotoFacade = productPhotoFacade;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.host = host;
             fileSettings = options.Value;
@@ -63,6 +67,7 @@ namespace Warehouse.Controllers
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/products");
             var photo = await productPhotoFacade.UploadPhoto(product, photoToUpload, uploadsFolderPath);
+            await unitOfWork.CompleteAsync();
 
             var result = mapper.Map<ProductPhoto, PhotoResource>(photo);
 

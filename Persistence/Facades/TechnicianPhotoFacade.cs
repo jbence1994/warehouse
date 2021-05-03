@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 
@@ -9,15 +8,10 @@ namespace Warehouse.Persistence.Facades
     public class TechnicianPhotoFacade : ITechnicianPhotoFacade
     {
         private readonly IPhotoStorage photoStorage;
-        private readonly IUnitOfWork unitOfWork;
 
-        public TechnicianPhotoFacade(
-            IPhotoStorage photoStorage,
-            IUnitOfWork unitOfWork
-        )
+        public TechnicianPhotoFacade(IPhotoStorage photoStorage)
         {
             this.photoStorage = photoStorage;
-            this.unitOfWork = unitOfWork;
         }
 
         public async Task<TechnicianPhoto> UploadPhoto(Technician technician, IFormFile file, string uploadsFolderPath)
@@ -30,8 +24,6 @@ namespace Warehouse.Persistence.Facades
             };
 
             technician.Photos.Add(photo);
-
-            await unitOfWork.CompleteAsync();
 
             return photo;
         }
