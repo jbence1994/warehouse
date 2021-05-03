@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { StockService } from 'src/app/services/stock.service';
-import { SaveStock } from './../../models/saveStock';
-import { SupplierWithProducts } from 'src/app/models/supplierWithProducts';
-import { KeyValuePair } from './../../models/keyValuePair';
+import { StockService } from '../../services/stock.service';
+import {SupplierWithProducts} from "../../models/supplierWithProducts";
+import {KeyValuePair} from "../../models/keyValuePair";
+import {SaveStockEntry} from "../../models/saveStockEntry";
 
 @Component({
     selector: 'app-stock-form',
@@ -14,7 +14,7 @@ export class StockFormComponent implements OnInit {
     suppliers: SupplierWithProducts[];
     products: KeyValuePair[];
 
-    saveStock: SaveStock = {
+    saveStockEntry: SaveStockEntry = {
         productId: 0,
         supplierId: 0,
         quantity: 1
@@ -32,11 +32,11 @@ export class StockFormComponent implements OnInit {
     onSupplierChange() {
         this.populateProducts();
 
-        delete this.saveStock.productId;
+        delete this.saveStockEntry.productId;
     }
 
     submit() {
-        this.stockService.createStock(this.saveStock).subscribe();
+        this.stockService.createStockEntry(this.saveStockEntry).subscribe();
         this.router.navigate(['/raktarkeszlet/']);
     }
 
@@ -47,8 +47,8 @@ export class StockFormComponent implements OnInit {
 
     populateProducts() {
         let selectedSupplier = this.suppliers
-            .find(supplier => supplier.id == this.saveStock.supplierId);
-        
+            .find(supplier => supplier.id == this.saveStockEntry.supplierId);
+
         this.products = selectedSupplier ? selectedSupplier.products : [];
     }
 }

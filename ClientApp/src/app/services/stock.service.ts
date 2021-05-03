@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Stock } from "../models/stock";
-import { SaveStock } from './../models/saveStock';
+import { SaveStockEntry } from '../models/saveStockEntry';
 import { SupplierWithProducts } from '../models/supplierWithProducts';
 
 @Injectable()
@@ -17,8 +17,8 @@ export class StockService {
         return this.http.get<Stock[]>(`${this.baseUrl}${this.StocksEndpoint}`);
     }
 
-    createStock(saveStock: SaveStock) {
-        return this.http.post<Stock>(`${this.baseUrl}${this.StocksEndpoint}`, saveStock);
+    createStockEntry(saveStockEntry: SaveStockEntry) {
+        return this.http.post<Stock>(`${this.baseUrl}${this.StocksEndpoint}`, saveStockEntry);
     }
 
     getSuppliers() {

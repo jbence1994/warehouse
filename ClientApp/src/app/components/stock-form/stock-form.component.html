@@ -1,7 +1,7 @@
 <form #f="ngForm" (ngSubmit)="submit()" novalidate>
     <div class="form-group">
         <label for="supplier">Beszállító</label>
-        <select id="supplier" class="form-control form-control-sm" (change)="onSupplierChange()" [(ngModel)]="saveStock.supplierId" name="supplierId" #supplier="ngModel" required>
+        <select id="supplier" class="form-control form-control-sm" (change)="onSupplierChange()" [(ngModel)]="saveStockEntry.supplierId" name="supplierId" #supplier="ngModel" required>
             <option value=""></option>
             <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
         </select>
@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
         <label for="product">Termék</label>
-        <select id="product" class="form-control form-control-sm" [(ngModel)]="saveStock.productId" name="productId" #product="ngModel" required>
+        <select id="product" class="form-control form-control-sm" [(ngModel)]="saveStockEntry.productId" name="productId" #product="ngModel" required>
             <option value=""></option>
             <option *ngFor="let p of products" [ngValue]="p.id">{{ p.name }}</option>
         </select>
@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
       <label for="quantity">Mennyiség</label>
-      <input id="quantity" type="number" class="form-control form-control-sm" [(ngModel)]="saveStock.quantity" name="quantity" #quantity="ngModel" required>
+      <input id="quantity" type="number" class="form-control form-control-sm" [(ngModel)]="saveStockEntry.quantity" name="quantity" #quantity="ngModel" required>
       <div class="alert alert-danger" *ngIf="quantity.touched && !quantity.valid">Kérem adja meg a mennyiséget.</div>
     </div>
   <button class="btn btn-sm btn-primary">Mentés</button>
