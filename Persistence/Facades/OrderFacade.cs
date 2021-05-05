@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse.Core.Facades;
@@ -70,7 +71,7 @@ namespace Warehouse.Persistence.Facades
 
                     if (stock.Quantity <= 0 || stock.Quantity < orderDetail.Quantity)
                     {
-                        throw new Exception("There is not enough product on stock to sell.");
+                        throw new Exception("There is not enough product on stock to checkout order.");
                     }
 
                     stock.Quantity -= orderDetail.Quantity;
