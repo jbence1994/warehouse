@@ -61,20 +61,14 @@ namespace Warehouse.Persistence.Facades
         {
             foreach (var orderDetail in order.OrderDetails)
             {
-                foreach (var stock in await stockRepository.GetStocks())
+                var stock = await stockRepository.GetStock(orderDetail.ProductId);
+
+                if (stock.Quantity <= 0 || stock.Quantity < orderDetail.Quantity)
                 {
-                    if (orderDetail.ProductId != stock.ProductId)
-                    {
-                        continue;
-                    }
-
-                    if (stock.Quantity <= 0 || stock.Quantity < orderDetail.Quantity)
-                    {
-                        throw new Exception("There is not enough product on stock to checkout order.");
-                    }
-
-                    stock.Quantity -= orderDetail.Quantity;
+                    throw new Exception("There is not enough product on stock to checkout order.");
                 }
+
+                stock.Quantity -= orderDetail.Quantity;
             }
         }
     }
