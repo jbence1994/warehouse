@@ -1,10 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
-namespace Warehouse.Persistence.Facades
+namespace Warehouse.Facades
 {
     public class OrderFacade : IOrderFacade
     {

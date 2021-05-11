@@ -20,28 +20,28 @@ namespace Warehouse.Controllers
     {
         private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IProductRepository productRepository;
-        private readonly IPhotoStorage photoStorage;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
+        private readonly FileSystemPhotoStorage photoStorage;
         private readonly FileSettings fileSettings;
 
         public ProductPhotosController(
             IProductPhotoRepository productPhotoRepository,
             IProductRepository productRepository,
-            IPhotoStorage photoStorage,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
+            FileSystemPhotoStorage photoStorage,
             IOptions<FileSettings> options
         )
         {
             this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;
-            this.photoStorage = photoStorage;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.host = host;
+            this.photoStorage = photoStorage;
             fileSettings = options.Value;
         }
 

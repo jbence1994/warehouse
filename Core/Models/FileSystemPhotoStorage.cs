@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Warehouse.Core.Models
 {
-    public class FileSystemPhotoStorage : IPhotoStorage
+    public class FileSystemPhotoStorage
     {
         public async Task<string> StorePhoto(string uploadsFolderPath, IFormFile file)
         {

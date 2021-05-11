@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Warehouse.Core.Models;
 
-namespace Warehouse.Core.Facades
+namespace Warehouse.Facades
 {
     public interface IOrderFacade
     {

@@ -20,28 +20,28 @@ namespace Warehouse.Controllers
     {
         private readonly ITechnicianPhotoRepository technicianPhotoRepository;
         private readonly ITechnicianRepository technicianRepository;
-        private readonly IPhotoStorage photoStorage;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
+        private readonly FileSystemPhotoStorage photoStorage;
         private readonly FileSettings fileSettings;
 
         public TechnicianPhotosController(
             ITechnicianPhotoRepository technicianPhotoRepository,
             ITechnicianRepository technicianRepository,
-            IPhotoStorage photoStorage,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
+            FileSystemPhotoStorage photoStorage,
             IOptions<FileSettings> options
         )
         {
             this.technicianPhotoRepository = technicianPhotoRepository;
             this.technicianRepository = technicianRepository;
-            this.photoStorage = photoStorage;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.host = host;
+            this.photoStorage = photoStorage;
             fileSettings = options.Value;
         }
 
@@ -65,7 +65,7 @@ namespace Warehouse.Controllers
             }
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/technicians");
-            
+
             var fileName = await photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
 
             var photo = new TechnicianPhoto
@@ -74,7 +74,7 @@ namespace Warehouse.Controllers
             };
 
             technician.AddPhoto(photo);
-            
+
             await unitOfWork.CompleteAsync();
 
             var result = mapper.Map<TechnicianPhoto, PhotoResource>(photo);

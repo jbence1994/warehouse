@@ -7,11 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Facades;
 using Warehouse.Persistence;
-using Warehouse.Persistence.Facades;
 using Warehouse.Persistence.Repositories;
 
 namespace Warehouse
@@ -46,9 +45,8 @@ namespace Warehouse
             services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
-            services.AddScoped<IStockFacade, StockFacade>();
             services.AddScoped<IOrderFacade, OrderFacade>();
-            services.AddScoped<IPhotoStorage, FileSystemPhotoStorage>();
+            services.AddScoped<FileSystemPhotoStorage>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
