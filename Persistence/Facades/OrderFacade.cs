@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
@@ -28,11 +27,11 @@ namespace Warehouse.Persistence.Facades
         {
             foreach (var orderDetail in order.OrderDetails)
             {
-                var product = await productRepository.GetProduct(orderDetail.ProductId);
-                orderDetail.SubTotal = product.Price * orderDetail.Quantity;
+                orderDetail.Product = await productRepository.GetProduct(orderDetail.ProductId, includeRelated: false);
+                orderDetail.CalculateSubTotal();
             }
 
-            order.Total = order.OrderDetails.Sum(s => s.SubTotal);
+            order.CalculateTotal();
 
             var technician = await technicianRepository.GetTechnician(order.TechnicianId);
 

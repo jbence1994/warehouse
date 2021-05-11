@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Warehouse.Core.Models
 {
@@ -16,6 +17,11 @@ namespace Warehouse.Core.Models
         public Order()
         {
             OrderDetails = new Collection<OrderDetail>();
+        }
+
+        public void CalculateTotal()
+        {
+            Total = OrderDetails.Sum(o => o.SubTotal);
         }
     }
 }

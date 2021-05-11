@@ -9,5 +9,10 @@ namespace Warehouse.Core.Models
         public Product Product { get; set; }
         public int Quantity { get; set; }
         public double SubTotal { get; set; }
+
+        public void CalculateSubTotal()
+        {
+            SubTotal = Product.Price * Quantity;
+        }
     }
 }
