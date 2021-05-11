@@ -7,6 +7,7 @@ using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
+using Warehouse.Core.Repositories;
 
 namespace Warehouse.Controllers
 {
@@ -14,16 +15,19 @@ namespace Warehouse.Controllers
     [Route("/api/[controller]")]
     public class OrdersController : ControllerBase
     {
+        private readonly IOrderRepository orderRepository;
         private readonly IOrderFacade orderFacade;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public OrdersController(
+            IOrderRepository orderRepository,
             IOrderFacade orderFacade,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
+            this.orderRepository = orderRepository;
             this.orderFacade = orderFacade;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -44,7 +48,9 @@ namespace Warehouse.Controllers
             {
                 await orderFacade.Checkout(order);
                 await unitOfWork.CompleteAsync();
-                
+
+                order = await orderRepository.GetOrder(order.Id);
+
                 var result = mapper.Map<Order, OrderResource>(order);
 
                 return Ok(result);

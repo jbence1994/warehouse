@@ -37,6 +37,7 @@ namespace Warehouse
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
@@ -47,7 +48,6 @@ namespace Warehouse
 
             services.AddScoped<IStockFacade, StockFacade>();
             services.AddScoped<IOrderFacade, OrderFacade>();
-            
             services.AddScoped<IPhotoStorage, FileSystemPhotoStorage>();
 
             services.AddControllersWithViews();
