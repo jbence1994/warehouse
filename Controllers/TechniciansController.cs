@@ -65,7 +65,7 @@ namespace Warehouse.Controllers
             var technician = mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
             await technicianRepository.Add(technician);
-            technician.AddInitialBalanceEntry();
+            technician.AddBalanceEntry();
 
             await unitOfWork.CompleteAsync();
 

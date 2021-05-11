@@ -33,18 +33,13 @@ namespace Warehouse.Core.Models
             Orders.Add(order);
         }
 
-        public void AddInitialBalanceEntry()
+        public void AddBalanceEntry()
         {
             BalanceEntries.Add(new TechnicianBalanceEntry
             {
                 Amount = Balance,
                 CreatedAt = DateTime.Now
             });
-        }
-
-        public void AddBalanceEntry(TechnicianBalanceEntry balanceEntry)
-        {
-            BalanceEntries.Add(balanceEntry);
         }
 
         public void AddPhoto(TechnicianPhoto technicianPhoto)

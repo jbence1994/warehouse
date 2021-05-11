@@ -38,15 +38,7 @@ namespace Warehouse.Persistence.Facades
 
             technician.AddOrder(order);
             technician.DecrementBalance(order.Total);
-
-            var balanceEntry = new TechnicianBalanceEntry
-            {
-                TechnicianId = technician.Id,
-                Amount = technician.Balance,
-                CreatedAt = DateTime.Now
-            };
-
-            technician.AddBalanceEntry(balanceEntry);
+            technician.AddBalanceEntry();
 
             foreach (var orderDetail in order.OrderDetails)
             {
