@@ -42,10 +42,8 @@ namespace Warehouse.Persistence.Facades
             foreach (var orderDetail in order.OrderDetails)
             {
                 var stock = await stockRepository.GetStock(orderDetail.ProductId);
-
-                var notEnoughProductOnStock = stock.Quantity <= 0 || stock.Quantity < orderDetail.Quantity;
-
-                if (notEnoughProductOnStock)
+                
+                if (!stock.IsEnough(orderDetail.Quantity))
                 {
                     throw new Exception("There is not enough product on stock to checkout order.");
                 }

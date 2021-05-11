@@ -16,5 +16,10 @@ namespace Warehouse.Core.Models
         {
             Quantity -= amount;
         }
+
+        public bool IsEnough(int quantity)
+        {
+            return Quantity > 0 || Quantity >= quantity;
+        }
     }
 }
