@@ -26,5 +26,15 @@ namespace Warehouse.Persistence.Repositories
 
             return await context.Suppliers.ToListAsync();
         }
+
+        public async Task<Supplier> GetSupplier(int id)
+        {
+            return await context.Suppliers.FindAsync(id);
+        }
+
+        public async Task Add(Supplier supplier)
+        {
+            await context.Suppliers.AddAsync(supplier);
+        }
     }
 }
