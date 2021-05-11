@@ -33,7 +33,9 @@ namespace Warehouse
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("Default")));
-            
+
+            services.AddScoped<IOrderFacade, OrderFacade>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -45,7 +47,6 @@ namespace Warehouse
             services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
-            services.AddScoped<IOrderFacade, OrderFacade>();
             services.AddScoped<FileSystemPhotoStorage>();
 
             services.AddControllersWithViews();
