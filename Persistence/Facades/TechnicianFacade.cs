@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
@@ -19,12 +18,7 @@ namespace Warehouse.Persistence.Facades
         {
             await technicianRepository.Add(technician);
 
-            technician.BalanceEntries.Add(new TechnicianBalanceEntry
-            {
-                TechnicianId = technician.Id,
-                Amount = technician.Balance,
-                CreatedAt = DateTime.Now
-            });
+            technician.AddInitialBalanceEntry();
         }
     }
 }

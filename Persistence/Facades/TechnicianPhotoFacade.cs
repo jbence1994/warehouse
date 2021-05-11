@@ -23,8 +23,8 @@ namespace Warehouse.Persistence.Facades
                 FileName = fileName
             };
 
-            technician.Photos.Add(photo);
-
+            technician.AddPhoto(photo);
+            
             return photo;
         }
     }

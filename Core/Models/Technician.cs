@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -32,9 +33,23 @@ namespace Warehouse.Core.Models
             Orders.Add(order);
         }
 
+        public void AddInitialBalanceEntry()
+        {
+            BalanceEntries.Add(new TechnicianBalanceEntry
+            {
+                Amount = Balance,
+                CreatedAt = DateTime.Now
+            });
+        }
+
         public void AddBalanceEntry(TechnicianBalanceEntry balanceEntry)
         {
             BalanceEntries.Add(balanceEntry);
+        }
+
+        public void AddPhoto(TechnicianPhoto technicianPhoto)
+        {
+            Photos.Add(technicianPhoto);
         }
     }
 }
