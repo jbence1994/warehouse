@@ -7,6 +7,11 @@ namespace Warehouse.Core.Models
         public Product Product { get; set; }
         public int Quantity { get; set; }
 
+        public void IncrementQuantity(int amount)
+        {
+            Quantity += amount;
+        }
+
         public void DecrementQuantity(int amount)
         {
             Quantity -= amount;
