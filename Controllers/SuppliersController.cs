@@ -7,7 +7,6 @@ using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Persistence;
 
 namespace Warehouse.Controllers
 {

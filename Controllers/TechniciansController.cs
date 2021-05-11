@@ -43,7 +43,7 @@ namespace Warehouse.Controllers
             return Ok(technicianResources);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTechnician(int id)
         {
             var technician = await technicianRepository.GetTechnician(id);

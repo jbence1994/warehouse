@@ -16,7 +16,7 @@ using Warehouse.Core.Repositories;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/technicians/{technicianId}/photos")]
+    [Route("api/technicians/{technicianId:int}/photos")]
     public class TechnicianPhotosController : ControllerBase
     {
         private readonly ITechnicianPhotoRepository technicianPhotoRepository;

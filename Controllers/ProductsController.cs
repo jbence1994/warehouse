@@ -39,7 +39,7 @@ namespace Warehouse.Controllers
             return Ok(productResources);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetProduct(int id)
         {
             var product = await productRepository.GetProduct(id);
