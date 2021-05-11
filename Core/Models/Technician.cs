@@ -21,5 +21,20 @@ namespace Warehouse.Core.Models
             Photos = new Collection<TechnicianPhoto>();
             Orders = new Collection<Order>();
         }
+
+        public void DecrementBalance(double amount)
+        {
+            Balance -= amount;
+        }
+
+        public void AddOrder(Order order)
+        {
+            Orders.Add(order);
+        }
+
+        public void AddBalanceEntry(TechnicianBalanceEntry balanceEntry)
+        {
+            BalanceEntries.Add(balanceEntry);
+        }
     }
 }
