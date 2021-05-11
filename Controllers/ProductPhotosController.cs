@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
@@ -21,7 +20,7 @@ namespace Warehouse.Controllers
     {
         private readonly IProductPhotoRepository productPhotoRepository;
         private readonly IProductRepository productRepository;
-        private readonly IProductPhotoFacade productPhotoFacade;
+        private readonly IPhotoStorage photoStorage;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment host;
@@ -30,16 +29,16 @@ namespace Warehouse.Controllers
         public ProductPhotosController(
             IProductPhotoRepository productPhotoRepository,
             IProductRepository productRepository,
-            IProductPhotoFacade productPhotoFacade,
+            IPhotoStorage photoStorage,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
-            IOptionsSnapshot<FileSettings> options
+            IOptions<FileSettings> options
         )
         {
             this.productPhotoRepository = productPhotoRepository;
             this.productRepository = productRepository;
-            this.productPhotoFacade = productPhotoFacade;
+            this.photoStorage = photoStorage;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.host = host;
@@ -66,7 +65,16 @@ namespace Warehouse.Controllers
             }
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/products");
-            var photo = await productPhotoFacade.UploadPhoto(product, photoToUpload, uploadsFolderPath);
+
+            var fileName = await photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
+
+            var photo = new ProductPhoto
+            {
+                FileName = fileName
+            };
+
+            product.AddPhoto(photo);
+
             await unitOfWork.CompleteAsync();
 
             var result = mapper.Map<ProductPhoto, PhotoResource>(photo);
