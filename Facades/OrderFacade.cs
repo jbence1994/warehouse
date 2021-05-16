@@ -24,6 +24,13 @@ namespace Warehouse.Facades
 
         public async Task Checkout(Order order)
         {
+            await CalculatePrices(order);
+            await UpdateStock(order);
+            await AddToTechnician(order);
+        }
+
+        private async Task CalculatePrices(Order order)
+        {
             foreach (var orderDetail in order.OrderDetails)
             {
                 orderDetail.Product = await productRepository.GetProduct(orderDetail.ProductId, includeRelated: false);
@@ -31,17 +38,10 @@ namespace Warehouse.Facades
             }
 
             order.CalculateTotal();
+        }
 
-            var technician = await technicianRepository.GetTechnician(order.TechnicianId);
-
-            technician.Orders.Add(order);
-            technician.Balance -= order.Total;
-            technician.BalanceEntries.Add(new TechnicianBalanceEntry
-            {
-                Amount = technician.Balance,
-                CreatedAt = DateTime.Now
-            });
-
+        private async Task UpdateStock(Order order)
+        {
             foreach (var orderDetail in order.OrderDetails)
             {
                 var stock = await stockRepository.GetStock(orderDetail.ProductId);
@@ -53,6 +53,19 @@ namespace Warehouse.Facades
 
                 stock.Quantity -= orderDetail.Quantity;
             }
+        }
+
+        private async Task AddToTechnician(Order order)
+        {
+            var technician = await technicianRepository.GetTechnician(order.TechnicianId);
+
+            technician.Orders.Add(order);
+            technician.Balance -= order.Total;
+            technician.BalanceEntries.Add(new TechnicianBalanceEntry
+            {
+                Amount = technician.Balance,
+                CreatedAt = DateTime.Now
+            });
         }
     }
 }
