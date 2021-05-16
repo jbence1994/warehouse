@@ -54,7 +54,7 @@ namespace Warehouse.Controllers
             if (await stockRepository.IsProductOnStock(stockEntry.ProductId))
             {
                 var stock = await stockRepository.GetStock(stockEntry.ProductId);
-                stock.IncrementQuantity(stockEntry.Quantity);
+                stock.Quantity += stockEntry.Quantity;
             }
             else
             {

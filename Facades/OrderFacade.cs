@@ -34,20 +34,24 @@ namespace Warehouse.Facades
 
             var technician = await technicianRepository.GetTechnician(order.TechnicianId);
 
-            technician.AddOrder(order);
-            technician.DecrementBalance(order.Total);
-            technician.AddBalanceEntry();
+            technician.Orders.Add(order);
+            technician.Balance -= order.Total;
+            technician.BalanceEntries.Add(new TechnicianBalanceEntry
+            {
+                Amount = technician.Balance,
+                CreatedAt = DateTime.Now
+            });
 
             foreach (var orderDetail in order.OrderDetails)
             {
                 var stock = await stockRepository.GetStock(orderDetail.ProductId);
-                
-                if (!stock.IsEnough(orderDetail.Quantity))
+
+                if (!stock.IsAvailable(orderDetail.Quantity))
                 {
                     throw new Exception("There is not enough product on stock to checkout order.");
                 }
 
-                stock.DecrementQuantity(orderDetail.Quantity);
+                stock.Quantity -= orderDetail.Quantity;
             }
         }
     }

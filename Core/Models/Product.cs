@@ -17,10 +17,5 @@ namespace Warehouse.Core.Models
         {
             Photos = new Collection<ProductPhoto>();
         }
-
-        public void AddPhoto(ProductPhoto productPhoto)
-        {
-            Photos.Add(productPhoto);
-        }
     }
 }

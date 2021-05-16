@@ -73,7 +73,7 @@ namespace Warehouse.Controllers
                 FileName = fileName
             };
 
-            product.AddPhoto(photo);
+            product.Photos.Add(photo);
 
             await unitOfWork.CompleteAsync();
 

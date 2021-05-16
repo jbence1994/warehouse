@@ -22,29 +22,5 @@ namespace Warehouse.Core.Models
             Photos = new Collection<TechnicianPhoto>();
             Orders = new Collection<Order>();
         }
-
-        public void DecrementBalance(double amount)
-        {
-            Balance -= amount;
-        }
-
-        public void AddOrder(Order order)
-        {
-            Orders.Add(order);
-        }
-
-        public void AddBalanceEntry()
-        {
-            BalanceEntries.Add(new TechnicianBalanceEntry
-            {
-                Amount = Balance,
-                CreatedAt = DateTime.Now
-            });
-        }
-
-        public void AddPhoto(TechnicianPhoto technicianPhoto)
-        {
-            Photos.Add(technicianPhoto);
-        }
     }
 }

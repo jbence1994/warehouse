@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -64,8 +65,13 @@ namespace Warehouse.Controllers
 
             var technician = mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
+            technician.BalanceEntries.Add(new TechnicianBalanceEntry
+            {
+                Amount = 0,
+                CreatedAt = DateTime.Now
+            });
+
             await technicianRepository.Add(technician);
-            technician.AddBalanceEntry();
 
             await unitOfWork.CompleteAsync();
 
