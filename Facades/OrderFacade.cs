@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
@@ -25,7 +26,7 @@ namespace Warehouse.Facades
         public async Task Checkout(Order order)
         {
             await CalculatePrices(order);
-            await UpdateStock(order);
+            await UpdateStock(order.OrderDetails);
             await AddToTechnician(order);
         }
 
@@ -40,9 +41,9 @@ namespace Warehouse.Facades
             order.CalculateTotal();
         }
 
-        private async Task UpdateStock(Order order)
+        private async Task UpdateStock(IEnumerable<OrderDetail> orderDetails)
         {
-            foreach (var orderDetail in order.OrderDetails)
+            foreach (var orderDetail in orderDetails)
             {
                 var stock = await stockRepository.GetStock(orderDetail.ProductId);
 
@@ -60,7 +61,9 @@ namespace Warehouse.Facades
             var technician = await technicianRepository.GetTechnician(order.TechnicianId);
 
             technician.Orders.Add(order);
+            
             technician.Balance -= order.Total;
+            
             technician.BalanceEntries.Add(new TechnicianBalanceEntry
             {
                 Amount = technician.Balance,
