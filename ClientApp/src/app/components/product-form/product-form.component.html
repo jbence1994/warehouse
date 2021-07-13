@@ -1,5 +1,3 @@
-<code>{{ saveProduct | json }}</code>
-
 <form #f="ngForm" (ngSubmit)="submit()" novalidate>
   <div class="form-group">
     <label for="name">Név</label>
@@ -12,7 +10,7 @@
       #name="ngModel"
       required
     />
-    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+    <div class="alert alert-danger mt-3" *ngIf="name.touched && !name.valid">
       Kérem adja meg a nevet.
     </div>
   </div>
@@ -27,7 +25,7 @@
       #price="ngModel"
       required
     />
-    <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
+    <div class="alert alert-danger mt-3" *ngIf="price.touched && !price.valid">
       Kérem adja meg az egységárat.
     </div>
   </div>
@@ -42,7 +40,7 @@
       #unit="ngModel"
       required
     />
-    <div class="alert alert-danger" *ngIf="unit.touched && !unit.valid">
+    <div class="alert alert-danger mt-3" *ngIf="unit.touched && !unit.valid">
       Kérem adja meg az egységet.
     </div>
   </div>
@@ -59,7 +57,10 @@
       <option value=""></option>
       <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
     </select>
-    <div class="alert alert-danger" *ngIf="supplier.touched && !supplier.valid">
+    <div
+      class="alert alert-danger mt-3"
+      *ngIf="supplier.touched && !supplier.valid"
+    >
       Kérem adja meg a beszállítót.
     </div>
   </div>

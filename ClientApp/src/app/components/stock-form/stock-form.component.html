@@ -13,7 +13,10 @@
       <option value=""></option>
       <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
     </select>
-    <div class="alert alert-danger" *ngIf="supplier.touched && !supplier.valid">
+    <div
+      class="alert alert-danger mt-3"
+      *ngIf="supplier.touched && !supplier.valid"
+    >
       Kérem adja meg a beszállítót.
     </div>
   </div>
@@ -30,7 +33,10 @@
       <option value=""></option>
       <option *ngFor="let p of products" [ngValue]="p.id">{{ p.name }}</option>
     </select>
-    <div class="alert alert-danger" *ngIf="product.touched && !product.valid">
+    <div
+      class="alert alert-danger mt-3"
+      *ngIf="product.touched && !product.valid"
+    >
       Kérem adja meg a terméket.
     </div>
   </div>
@@ -45,7 +51,10 @@
       #quantity="ngModel"
       required
     />
-    <div class="alert alert-danger" *ngIf="quantity.touched && !quantity.valid">
+    <div
+      class="alert alert-danger mt-3"
+      *ngIf="quantity.touched && !quantity.valid"
+    >
       Kérem adja meg a mennyiséget.
     </div>
   </div>
