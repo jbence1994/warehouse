@@ -1,7 +1,7 @@
-import { KeyValuePair } from "./../../models/keyValuePair";
-import { ProductService } from "./../../services/product.service";
 import { Component, OnInit } from "@angular/core";
+import { ProductService } from "./../../services/product.service";
 import { SaveProduct } from "src/app/models/saveProduct";
+import { KeyValuePair } from "./../../models/keyValuePair";
 
 @Component({
   selector: "app-product-form",
