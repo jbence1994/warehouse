@@ -24,7 +24,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   submit() {
-    console.log("Post to API ...");
+    console.log("POST request to REST API ...");
   }
 
   populateSuppliers() {
