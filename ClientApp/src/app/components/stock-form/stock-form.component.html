@@ -3,7 +3,7 @@
     <label for="supplier">Beszállító</label>
     <select
       id="supplier"
-      class="form-control form-control-sm"
+      class="form-control"
       (change)="onSupplierChange()"
       [(ngModel)]="saveStockEntry.supplierId"
       name="supplierId"
@@ -21,7 +21,7 @@
     <label for="product">Termék</label>
     <select
       id="product"
-      class="form-control form-control-sm"
+      class="form-control"
       [(ngModel)]="saveStockEntry.productId"
       name="productId"
       #product="ngModel"
@@ -39,7 +39,7 @@
     <input
       id="quantity"
       type="number"
-      class="form-control form-control-sm"
+      class="form-control"
       [(ngModel)]="saveStockEntry.quantity"
       name="quantity"
       #quantity="ngModel"
@@ -49,5 +49,5 @@
       Kérem adja meg a mennyiséget.
     </div>
   </div>
-  <button class="btn btn-sm btn-primary">Mentés</button>
+  <button class="btn btn-primary">Mentés</button>
 </form>

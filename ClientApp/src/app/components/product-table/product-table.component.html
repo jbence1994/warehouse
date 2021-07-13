@@ -1,13 +1,13 @@
 <p class="text-center" *ngIf="!products">Betöltés...</p>
 
 <div class="form-group" *ngIf="products">
-  <a [routerLink]="['/termeklista/uj']" class="btn btn-sm btn-primary"
+  <a [routerLink]="['/termeklista/uj']" class="btn btn-primary"
     >Terméklista bővítése</a
   >
 </div>
 
 <table
-  class="table table-sm table-hover table-responsive-md"
+  class="table table-hover table-responsive-md"
   aria-labelledby="tableLabel"
   *ngIf="products"
 >
@@ -27,7 +27,7 @@
       <td>{{ p.unit }}</td>
       <td>{{ p.supplierName }}</td>
       <td>
-        <a class="btn btn-sm btn-primary" [routerLink]="['/termeklista/', p.id]"
+        <a class="btn btn-primary" [routerLink]="['/termeklista/', p.id]"
           >Részletek</a
         >
       </td>

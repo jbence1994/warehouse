@@ -1,13 +1,13 @@
 <p class="text-center" *ngIf="!stocks">Betöltés...</p>
 
 <div class="form-group" *ngIf="stocks">
-  <a [routerLink]="['/raktarkeszlet/uj']" class="btn btn-sm btn-primary"
+  <a [routerLink]="['/raktarkeszlet/uj']" class="btn btn-primary"
     >Raktárkészlet bővítése</a
   >
 </div>
 
 <table
-  class="table table-sm table-hover table-responsive-md"
+  class="table table-hover table-responsive-md"
   aria-labelledby="tableLabel"
   *ngIf="stocks"
 >
