@@ -8,27 +8,27 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6 col-sm-12">
+  <div class="col-12">
     <div class="photo-upload">
       <button *ngIf="photos?.length == 0" class="btn btn-sm btn-primary">
         Profilkép feltöltése
       </button>
       <input type="file" (change)="uploadPhoto()" #fileInput />
     </div>
-
     <img
       *ngFor="let photo of photos"
       src="/uploads/technicians/{{ photo.fileName }}"
       class="img-thumbnail"
     />
-
     <div class="form-group text-center">
       <h3>{{ technician.lastName }} {{ technician.firstName }}</h3>
       <h5>{{ technician.email }}</h5>
       <h5>{{ technician.phone }}</h5>
     </div>
   </div>
-  <div class="col-md-6 col-sm-12">
+</div>
+<div class="row">
+  <div class="col-sm-12">
     <div class="form-group technician-orders">
       <fieldset>
         <legend>Vásárlások</legend>
@@ -50,7 +50,9 @@
               <td>{{ o.id }}</td>
               <td>{{ o.total }}</td>
               <td>{{ o.createdAt }}</td>
-              <td><button class="btn btn-sm btn-primary">Részletek</button></td>
+              <td>
+                <button class="btn btn-sm btn-primary">Részletek</button>
+              </td>
             </tr>
           </tbody>
         </table>
