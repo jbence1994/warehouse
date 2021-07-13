@@ -14,6 +14,7 @@ import { ProductTableComponent } from "./components/product-table/product-table.
 import { ProductFormComponent } from "./components/product-form/product-form.component";
 import { ViewProductComponent } from "./components/view-product/view-product.component";
 import { TechniciansTableComponent } from "./components/technician-table/technicians-table.component";
+import { TechnicianFormComponent } from "./components/technician-form/technician-form.component";
 import { TechnicianProfileComponent } from "./components/technician-profile/technician-profile.component";
 
 import { StockService } from "./services/stock.service";
@@ -32,6 +33,7 @@ import { TechnicianService } from "src/app/services/technician.service";
     ProductFormComponent,
     ViewProductComponent,
     TechniciansTableComponent,
+    TechnicianFormComponent,
     TechnicianProfileComponent,
   ],
   imports: [
@@ -46,6 +48,7 @@ import { TechnicianService } from "src/app/services/technician.service";
       { path: "termeklista/uj", component: ProductFormComponent },
       { path: "termeklista/:id", component: ViewProductComponent },
       { path: "technikus-info", component: TechniciansTableComponent },
+      { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
     ]),
   ],
