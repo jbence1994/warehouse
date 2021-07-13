@@ -1,35 +1,35 @@
-import { KeyValuePair } from './../../models/keyValuePair';
-import { ProductService } from './../../services/product.service';
+import { KeyValuePair } from "./../../models/keyValuePair";
+import { ProductService } from "./../../services/product.service";
 import { Component, OnInit } from "@angular/core";
 import { SaveProduct } from "src/app/models/saveProduct";
 
 @Component({
-    selector: 'app-product-form',
-    templateUrl: './product-form.component.html'
+  selector: "app-product-form",
+  templateUrl: "./product-form.component.html",
 })
 export class ProductFormComponent implements OnInit {
+  suppliers: KeyValuePair[];
 
-    suppliers: KeyValuePair[];
-    
-    saveProduct: SaveProduct = {
-        name: null,
-        price: 0,
-        unit: null,
-        supplierId: 0
-    };
+  saveProduct: SaveProduct = {
+    name: null,
+    price: 0,
+    unit: null,
+    supplierId: 0,
+  };
 
-    constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) {}
 
-    ngOnInit() {
-        this.populateSuppliers();
-    }
+  ngOnInit() {
+    this.populateSuppliers();
+  }
 
-    submit() {
-        console.log('Post to API ...');
-    }
+  submit() {
+    console.log("Post to API ...");
+  }
 
-    populateSuppliers() {
-        this.productService.getSupplierKeyValuePairs()
-            .subscribe(suppliers => this.suppliers = suppliers);
-    }
+  populateSuppliers() {
+    this.productService
+      .getSupplierKeyValuePairs()
+      .subscribe((suppliers) => (this.suppliers = suppliers));
+  }
 }

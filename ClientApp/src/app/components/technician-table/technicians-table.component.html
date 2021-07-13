@@ -1,10 +1,16 @@
 <p class="text-center" *ngIf="!technicians">Betöltés...</p>
 
 <div class="form-group" *ngIf="technicians">
-  <a [routerLink]="['/technikus-info/uj']" class="btn btn-sm btn-primary">Technikus hozzáadása</a>
+  <a [routerLink]="['/technikus-info/uj']" class="btn btn-sm btn-primary"
+    >Technikus hozzáadása</a
+  >
 </div>
 
-<table class='table table-sm table-hover' aria-labelledby="tableLabel" *ngIf="technicians">
+<table
+  class="table table-sm table-hover"
+  aria-labelledby="tableLabel"
+  *ngIf="technicians"
+>
   <thead>
     <tr>
       <th>Vezetéknév</th>
@@ -20,7 +26,13 @@
       <td>{{ t.firstName }}</td>
       <td>{{ t.email }}</td>
       <td>{{ t.phone }}</td>
-      <td><a class="btn btn-sm btn-primary" [routerLink]="['/technikus-info/', t.id]">Profil megtekintése</a></td>
+      <td>
+        <a
+          class="btn btn-sm btn-primary"
+          [routerLink]="['/technikus-info/', t.id]"
+          >Profil megtekintése</a
+        >
+      </td>
     </tr>
   </tbody>
 </table>

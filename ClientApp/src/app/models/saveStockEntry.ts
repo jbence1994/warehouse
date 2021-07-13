@@ -1,5 +1,5 @@
 export interface SaveStockEntry {
-    supplierId: number;
-    productId: number;
-    quantity: number;
+  supplierId: number;
+  productId: number;
+  quantity: number;
 }

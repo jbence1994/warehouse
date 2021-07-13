@@ -1,18 +1,26 @@
 <div class="row">
   <div class="col-12">
     <div class="form-group">
-      <a class="btn btn-sm btn-primary" [routerLink]="['/technikus-info']">Vissza a technikus infoba</a>
+      <a class="btn btn-sm btn-primary" [routerLink]="['/technikus-info']"
+        >Vissza a technikus infoba</a
+      >
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-md-6 col-sm-12">
     <div class="photo-upload">
-      <button *ngIf="photos?.length == 0" class="btn btn-sm btn-primary">Profilkép feltöltése</button>
-      <input type="file" (change)="uploadPhoto()" #fileInput>
+      <button *ngIf="photos?.length == 0" class="btn btn-sm btn-primary">
+        Profilkép feltöltése
+      </button>
+      <input type="file" (change)="uploadPhoto()" #fileInput />
     </div>
 
-    <img *ngFor="let photo of photos" src="/uploads/technicians/{{ photo.fileName }}" class="img-thumbnail">
+    <img
+      *ngFor="let photo of photos"
+      src="/uploads/technicians/{{ photo.fileName }}"
+      class="img-thumbnail"
+    />
 
     <div class="form-group text-center">
       <h3>{{ technician.lastName }} {{ technician.firstName }}</h3>
@@ -25,7 +33,9 @@
       <fieldset>
         <legend>Vásárlások</legend>
         <p>Aktuális egyenleg: {{ technician.balance }} Forint</p>
-        <p *ngIf="orders?.length === 0">A technikusnak még nincsenek vásárlásai.</p>
+        <p *ngIf="orders?.length === 0">
+          A technikusnak még nincsenek vásárlásai.
+        </p>
         <table *ngIf="orders?.length > 0" class="table table-sm table-hover">
           <thead>
             <tr>

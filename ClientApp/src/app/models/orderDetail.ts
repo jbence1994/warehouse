@@ -1,7 +1,7 @@
 import { Product } from "./product";
 
 export interface OrderDetail {
-    product: Product;
-    quantity: number;
-    subTotal: number;
+  product: Product;
+  quantity: number;
+  subTotal: number;
 }

@@ -1,28 +1,67 @@
 <code>{{ saveProduct | json }}</code>
 
 <form #f="ngForm" (ngSubmit)="submit()" novalidate>
-    <div class="form-group">
-        <label for="name">Név</label>
-        <input id="name" type="text" class="form-control form-control-sm" [(ngModel)]="saveProduct.name" name="name" #name="ngModel" required>
-        <div class="alert alert-danger" *ngIf="name.touched && !name.valid">Kérem adja meg a nevet.</div>
+  <div class="form-group">
+    <label for="name">Név</label>
+    <input
+      id="name"
+      type="text"
+      class="form-control form-control-sm"
+      [(ngModel)]="saveProduct.name"
+      name="name"
+      #name="ngModel"
+      required
+    />
+    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+      Kérem adja meg a nevet.
     </div>
-    <div class="form-group">
-        <label for="price">Egységár</label>
-        <input id="price" type="number" class="form-control form-control-sm" [(ngModel)]="saveProduct.price" name="price" #price="ngModel" required>
-        <div class="alert alert-danger" *ngIf="price.touched && !price.valid">Kérem adja meg az egységárat.</div>
+  </div>
+  <div class="form-group">
+    <label for="price">Egységár</label>
+    <input
+      id="price"
+      type="number"
+      class="form-control form-control-sm"
+      [(ngModel)]="saveProduct.price"
+      name="price"
+      #price="ngModel"
+      required
+    />
+    <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
+      Kérem adja meg az egységárat.
     </div>
-    <div class="form-group">
-        <label for="unit">Egység</label>
-        <input id="unit" type="text" class="form-control form-control-sm" [(ngModel)]="saveProduct.unit" name="unit" #unit="ngModel" required>
-        <div class="alert alert-danger" *ngIf="unit.touched && !unit.valid">Kérem adja meg az egységet.</div>
+  </div>
+  <div class="form-group">
+    <label for="unit">Egység</label>
+    <input
+      id="unit"
+      type="text"
+      class="form-control form-control-sm"
+      [(ngModel)]="saveProduct.unit"
+      name="unit"
+      #unit="ngModel"
+      required
+    />
+    <div class="alert alert-danger" *ngIf="unit.touched && !unit.valid">
+      Kérem adja meg az egységet.
     </div>
-    <div class="form-group">
-        <label for="supplier">Beszállító</label>
-        <select id="supplier" class="form-control form-control-sm" [(ngModel)]="saveProduct.supplierId" name="supplierId" #supplier="ngModel" required>
-            <option value=""></option>
-            <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
-        </select>
-        <div class="alert alert-danger" *ngIf="supplier.touched && !supplier.valid">Kérem adja meg a beszállítót.</div>
+  </div>
+  <div class="form-group">
+    <label for="supplier">Beszállító</label>
+    <select
+      id="supplier"
+      class="form-control form-control-sm"
+      [(ngModel)]="saveProduct.supplierId"
+      name="supplierId"
+      #supplier="ngModel"
+      required
+    >
+      <option value=""></option>
+      <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
+    </select>
+    <div class="alert alert-danger" *ngIf="supplier.touched && !supplier.valid">
+      Kérem adja meg a beszállítót.
     </div>
+  </div>
   <button class="btn btn-sm btn-primary">Mentés</button>
 </form>

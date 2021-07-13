@@ -3,20 +3,21 @@ import { Product } from "src/app/models/product";
 import { ProductService } from "src/app/services/product.service";
 
 @Component({
-    selector: 'app-product-table',
-    templateUrl: './product-table.component.html'
+  selector: "app-product-table",
+  templateUrl: "./product-table.component.html",
 })
 export class ProductTableComponent implements OnInit {
-    products: Product[];
+  products: Product[];
 
-    constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) {}
 
-    ngOnInit() {
-        this.populateStocks();
-    }
+  ngOnInit() {
+    this.populateStocks();
+  }
 
-    populateStocks() {
-        this.productService.getProducts()
-            .subscribe(products => this.products = products);
-    }
+  populateStocks() {
+    this.productService
+      .getProducts()
+      .subscribe((products) => (this.products = products));
+  }
 }

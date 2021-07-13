@@ -1,24 +1,24 @@
 img {
-    width: 168px;
-    height: 168px;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
 }
 
 ul li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .photo-upload {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
-.photo-upload input[type=file] {
-    font-size: 100px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
+.photo-upload input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
