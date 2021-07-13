@@ -17,22 +17,22 @@ namespace Warehouse
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<FileSettings>(Configuration.GetSection("FileSettings"));
+            services.Configure<FileSettings>(configuration.GetSection("FileSettings"));
 
             services.AddAutoMapper();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("Default")));
+                options.UseMySQL(configuration.GetConnectionString("Default")));
 
             services.AddScoped<IOrderFacade, OrderFacade>();
 
