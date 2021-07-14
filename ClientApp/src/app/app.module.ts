@@ -1,4 +1,3 @@
-import { DateService } from "./services/date.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -16,11 +15,14 @@ import { ViewProductComponent } from "./components/view-product/view-product.com
 import { TechniciansTableComponent } from "./components/technician-table/technicians-table.component";
 import { TechnicianFormComponent } from "./components/technician-form/technician-form.component";
 import { TechnicianProfileComponent } from "./components/technician-profile/technician-profile.component";
+import { SupplierTableComponent } from "./components/supplier-table/supplier-table.component";
 
+import { DateService } from "./services/date.service";
 import { StockService } from "./services/stock.service";
 import { ProductService } from "./services/product.service";
 import { PhotoService } from "./services/photo.service";
 import { TechnicianService } from "src/app/services/technician.service";
+import { SupplierService } from "./services/supplier.service";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { TechnicianService } from "src/app/services/technician.service";
     TechniciansTableComponent,
     TechnicianFormComponent,
     TechnicianProfileComponent,
+    SupplierTableComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -50,6 +53,7 @@ import { TechnicianService } from "src/app/services/technician.service";
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
+      { path: "beszallitok", component: SupplierTableComponent },
     ]),
   ],
   providers: [
@@ -58,6 +62,7 @@ import { TechnicianService } from "src/app/services/technician.service";
     ProductService,
     PhotoService,
     TechnicianService,
+    SupplierService,
   ],
   bootstrap: [AppComponent],
 })

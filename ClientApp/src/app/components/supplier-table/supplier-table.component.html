@@ -1,0 +1,30 @@
+<p class="text-center" *ngIf="!suppliers">Betöltés...</p>
+
+<div class="form-group" *ngIf="suppliers">
+  <a [routerLink]="['/beszallitok/uj']" class="btn btn-primary"
+    >Beszállítók listájának bővítése</a
+  >
+</div>
+
+<table
+  class="table table-hover table-responsive-md"
+  aria-labelledby="tableLabel"
+  *ngIf="suppliers"
+>
+  <thead>
+    <tr>
+      <th>Név</th>
+      <th>Település</th>
+      <th>E-mail</th>
+      <th>Telefonszám</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of suppliers">
+      <td>{{ s.name }}</td>
+      <td>{{ s.city }}</td>
+      <td>{{ s.email }}</td>
+      <td>{{ s.phone }}</td>
+    </tr>
+  </tbody>
+</table>
