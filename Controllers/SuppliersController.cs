@@ -29,6 +29,17 @@ namespace Warehouse.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetSuppliers()
+        {
+            var suppliers = await supplierRepository.GetSuppliers();
+
+            var supplierResources =
+                mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierResource>>(suppliers);
+
+            return Ok(supplierResources);
+        }
+
         [HttpGet("suppliersWithProducts")]
         public async Task<IActionResult> GetSuppliersWithProductsResource()
         {
