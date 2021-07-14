@@ -5,17 +5,13 @@ import { SaveTechnician } from "./../../models/saveTechnician";
   selector: "app-technician-form",
   templateUrl: "./technician-form.component.html",
 })
-export class TechnicianFormComponent implements OnInit {
+export class TechnicianFormComponent {
   saveTechnician: SaveTechnician = {
     lastName: "",
     firstName: "",
     email: "",
     phone: "",
   };
-
-  constructor() {}
-
-  ngOnInit() {}
 
   submit() {
     console.log("POST request to REST API ...");

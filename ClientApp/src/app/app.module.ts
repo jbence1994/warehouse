@@ -16,6 +16,7 @@ import { TechniciansTableComponent } from "./components/technician-table/technic
 import { TechnicianFormComponent } from "./components/technician-form/technician-form.component";
 import { TechnicianProfileComponent } from "./components/technician-profile/technician-profile.component";
 import { SupplierTableComponent } from "./components/supplier-table/supplier-table.component";
+import { SupplierFormComponent } from "./components/supplier-form/supplier-form.component";
 
 import { DateService } from "./services/date.service";
 import { StockService } from "./services/stock.service";
@@ -38,6 +39,7 @@ import { SupplierService } from "./services/supplier.service";
     TechnicianFormComponent,
     TechnicianProfileComponent,
     SupplierTableComponent,
+    SupplierFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -54,6 +56,7 @@ import { SupplierService } from "./services/supplier.service";
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
       { path: "beszallitok", component: SupplierTableComponent },
+      { path: "beszallitok/uj", component: SupplierFormComponent },
     ]),
   ],
   providers: [
