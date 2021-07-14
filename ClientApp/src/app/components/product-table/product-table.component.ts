@@ -12,10 +12,10 @@ export class ProductTableComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.populateStocks();
+    this.populateProducts();
   }
 
-  populateStocks() {
+  populateProducts() {
     this.productService
       .getProducts()
       .subscribe((products) => (this.products = products));
