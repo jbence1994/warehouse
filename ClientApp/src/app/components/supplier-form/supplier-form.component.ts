@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { SupplierService } from "./../../services/supplier.service";
 import { SaveSupplier } from "./../../models/saveSupplier";
 
 @Component({
@@ -8,7 +9,9 @@ import { SaveSupplier } from "./../../models/saveSupplier";
 export class SupplierFormComponent {
   saveSupplier: SaveSupplier = { name: "", city: "", email: "", phone: "" };
 
+  constructor(private supplierService: SupplierService) {}
+
   submit() {
-    console.log("POST request to REST API ...");
+    this.supplierService.createSupplier(this.saveSupplier).subscribe();
   }
 }

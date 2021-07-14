@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { TechnicianService } from "src/app/services/technician.service";
 import { SaveTechnician } from "./../../models/saveTechnician";
 
 @Component({
@@ -13,7 +14,9 @@ export class TechnicianFormComponent {
     phone: "",
   };
 
+  constructor(private technicianService: TechnicianService) {}
+
   submit() {
-    console.log("POST request to REST API ...");
+    this.technicianService.createTechnician(this.saveTechnician).subscribe();
   }
 }
