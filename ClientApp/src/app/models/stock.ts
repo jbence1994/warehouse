@@ -1,6 +1,6 @@
-import { Product } from "./product";
+import Product from "./product";
 
-export interface Stock {
+export default interface Stock {
   product: Product;
   quantity: number;
 }

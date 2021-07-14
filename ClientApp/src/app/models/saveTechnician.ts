@@ -1,4 +1,4 @@
-export interface SaveTechnician {
+export default interface SaveTechnician {
   lastName: string;
   firstName: string;
   email: string;

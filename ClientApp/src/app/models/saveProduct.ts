@@ -1,4 +1,4 @@
-export interface SaveProduct {
+export default interface SaveProduct {
   name: string;
   price: number;
   unit: string;

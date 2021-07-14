@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Photo } from "../models/photo";
 
 @Injectable()
-export class PhotoService {
+export default class PhotoService {
   constructor(
     private http: HttpClient,
     @Inject("BASE_URL") private baseUrl: string

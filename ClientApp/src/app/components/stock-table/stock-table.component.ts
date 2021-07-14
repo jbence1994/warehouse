@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { StockService } from "src/app/services/stock.service";
-import { Stock } from "../../models/stock";
+import StockService from "src/app/services/stock.service";
+import Stock from "../../models/stock";
 
 @Component({
   selector: "app-stock-table",
   templateUrl: "./stock-table.component.html",
 })
-export class StockTableComponent implements OnInit {
+export default class StockTableComponent implements OnInit {
   stocks: Stock[];
 
   constructor(private stockService: StockService) {}

@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
-import { TechnicianService } from "src/app/services/technician.service";
-import { SaveTechnician } from "./../../models/saveTechnician";
+import TechnicianService from "src/app/services/technician.service";
+import SaveTechnician from "./../../models/saveTechnician";
 
 @Component({
   selector: "app-technician-form",
   templateUrl: "./technician-form.component.html",
 })
-export class TechnicianFormComponent {
+export default class TechnicianFormComponent {
   saveTechnician: SaveTechnician = {
     lastName: "",
     firstName: "",

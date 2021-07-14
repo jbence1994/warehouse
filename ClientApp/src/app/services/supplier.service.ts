@@ -4,7 +4,7 @@ import { Supplier } from "./../models/supplier";
 import { SaveSupplier } from "./../models/saveSupplier";
 
 @Injectable()
-export class SupplierService {
+export default class SupplierService {
   private readonly SuppliersEndpoint = "api/suppliers";
 
   constructor(

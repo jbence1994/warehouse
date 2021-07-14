@@ -1,17 +1,17 @@
 import { Router } from "@angular/router";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ProductService } from "src/app/services/product.service";
-import { PhotoService } from "./../../services/photo.service";
-import { Product } from "src/app/models/product";
-import { Photo } from "src/app/models/photo";
+import ProductService from "src/app/services/product.service";
+import PhotoService from "./../../services/photo.service";
+import Product from "src/app/models/product";
+import Photo from "src/app/models/photo";
 
 @Component({
   selector: "app-view-product",
   templateUrl: "./view-product.component.html",
   styleUrls: ["./view-product.component.css"],
 })
-export class ViewProductComponent implements OnInit {
+export default class ViewProductComponent implements OnInit {
   product: Product = {
     id: 0,
     name: null,

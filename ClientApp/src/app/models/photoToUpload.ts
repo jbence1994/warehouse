@@ -1,3 +1,3 @@
-export interface PhotoToUpload extends File {
+export default interface PhotoToUpload extends File {
   fileName: string;
 }

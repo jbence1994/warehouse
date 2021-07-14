@@ -5,7 +5,7 @@ import { SaveTechnician } from "../models/saveTechnician";
 import { Order } from "../models/order";
 
 @Injectable()
-export class TechnicianService {
+export default class TechnicianService {
   private readonly TechniciansEndpoint = "api/technicians";
 
   constructor(

@@ -1,15 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { StockService } from "../../services/stock.service";
-import { SupplierWithProducts } from "../../models/supplierWithProducts";
-import { KeyValuePair } from "../../models/keyValuePair";
-import { SaveStockEntry } from "../../models/saveStockEntry";
+import StockService from "../../services/stock.service";
+import SupplierWithProducts from "../../models/supplierWithProducts";
+import KeyValuePair from "../../models/keyValuePair";
+import SaveStockEntry from "../../models/saveStockEntry";
 
 @Component({
   selector: "app-stock-form",
   templateUrl: "./stock-form.component.html",
 })
-export class StockFormComponent implements OnInit {
+export default class StockFormComponent implements OnInit {
   suppliers: SupplierWithProducts[];
   products: KeyValuePair[];
 

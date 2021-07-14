@@ -1,4 +1,4 @@
-export interface SaveSupplier {
+export default interface SaveSupplier {
   name: string;
   city: string;
   email: string;

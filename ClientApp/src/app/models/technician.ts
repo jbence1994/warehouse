@@ -1,4 +1,4 @@
-export interface Technician {
+export default interface Technician {
   id: number;
   firstName: string;
   lastName: string;

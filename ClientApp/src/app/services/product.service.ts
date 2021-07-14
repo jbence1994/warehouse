@@ -5,7 +5,7 @@ import { KeyValuePair } from "./../models/keyValuePair";
 import { Product } from "../models/product";
 
 @Injectable()
-export class ProductService {
+export default class ProductService {
   private readonly ProductsEndpoint = "api/products";
   private readonly SuppliersEndpoint = "api/suppliers/supplierKeyValuePairs";
 

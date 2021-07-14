@@ -1,6 +1,6 @@
-import { KeyValuePair } from "./keyValuePair";
+import KeyValuePair from "./keyValuePair";
 
-export interface SupplierWithProducts {
+export default interface SupplierWithProducts {
   id: number;
   name: string;
   products: KeyValuePair[];

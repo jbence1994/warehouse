@@ -5,7 +5,7 @@ import { SaveStockEntry } from "../models/saveStockEntry";
 import { SupplierWithProducts } from "../models/supplierWithProducts";
 
 @Injectable()
-export class StockService {
+export default class StockService {
   private readonly StocksEndpoint = "api/stocks";
   private readonly SuppliersWithProductsEndpoint =
     "api/suppliers/suppliersWithProducts";

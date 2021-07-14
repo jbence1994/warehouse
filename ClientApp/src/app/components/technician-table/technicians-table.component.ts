@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { TechnicianService } from "src/app/services/technician.service";
-import { Technician } from "src/app/models/technician";
+import TechnicianService from "src/app/services/technician.service";
+import Technician from "src/app/models/technician";
 
 @Component({
   selector: "app-technicians-table",
   templateUrl: "./technicians-table.component.html",
 })
-export class TechniciansTableComponent implements OnInit {
+export default class TechniciansTableComponent implements OnInit {
   technicians: Technician[];
 
   constructor(private technicianService: TechnicianService) {}

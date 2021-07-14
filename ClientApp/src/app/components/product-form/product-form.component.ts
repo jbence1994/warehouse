@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { ProductService } from "./../../services/product.service";
-import { SaveProduct } from "src/app/models/saveProduct";
-import { KeyValuePair } from "./../../models/keyValuePair";
+import ProductService from "./../../services/product.service";
+import SaveProduct from "src/app/models/saveProduct";
+import KeyValuePair from "./../../models/keyValuePair";
 
 @Component({
   selector: "app-product-form",
   templateUrl: "./product-form.component.html",
 })
-export class ProductFormComponent implements OnInit {
+export default class ProductFormComponent implements OnInit {
   suppliers: KeyValuePair[];
 
   saveProduct: SaveProduct = {

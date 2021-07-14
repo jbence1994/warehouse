@@ -1,17 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TechnicianService } from "src/app/services/technician.service";
-import { PhotoService } from "src/app/services/photo.service";
-import { Technician } from "src/app/models/technician";
-import { Photo } from "src/app/models/photo";
-import { Order } from "src/app/models/order";
+import TechnicianService from "src/app/services/technician.service";
+import PhotoService from "src/app/services/photo.service";
+import Technician from "src/app/models/technician";
+import Photo from "src/app/models/photo";
+import Order from "src/app/models/order";
 
 @Component({
   selector: "app-technician-profile",
   templateUrl: "./technician-profile.component.html",
   styleUrls: ["./technician-profile.component.css"],
 })
-export class TechnicianProfileComponent implements OnInit {
+export default class TechnicianProfileComponent implements OnInit {
   technician: Technician = {
     id: 0,
     firstName: null,

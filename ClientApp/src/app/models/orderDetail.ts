@@ -1,6 +1,6 @@
-import { Product } from "./product";
+import Product from "./product";
 
-export interface OrderDetail {
+export default interface OrderDetail {
   product: Product;
   quantity: number;
   subTotal: number;
