@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Technician } from "src/app/models/technician";
-import { SaveTechnician } from "../models/saveTechnician";
-import { Order } from "../models/order";
+import Technician from "src/app/models/technician";
+import SaveTechnician from "../models/saveTechnician";
+import Order from "../models/order";
 
 @Injectable()
 export default class TechnicianService {

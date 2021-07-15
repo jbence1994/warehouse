@@ -32,7 +32,7 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSuppliers()
         {
-            var suppliers = await supplierRepository.GetSuppliers();
+            var suppliers = await supplierRepository.GetSuppliers(includeRelated: false);
 
             var supplierResources =
                 mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierResource>>(suppliers);
@@ -40,13 +40,13 @@ namespace Warehouse.Controllers
             return Ok(supplierResources);
         }
 
-        [HttpGet("suppliersWithProducts")]
-        public async Task<IActionResult> GetSuppliersWithProductsResource()
+        [HttpGet("supplierKeyValuePairsWithProductKeyValuePairs")]
+        public async Task<IActionResult> GetSupplierKeyValuePairsWithProductKeyValuePairs()
         {
             var suppliers = await supplierRepository.GetSuppliers();
 
             var supplierResources =
-                mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierWithProductsResource>>(suppliers);
+                mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierKeyValuePairWithProductKeyValuePairsResource>>(suppliers);
 
             return Ok(supplierResources);
         }

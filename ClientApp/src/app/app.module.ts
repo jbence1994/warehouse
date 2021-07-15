@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
-import AppComponent from "./app.component";
+import { AppComponent } from "./app.component";
 import NavMenuComponent from "./components/nav-menu/nav-menu.component";
 import HomeComponent from "./components/home/home.component";
 import StockTableComponent from "./components/stock-table/stock-table.component";
@@ -69,4 +69,4 @@ import SupplierService from "./services/supplier.service";
   ],
   bootstrap: [AppComponent],
 })
-export default class AppModule {}
+export class AppModule {}

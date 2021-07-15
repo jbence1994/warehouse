@@ -1,14 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Stock } from "../models/stock";
-import { SaveStockEntry } from "../models/saveStockEntry";
-import { SupplierWithProducts } from "../models/supplierWithProducts";
+import Stock from "../models/stock";
+import SaveStockEntry from "../models/saveStockEntry";
+import SupplierKeyValuePairWithProductKeyValuePairs from "../models/supplierKeyValuePairWithProductKeyValuePairs";
 
 @Injectable()
 export default class StockService {
   private readonly StocksEndpoint = "api/stocks";
-  private readonly SuppliersWithProductsEndpoint =
-    "api/suppliers/suppliersWithProducts";
+  private readonly SupplierKeyValuePairsWithProductKeyValuePairsEndpoint =
+    "api/suppliers/supplierKeyValuePairsWithProductKeyValuePairs";
 
   constructor(
     private http: HttpClient,
@@ -26,9 +26,9 @@ export default class StockService {
     );
   }
 
-  getSuppliers() {
-    return this.http.get<SupplierWithProducts[]>(
-      `${this.baseUrl}${this.SuppliersWithProductsEndpoint}`
+  getSuppliersKeyValuePairWithProductKeyValuePairs() {
+    return this.http.get<SupplierKeyValuePairWithProductKeyValuePairs[]>(
+      `${this.baseUrl}${this.SupplierKeyValuePairsWithProductKeyValuePairsEndpoint}`
     );
   }
 }

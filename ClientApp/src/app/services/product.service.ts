@@ -1,13 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { SaveProduct } from "./../models/saveProduct";
-import { KeyValuePair } from "./../models/keyValuePair";
-import { Product } from "../models/product";
+import SaveProduct from "./../models/saveProduct";
+import KeyValuePair from "./../models/keyValuePair";
+import Product from "../models/product";
 
 @Injectable()
 export default class ProductService {
   private readonly ProductsEndpoint = "api/products";
-  private readonly SuppliersEndpoint = "api/suppliers/supplierKeyValuePairs";
+  private readonly SupplierKeyValuePairsEndpoint =
+    "api/suppliers/supplierKeyValuePairs";
 
   constructor(
     private http: HttpClient,
@@ -33,7 +34,7 @@ export default class ProductService {
 
   getSupplierKeyValuePairs() {
     return this.http.get<KeyValuePair[]>(
-      `${this.baseUrl}${this.SuppliersEndpoint}`
+      `${this.baseUrl}${this.SupplierKeyValuePairsEndpoint}`
     );
   }
 }

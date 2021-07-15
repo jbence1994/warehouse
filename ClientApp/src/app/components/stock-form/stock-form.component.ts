@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import StockService from "../../services/stock.service";
-import SupplierWithProducts from "../../models/supplierWithProducts";
+import SupplierKeyValuePairWithProductKeyValuePairs from "src/app/models/supplierKeyValuePairWithProductKeyValuePairs";
 import KeyValuePair from "../../models/keyValuePair";
 import SaveStockEntry from "../../models/saveStockEntry";
 
@@ -10,7 +10,7 @@ import SaveStockEntry from "../../models/saveStockEntry";
   templateUrl: "./stock-form.component.html",
 })
 export default class StockFormComponent implements OnInit {
-  suppliers: SupplierWithProducts[];
+  suppliers: SupplierKeyValuePairWithProductKeyValuePairs[];
   products: KeyValuePair[];
 
   saveStockEntry: SaveStockEntry = {
@@ -38,7 +38,7 @@ export default class StockFormComponent implements OnInit {
 
   populateSuppliers() {
     this.stockService
-      .getSuppliers()
+      .getSuppliersKeyValuePairWithProductKeyValuePairs()
       .subscribe((suppliers) => (this.suppliers = suppliers));
   }
 

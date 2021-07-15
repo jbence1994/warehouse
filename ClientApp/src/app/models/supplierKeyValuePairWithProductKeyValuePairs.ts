@@ -1,6 +1,6 @@
 import KeyValuePair from "./keyValuePair";
 
-export default interface SupplierWithProducts {
+export default interface SupplierKeyValuePairWithProductKeyValuePairs {
   id: number;
   name: string;
   products: KeyValuePair[];

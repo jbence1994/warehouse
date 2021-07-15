@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Supplier } from "./../models/supplier";
-import { SaveSupplier } from "./../models/saveSupplier";
+import Supplier from "./../models/supplier";
+import SaveSupplier from "./../models/saveSupplier";
 
 @Injectable()
 export default class SupplierService {
