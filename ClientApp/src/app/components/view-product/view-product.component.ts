@@ -14,10 +14,10 @@ import Photo from "src/app/models/photo";
 export default class ViewProductComponent implements OnInit {
   product: Product = {
     id: 0,
-    name: null,
+    name: "",
     price: 0,
-    unit: null,
-    supplierName: null,
+    unit: "",
+    supplierName: "",
   };
 
   @ViewChild("fileInput", { read: "", static: true }) fileInput: ElementRef;
