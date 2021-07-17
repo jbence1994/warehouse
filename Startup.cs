@@ -18,6 +18,7 @@ namespace Warehouse
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private const string DefaultCorsPolicy = "DefaultCorsPolicy";
 
         public Startup(IConfiguration configuration)
         {
@@ -27,6 +28,16 @@ namespace Warehouse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(DefaultCorsPolicy, builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyOrigin();
+                    builder.WithMethods("POST", "GET", "DELETE", "PUT");
+                });
+            });
+
             services.Configure<FileSettings>(configuration.GetSection("FileSettings"));
 
             services.AddAutoMapper();
@@ -79,6 +90,8 @@ namespace Warehouse
             }
 
             app.UseRouting();
+
+            app.UseCors(DefaultCorsPolicy);
 
             app.UseEndpoints(endpoints =>
             {
