@@ -3,10 +3,11 @@ import { Inject, Injectable } from "@angular/core";
 import Technician from "src/app/models/technician";
 import SaveTechnician from "../models/saveTechnician";
 import Order from "../models/order";
+import * as config from "../config/endpoints.json";
 
 @Injectable()
 export default class TechnicianService {
-  private readonly TechniciansEndpoint = "api/technicians";
+  private readonly TechniciansEndpoint = config.techniciansEndpoint;
 
   constructor(
     private http: HttpClient,

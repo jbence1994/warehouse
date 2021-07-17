@@ -3,12 +3,13 @@ import { Inject, Injectable } from "@angular/core";
 import SaveProduct from "./../models/saveProduct";
 import KeyValuePair from "./../models/keyValuePair";
 import Product from "../models/product";
+import * as config from "../config/endpoints.json";
 
 @Injectable()
 export default class ProductService {
-  private readonly ProductsEndpoint = "api/products";
+  private readonly ProductsEndpoint = config.productsEndpoint;
   private readonly SupplierKeyValuePairsEndpoint =
-    "api/suppliers/supplierKeyValuePairs";
+    config.supplierKeyValuePairsEndpoint;
 
   constructor(
     private http: HttpClient,

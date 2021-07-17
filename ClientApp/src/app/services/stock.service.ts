@@ -3,12 +3,13 @@ import { Inject, Injectable } from "@angular/core";
 import Stock from "../models/stock";
 import SaveStockEntry from "../models/saveStockEntry";
 import SupplierKeyValuePairWithProductKeyValuePairs from "../models/supplierKeyValuePairWithProductKeyValuePairs";
+import * as config from "../config/endpoints.json";
 
 @Injectable()
 export default class StockService {
-  private readonly StocksEndpoint = "api/stocks";
+  private readonly StocksEndpoint = config.stocksEndpoint;
   private readonly SupplierKeyValuePairsWithProductKeyValuePairsEndpoint =
-    "api/suppliers/supplierKeyValuePairsWithProductKeyValuePairs";
+    config.supplierKeyValuePairsWithProductKeyValuePairsEndpoint;
 
   constructor(
     private http: HttpClient,
