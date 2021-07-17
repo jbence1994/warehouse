@@ -22,11 +22,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let stock of stocks">
-      <td>{{ stock.product.name }}</td>
-      <td>{{ stock.product.supplierName }}</td>
-      <td>{{ stock.product.price }}</td>
+      <td>{{ stock.productName }}</td>
+      <td>{{ stock.productSupplierName }}</td>
+      <td>{{ stock.productPrice }}</td>
       <td>{{ stock.quantity }}</td>
-      <td>{{ stock.product.unit }}</td>
+      <td>{{ stock.productUnit }}</td>
     </tr>
   </tbody>
 </table>
