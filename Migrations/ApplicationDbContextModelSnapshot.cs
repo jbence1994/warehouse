@@ -15,9 +15,9 @@ namespace Warehouse.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("Warehouse.Core.Models.Order", b =>
+            modelBuilder.Entity("Warehouse.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace Warehouse.Migrations
                     b.ToTable("orders");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.OrderDetail", b =>
+            modelBuilder.Entity("Warehouse.Models.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace Warehouse.Migrations
                     b.ToTable("order_details");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Product", b =>
+            modelBuilder.Entity("Warehouse.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace Warehouse.Migrations
                     b.ToTable("products");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.ProductPhoto", b =>
+            modelBuilder.Entity("Warehouse.Models.ProductPhoto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,7 +133,7 @@ namespace Warehouse.Migrations
                     b.ToTable("product_photos");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Stock", b =>
+            modelBuilder.Entity("Warehouse.Models.Stock", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +155,7 @@ namespace Warehouse.Migrations
                     b.ToTable("stocks");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.StockEntry", b =>
+            modelBuilder.Entity("Warehouse.Models.StockEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,7 +181,7 @@ namespace Warehouse.Migrations
                     b.ToTable("stock_entries");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Supplier", b =>
+            modelBuilder.Entity("Warehouse.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,7 +215,7 @@ namespace Warehouse.Migrations
                     b.ToTable("suppliers");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Technician", b =>
+            modelBuilder.Entity("Warehouse.Models.Technician", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -255,7 +255,7 @@ namespace Warehouse.Migrations
                     b.ToTable("technicians");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.TechnicianBalanceEntry", b =>
+            modelBuilder.Entity("Warehouse.Models.TechnicianBalanceEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -281,7 +281,7 @@ namespace Warehouse.Migrations
                     b.ToTable("technician_balance_entries");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.TechnicianPhoto", b =>
+            modelBuilder.Entity("Warehouse.Models.TechnicianPhoto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -305,9 +305,9 @@ namespace Warehouse.Migrations
                     b.ToTable("technician_photos");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Order", b =>
+            modelBuilder.Entity("Warehouse.Models.Order", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Technician", "Technician")
+                    b.HasOne("Warehouse.Models.Technician", "Technician")
                         .WithMany("Orders")
                         .HasForeignKey("TechnicianId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -316,15 +316,15 @@ namespace Warehouse.Migrations
                     b.Navigation("Technician");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.OrderDetail", b =>
+            modelBuilder.Entity("Warehouse.Models.OrderDetail", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Order", "Order")
+                    b.HasOne("Warehouse.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Warehouse.Core.Models.Product", "Product")
+                    b.HasOne("Warehouse.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -335,9 +335,9 @@ namespace Warehouse.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Product", b =>
+            modelBuilder.Entity("Warehouse.Models.Product", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Supplier", "Supplier")
+                    b.HasOne("Warehouse.Models.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -346,18 +346,18 @@ namespace Warehouse.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.ProductPhoto", b =>
+            modelBuilder.Entity("Warehouse.Models.ProductPhoto", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Product", null)
+                    b.HasOne("Warehouse.Models.Product", null)
                         .WithMany("Photos")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Stock", b =>
+            modelBuilder.Entity("Warehouse.Models.Stock", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Product", "Product")
+                    b.HasOne("Warehouse.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -366,9 +366,9 @@ namespace Warehouse.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.StockEntry", b =>
+            modelBuilder.Entity("Warehouse.Models.StockEntry", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Product", "Product")
+                    b.HasOne("Warehouse.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -377,9 +377,9 @@ namespace Warehouse.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.TechnicianBalanceEntry", b =>
+            modelBuilder.Entity("Warehouse.Models.TechnicianBalanceEntry", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Technician", "Technician")
+                    b.HasOne("Warehouse.Models.Technician", "Technician")
                         .WithMany("BalanceEntries")
                         .HasForeignKey("TechnicianId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -388,31 +388,31 @@ namespace Warehouse.Migrations
                     b.Navigation("Technician");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.TechnicianPhoto", b =>
+            modelBuilder.Entity("Warehouse.Models.TechnicianPhoto", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Technician", null)
+                    b.HasOne("Warehouse.Models.Technician", null)
                         .WithMany("Photos")
                         .HasForeignKey("TechnicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Order", b =>
+            modelBuilder.Entity("Warehouse.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Product", b =>
+            modelBuilder.Entity("Warehouse.Models.Product", b =>
                 {
                     b.Navigation("Photos");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Supplier", b =>
+            modelBuilder.Entity("Warehouse.Models.Supplier", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Technician", b =>
+            modelBuilder.Entity("Warehouse.Models.Technician", b =>
                 {
                     b.Navigation("BalanceEntries");
 

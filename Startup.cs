@@ -48,7 +48,6 @@ namespace Warehouse
             services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
                 options.UseMySQL(_configuration.GetValue<string>("ConnectionStrings:Default")));
 
-
             services.AddScoped<FileSystemPhotoStorage>();
 
             // In production, the Angular files will be served from this directory
