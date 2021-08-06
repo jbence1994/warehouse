@@ -1,4 +1,5 @@
 using AutoMapper;
+using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -10,6 +11,8 @@ using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 using Warehouse.Facades;
+using Warehouse.GraphQL;
+using Warehouse.GraphQL.Types;
 using Warehouse.Persistence;
 using Warehouse.Persistence.Repositories;
 
@@ -38,29 +41,23 @@ namespace Warehouse
                 });
             });
 
+            services
+                .AddGraphQLServer()
+                .ModifyRequestOptions(options => options.IncludeExceptionDetails = true)
+                .AddQueryType<Query>()
+                .AddType<ProductType>()
+                .AddType<SupplierType>();
+
             services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));
 
             services.AddAutoMapper();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
                 options.UseMySQL(_configuration.GetValue<string>("ConnectionStrings:Default")));
 
-            services.AddScoped<IOrderFacade, OrderFacade>();
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ISupplierRepository, SupplierRepository>();
-            services.AddScoped<ITechnicianRepository, TechnicianRepository>();
-            services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
-            services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
-            services.AddScoped<IStockRepository, StockRepository>();
-            services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
             services.AddScoped<FileSystemPhotoStorage>();
 
-            services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
                 configuration.RootPath = "ClientApp/dist");
@@ -91,11 +88,12 @@ namespace Warehouse
 
             app.UseCors(DefaultCorsPolicy);
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => endpoints.MapGraphQL());
+
+            app.UseGraphQLVoyager(new GraphQLVoyagerOptions
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                GraphQLEndPoint = "/graphql",
+                Path = "/graphql-voyager"
             });
 
             app.UseSpa(spa =>
