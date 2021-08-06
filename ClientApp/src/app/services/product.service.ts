@@ -1,41 +1,34 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
+import Product from "./../models/product";
 import SaveProduct from "./../models/saveProduct";
-import KeyValuePair from "./../models/keyValuePair";
-import Product from "../models/product";
-import * as config from "../config/endpoints.json";
 
 @Injectable()
 export default class ProductService {
-  private readonly ProductsEndpoint = config.productsEndpoint;
-  private readonly SupplierKeyValuePairsEndpoint =
-    config.supplierKeyValuePairsEndpoint;
-
   constructor(
     private http: HttpClient,
     @Inject("BASE_URL") private baseUrl: string
   ) {}
 
   getProducts() {
-    return this.http.get<Product[]>(`${this.baseUrl}${this.ProductsEndpoint}`);
+    return [];
   }
 
-  getProduct(id: number) {
-    return this.http.get<Product>(
-      `${this.baseUrl}${this.ProductsEndpoint}/${id}`
-    );
+  getProduct(id: number): Product {
+    return {
+      id: 0,
+      name: "",
+      price: 0,
+      unit: "",
+      supplierName: "",
+    };
   }
 
   createProduct(saveProduct: SaveProduct) {
-    return this.http.post<Product>(
-      `${this.baseUrl}${this.ProductsEndpoint}`,
-      saveProduct
-    );
+    return [];
   }
 
   getSupplierKeyValuePairs() {
-    return this.http.get<KeyValuePair[]>(
-      `${this.baseUrl}${this.SupplierKeyValuePairsEndpoint}`
-    );
+    return [];
   }
 }

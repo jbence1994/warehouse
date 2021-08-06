@@ -1,8 +1,3 @@
 {
-  "productsEndpoint": "api/products",
-  "stocksEndpoint": "api/stocks",
-  "suppliersEndpoint": "api/suppliers",
-  "supplierKeyValuePairsEndpoint": "api/suppliers/supplierKeyValuePairs",
-  "supplierKeyValuePairsWithProductKeyValuePairsEndpoint": "api/suppliers/supplierKeyValuePairsWithProductKeyValuePairs",
-  "techniciansEndpoint": "api/technicians"
+  "GraphQLEndpoint": "grpahql"
 }

@@ -16,8 +16,6 @@ export default class ProductTableComponent implements OnInit {
   }
 
   populateProducts() {
-    this.productService
-      .getProducts()
-      .subscribe((products) => (this.products = products));
+    this.products = this.productService.getProducts();
   }
 }

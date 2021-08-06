@@ -16,8 +16,6 @@ export default class TechniciansTableComponent implements OnInit {
   }
 
   populateTechnicians() {
-    this.technicianService
-      .getTechnicians()
-      .subscribe((technicians) => (this.technicians = technicians));
+    this.technicians = this.technicianService.getTechnicians();
   }
 }

@@ -28,8 +28,6 @@ export default class ProductFormComponent implements OnInit {
   }
 
   populateSuppliers() {
-    this.productService
-      .getSupplierKeyValuePairs()
-      .subscribe((suppliers) => (this.suppliers = suppliers));
+    this.suppliers = this.productService.getSupplierKeyValuePairs();
   }
 }

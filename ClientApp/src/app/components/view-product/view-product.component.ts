@@ -41,22 +41,17 @@ export default class ViewProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.photoService
-      .getProductPhotos(this.productId)
-      .subscribe((photos) => (this.photos = photos));
+    this.photos = this.photoService.getProductPhotos(this.productId);
 
-    this.productService
-      .getProduct(this.productId)
-      .subscribe((product) => (this.product = product));
+    this.product = this.productService.getProduct(this.productId);
   }
 
   uploadPhoto() {
     let nativeElement: HTMLInputElement = this.fileInput.nativeElement;
     let file = nativeElement.files[0];
     nativeElement.value = "";
-
-    this.photoService
-      .uploadProductPhoto(this.productId, file)
-      .subscribe((photo) => this.photos.push(photo));
+    this.photos.push(
+      this.photoService.uploadProductPhoto(this.productId, file)
+    );
   }
 }

@@ -12,6 +12,6 @@ export default class SupplierFormComponent {
   constructor(private supplierService: SupplierService) {}
 
   submit() {
-    this.supplierService.createSupplier(this.saveSupplier).subscribe();
+    this.supplierService.createSupplier(this.saveSupplier);
   }
 }

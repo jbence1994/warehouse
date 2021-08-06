@@ -17,6 +17,6 @@ export default class TechnicianFormComponent {
   constructor(private technicianService: TechnicianService) {}
 
   submit() {
-    this.technicianService.createTechnician(this.saveTechnician).subscribe();
+    this.technicianService.createTechnician(this.saveTechnician);
   }
 }

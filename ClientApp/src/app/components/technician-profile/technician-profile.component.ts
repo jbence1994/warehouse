@@ -45,7 +45,7 @@ export default class TechnicianProfileComponent implements OnInit {
   ngOnInit() {
     this.populatePhotos();
     this.populateTechnician();
-    this.populateSales();
+    this.populateOrders();
   }
 
   uploadPhoto() {
@@ -53,26 +53,18 @@ export default class TechnicianProfileComponent implements OnInit {
     let file = nativeElement.files[0];
     nativeElement.value = "";
 
-    this.photoService
-      .uploadTechnicianPhoto(this.technicianId, file)
-      .subscribe((photo) => this.photos.push(photo));
+    this.photoService.uploadTechnicianPhoto(this.technicianId, file);
   }
 
   populatePhotos() {
-    this.photoService
-      .getTechnicianPhotos(this.technicianId)
-      .subscribe((photos) => (this.photos = photos));
+    this.photos = this.photoService.getTechnicianPhotos(this.technicianId);
   }
 
   populateTechnician() {
-    this.technicianService
-      .getTechnician(this.technicianId)
-      .subscribe((technician) => (this.technician = technician));
+    this.technician = this.technicianService.getTechnician(this.technicianId);
   }
 
-  populateSales() {
-    this.technicianService
-      .getTechnicianOrders(this.technicianId)
-      .subscribe((orders) => (this.orders = orders));
+  populateOrders() {
+    this.orders = this.technicianService.getTechnicianOrders(this.technicianId);
   }
 }

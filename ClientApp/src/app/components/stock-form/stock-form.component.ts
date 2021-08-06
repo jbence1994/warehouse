@@ -32,14 +32,13 @@ export default class StockFormComponent implements OnInit {
   }
 
   submit() {
-    this.stockService.createStockEntry(this.saveStockEntry).subscribe();
+    this.stockService.createStockEntry(this.saveStockEntry);
     this.router.navigate(["/raktarkeszlet/"]);
   }
 
   populateSuppliers() {
-    this.stockService
-      .getSuppliersKeyValuePairWithProductKeyValuePairs()
-      .subscribe((suppliers) => (this.suppliers = suppliers));
+    this.suppliers =
+      this.stockService.getSuppliersKeyValuePairWithProductKeyValuePairs();
   }
 
   populateProducts() {

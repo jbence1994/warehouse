@@ -16,6 +16,6 @@ export default class StockTableComponent implements OnInit {
   }
 
   populateStocks() {
-    this.stockService.getStocks().subscribe((stocks) => (this.stocks = stocks));
+    this.stocks = this.stockService.getStocks();
   }
 }

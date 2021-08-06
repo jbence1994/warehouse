@@ -16,8 +16,6 @@ export default class SupplierTableComponent implements OnInit {
   }
 
   populateSuppliers() {
-    this.supplierService
-      .getSuppliers()
-      .subscribe((suppliers) => (this.suppliers = suppliers));
+    this.suppliers = this.supplierService.getSuppliers();
   }
 }
