@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Warehouse.Controllers
+namespace Warehouse.CodeDocumentations.Controllers
 {
     [ApiController]
     [Route("api/products/{productId:int}/photos")]

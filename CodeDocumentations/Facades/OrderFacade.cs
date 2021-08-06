@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse.Core.Models;
 
-namespace Warehouse.Facades
+namespace Warehouse.CodeDocumentations.Facades
 {
     public class OrderFacade
     {

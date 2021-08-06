@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Warehouse.Controllers.Resources.Requests
+namespace Warehouse.CodeDocumentations.Resources.Requests
 {
-    public class SaveStockEntryResource
+    public class SaveOrderDetailResource
     {
         [Required]
         public int ProductId { get; set; }

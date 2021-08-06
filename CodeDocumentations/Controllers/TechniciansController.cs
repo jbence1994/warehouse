@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Controllers.Resources.Requests;
+using Warehouse.CodeDocumentations.Resources.Requests;
 
-namespace Warehouse.Controllers
+namespace Warehouse.CodeDocumentations.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

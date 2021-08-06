@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Warehouse.Controllers
+namespace Warehouse.CodeDocumentations.Controllers
 {
     [ApiController]
     [Route("/api/technicians/{technicianId:int}/orders")]
