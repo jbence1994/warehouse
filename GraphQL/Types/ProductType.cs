@@ -39,6 +39,12 @@ namespace Warehouse.GraphQL.Types
                 .Description("Represents the supplier of a product");
 
             descriptor
+                .Field(p => p.StockEntries)
+                .ResolveWith<Resolver>(p => p.GetStockEntries(default!, default!))
+                .UseDbContext<ApplicationDbContext>()
+                .Description("Represents the collection of stock entries where a product is in");
+
+            descriptor
                 .Field(p => p.Photos)
                 .ResolveWith<Resolver>(p => p.GetProductPhotos(default!, default!))
                 .UseDbContext<ApplicationDbContext>()

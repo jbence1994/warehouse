@@ -11,10 +11,12 @@ namespace Warehouse.Models
         public string Unit { get; set; }
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
+        public ICollection<StockEntry> StockEntries { get; set; }
         public ICollection<ProductPhoto> Photos { get; set; }
 
         public Product()
         {
+            StockEntries = new Collection<StockEntry>();
             Photos = new Collection<ProductPhoto>();
         }
     }
