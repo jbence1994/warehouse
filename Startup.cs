@@ -1,4 +1,3 @@
-using AutoMapper;
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,14 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Warehouse.Core;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
-using Warehouse.Facades;
 using Warehouse.GraphQL;
 using Warehouse.GraphQL.Types;
 using Warehouse.Persistence;
-using Warehouse.Persistence.Repositories;
 
 namespace Warehouse
 {
@@ -49,8 +44,6 @@ namespace Warehouse
                 .AddType<SupplierType>();
 
             services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));
-
-            services.AddAutoMapper();
 
             services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
                 options.UseMySQL(_configuration.GetValue<string>("ConnectionStrings:Default")));

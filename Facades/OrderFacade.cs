@@ -2,27 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 
 namespace Warehouse.Facades
 {
-    public class OrderFacade : IOrderFacade
+    public class OrderFacade
     {
-        private readonly IStockRepository stockRepository;
-        private readonly IProductRepository productRepository;
-        private readonly ITechnicianRepository technicianRepository;
-
-        public OrderFacade(
-            IStockRepository stockRepository,
-            IProductRepository productRepository,
-            ITechnicianRepository technicianRepository
-        )
-        {
-            this.stockRepository = stockRepository;
-            this.productRepository = productRepository;
-            this.technicianRepository = technicianRepository;
-        }
-
         public async Task Checkout(Order order)
         {
             await CalculatePrices(order);
@@ -34,7 +18,8 @@ namespace Warehouse.Facades
         {
             foreach (var orderDetail in order.OrderDetails)
             {
-                orderDetail.Product = await productRepository.GetProduct(orderDetail.ProductId, includeRelated: false);
+                orderDetail.Product = null;
+                // Get a product by the orderDetails's productId field
                 orderDetail.CalculateSubTotal();
             }
 
@@ -45,7 +30,8 @@ namespace Warehouse.Facades
         {
             foreach (var orderDetail in orderDetails)
             {
-                var stock = await stockRepository.GetStock(orderDetail.ProductId);
+                Stock stock = null;
+                // Get a stock by the orderDetail's productId field
 
                 if (!stock.IsAvailable(orderDetail.Quantity))
                 {
@@ -58,12 +44,13 @@ namespace Warehouse.Facades
 
         private async Task AddToTechnician(Order order)
         {
-            var technician = await technicianRepository.GetTechnician(order.TechnicianId);
+            Technician technician = null;
+            // Find the technician by id which is in orderDetails
 
             technician.Orders.Add(order);
-            
+
             technician.Balance -= order.Total;
-            
+
             technician.BalanceEntries.Add(new TechnicianBalanceEntry
             {
                 Amount = technician.Balance,
