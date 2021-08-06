@@ -1,4 +1,4 @@
-namespace Warehouse.Core.Models
+namespace Warehouse.Models
 {
     public class ProductPhoto
     {

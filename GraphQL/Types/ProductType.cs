@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using HotChocolate;
 using HotChocolate.Types;
-using Warehouse.Core.Models;
+using Warehouse.Models;
 using Warehouse.Persistence;
 
 namespace Warehouse.GraphQL.Types

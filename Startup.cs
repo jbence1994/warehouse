@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Warehouse.Core.Models;
 using Warehouse.GraphQL;
 using Warehouse.GraphQL.Types;
+using Warehouse.Models;
 using Warehouse.Persistence;
 
 namespace Warehouse

@@ -1,6 +1,6 @@
 using System;
 
-namespace Warehouse.Core.Models
+namespace Warehouse.Models
 {
     public class TechnicianBalanceEntry
     {

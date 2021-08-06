@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Warehouse.Core.Models
+namespace Warehouse.Models
 {
     public class Product
     {

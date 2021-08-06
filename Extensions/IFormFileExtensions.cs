@@ -1,5 +1,5 @@
 ﻿using System;
-using Warehouse.Core.Models;
+using Warehouse.Models;
 
 namespace Microsoft.AspNetCore.Http
 {

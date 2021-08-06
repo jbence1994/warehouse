@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Warehouse.Core.Models;
+using Warehouse.Models;
 using Warehouse.Persistence.EntityConfigurations;
 
 namespace Warehouse.Persistence
