@@ -9,7 +9,7 @@ namespace Warehouse.Models
 
         public bool IsAvailable(int quantity)
         {
-            return Quantity > 0 || Quantity >= quantity;
+            return Quantity > 0 && Quantity >= quantity;
         }
     }
 }
