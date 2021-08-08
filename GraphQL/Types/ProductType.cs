@@ -10,7 +10,8 @@ namespace Warehouse.GraphQL.Types
     {
         protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
         {
-            descriptor.Description("Represents any product that is registered in the warehouse");
+            descriptor
+                .Description("Represents any product that is registered in the warehouse");
 
             descriptor
                 .Field(p => p.Id)
@@ -30,7 +31,8 @@ namespace Warehouse.GraphQL.Types
 
             descriptor
                 .Field(p => p.SupplierId)
-                .Description("Represents the unique identifier of the supplier of a product");
+                .Description("Represents the unique identifier of the supplier of a product")
+                .Ignore();
 
             descriptor
                 .Field(p => p.Supplier)

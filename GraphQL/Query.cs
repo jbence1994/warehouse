@@ -22,6 +22,12 @@ namespace Warehouse.GraphQL
         }
 
         [UseDbContext(typeof(ApplicationDbContext))]
+        public IQueryable<Stock> GetStocks([ScopedService] ApplicationDbContext context)
+        {
+            return context.Stocks;
+        }
+
+        [UseDbContext(typeof(ApplicationDbContext))]
         public IQueryable<Supplier> GetSuppliers([ScopedService] ApplicationDbContext context)
         {
             return context.Suppliers;

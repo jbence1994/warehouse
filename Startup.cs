@@ -41,6 +41,7 @@ namespace Warehouse
                 .ModifyRequestOptions(options => options.IncludeExceptionDetails = true)
                 .AddQueryType<Query>()
                 .AddType<ProductType>()
+                .AddType<StockType>()
                 .AddType<SupplierType>();
 
             services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));
