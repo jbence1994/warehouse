@@ -13,6 +13,7 @@ namespace Warehouse.Persistence
         public DbSet<StockEntry> StockEntries { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Technician> Technicians { get; set; }
+        public DbSet<TechnicianBalanceEntry> TechnicianBalanceEntries { get; set; }
         public DbSet<TechnicianPhoto> TechnicianPhotos { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

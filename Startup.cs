@@ -42,7 +42,8 @@ namespace Warehouse
                 .AddQueryType<Query>()
                 .AddType<ProductType>()
                 .AddType<StockType>()
-                .AddType<SupplierType>();
+                .AddType<SupplierType>()
+                .AddType<TechnicianType>();
 
             services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));
 

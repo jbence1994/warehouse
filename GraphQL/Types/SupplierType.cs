@@ -23,7 +23,7 @@ namespace Warehouse.GraphQL.Types
 
             descriptor
                 .Field(s => s.City)
-                .Description("Represents the headquarters/location of a supplier");
+                .Description("Represents the location of a supplier");
 
             descriptor
                 .Field(s => s.Email)

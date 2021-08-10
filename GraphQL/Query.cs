@@ -32,5 +32,11 @@ namespace Warehouse.GraphQL
         {
             return context.Suppliers;
         }
+
+        [UseDbContext(typeof(ApplicationDbContext))]
+        public IQueryable<Technician> GetTechnicians([ScopedService] ApplicationDbContext context)
+        {
+            return context.Technicians;
+        }
     }
 }
