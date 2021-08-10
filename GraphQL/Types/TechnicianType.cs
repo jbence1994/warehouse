@@ -40,20 +40,20 @@ namespace Warehouse.GraphQL.Types
 
             descriptor
                 .Field(s => s.BalanceEntries)
-                .ResolveWith<Resolver>(s => s.GetBalanceEntries(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetBalanceEntries(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description(
                     "Represents the collection of balance entries that points to an actual amount of balance at a certain time");
 
             descriptor
                 .Field(s => s.Photos)
-                .ResolveWith<Resolver>(s => s.GetPhotos(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetPhotos(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of photos that made from a technician");
 
             descriptor
                 .Field(s => s.Orders)
-                .ResolveWith<Resolver>(s => s.GetOrders(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetOrders(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of orders of products from stock that a technician purchased");
         }

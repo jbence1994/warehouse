@@ -35,7 +35,7 @@ namespace Warehouse.GraphQL.Types
 
             descriptor
                 .Field(s => s.Products)
-                .ResolveWith<Resolver>(s => s.GetProducts(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetProducts(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of the product supplied by a supplier");
         }

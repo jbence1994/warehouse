@@ -36,19 +36,19 @@ namespace Warehouse.GraphQL.Types
 
             descriptor
                 .Field(p => p.Supplier)
-                .ResolveWith<Resolver>(p => p.GetSupplier(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetSupplier(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the supplier of a product");
 
             descriptor
                 .Field(p => p.StockEntries)
-                .ResolveWith<Resolver>(p => p.GetStockEntries(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetStockEntries(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of stock entries where a product is in");
 
             descriptor
                 .Field(p => p.Photos)
-                .ResolveWith<Resolver>(p => p.GetProductPhotos(default!, default!))
+                .ResolveWith<Resolver>(r => r.GetProductPhotos(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of the photos of a product");
         }
