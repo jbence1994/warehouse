@@ -10,6 +10,12 @@ namespace Warehouse.GraphQL
     public class Query
     {
         [UseDbContext(typeof(ApplicationDbContext))]
+        public IQueryable<Order> GetOrders([ScopedService] ApplicationDbContext context)
+        {
+            return context.Orders;
+        }
+
+        [UseDbContext(typeof(ApplicationDbContext))]
         public IQueryable<Product> GetProducts([ScopedService] ApplicationDbContext context)
         {
             return context.Products;

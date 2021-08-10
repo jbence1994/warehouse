@@ -40,6 +40,7 @@ namespace Warehouse
                 .AddGraphQLServer()
                 .ModifyRequestOptions(options => options.IncludeExceptionDetails = true)
                 .AddQueryType<Query>()
+                .AddType<OrderType>()
                 .AddType<ProductType>()
                 .AddType<StockType>()
                 .AddType<SupplierType>()
