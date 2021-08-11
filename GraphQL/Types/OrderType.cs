@@ -24,6 +24,8 @@ namespace Warehouse.GraphQL.Types
 
             descriptor
                 .Field(o => o.Technician)
+                .ResolveWith<Resolver>(r => r.GetTechnician(default!, default!))
+                .UseDbContext<ApplicationDbContext>()
                 .Description("Represents a technician who made the order");
 
             descriptor
@@ -43,6 +45,11 @@ namespace Warehouse.GraphQL.Types
 
         private class Resolver
         {
+            public Technician GetTechnician(Order order, [ScopedService] ApplicationDbContext context)
+            {
+                return context.Technicians.SingleOrDefault(t => t.Id == order.TechnicianId);
+            }
+
             public IQueryable<OrderDetail> GetOrderDetails(Order order, [ScopedService] ApplicationDbContext context)
             {
                 return context.OrderDetails.Where(o => o.OrderId == order.Id);
