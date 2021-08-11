@@ -15,44 +15,48 @@ namespace Warehouse.GraphQL.Types
                     "Represents any technician that is registered in the warehouse and can purchase products from it");
 
             descriptor
-                .Field(s => s.Id)
+                .Field(t => t.Id)
                 .Description("Represents the unique identifier of a technician");
 
             descriptor
-                .Field(s => s.FirstName)
+                .Field(t => t.FirstName)
                 .Description("Represents the first name of a technician");
 
             descriptor
-                .Field(s => s.LastName)
+                .Field(t => t.LastName)
                 .Description("Represents the last name of a technician");
 
             descriptor
-                .Field(s => s.Email)
+                .Field(t => t.FullName)
+                .Description("Represents the full name of a technician");
+
+            descriptor
+                .Field(t => t.Email)
                 .Description("Represents the e-mail address of a technician");
 
             descriptor
-                .Field(s => s.Phone)
+                .Field(t => t.Phone)
                 .Description("Represents the phone number of a technician");
 
             descriptor
-                .Field(s => s.Balance)
+                .Field(t => t.Balance)
                 .Description("Represents the actual balance of a technician");
 
             descriptor
-                .Field(s => s.BalanceEntries)
+                .Field(t => t.BalanceEntries)
                 .ResolveWith<Resolver>(r => r.GetBalanceEntries(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description(
                     "Represents the collection of balance entries that points to an actual amount of balance at a certain time");
 
             descriptor
-                .Field(s => s.Photos)
+                .Field(t => t.Photos)
                 .ResolveWith<Resolver>(r => r.GetPhotos(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of photos that made from a technician");
 
             descriptor
-                .Field(s => s.Orders)
+                .Field(t => t.Orders)
                 .ResolveWith<Resolver>(r => r.GetOrders(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the collection of orders of products from stock that a technician purchased");
