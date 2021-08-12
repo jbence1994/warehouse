@@ -41,6 +41,7 @@ namespace Warehouse
                 .ModifyRequestOptions(options => options.IncludeExceptionDetails = true)
                 .AddQueryType<Query>()
                 .AddType<OrderType>()
+                .AddType<ProductPhotoType>()
                 .AddType<ProductType>()
                 .AddType<StockType>()
                 .AddType<SupplierType>()
