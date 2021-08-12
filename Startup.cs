@@ -45,6 +45,7 @@ namespace Warehouse
                 .AddType<ProductType>()
                 .AddType<StockType>()
                 .AddType<SupplierType>()
+                .AddType<TechnicianBalanceEntryType>()
                 .AddType<TechnicianPhotoType>()
                 .AddType<TechnicianType>();
 
