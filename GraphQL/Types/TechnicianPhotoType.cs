@@ -22,13 +22,13 @@ namespace Warehouse.GraphQL.Types
                 .Description("Represents the file name of a photo");
 
             descriptor
-                .Field(t => t.Technician)
+                .Field(p => p.Technician)
                 .ResolveWith<Resolver>(r => r.GetTechnician(default!, default!))
                 .UseDbContext<ApplicationDbContext>()
                 .Description("Represents the technician who is on the photo");
 
             descriptor
-                .Field(t => t.TechnicianId)
+                .Field(p => p.TechnicianId)
                 .Description("Represents the unique identifier of a technician who is on the photo")
                 .Ignore();
         }
