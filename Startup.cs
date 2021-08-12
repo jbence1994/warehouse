@@ -44,6 +44,7 @@ namespace Warehouse
                 .AddType<ProductType>()
                 .AddType<StockType>()
                 .AddType<SupplierType>()
+                .AddType<TechnicianPhotoType>()
                 .AddType<TechnicianType>();
 
             services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));

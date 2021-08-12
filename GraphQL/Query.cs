@@ -40,6 +40,12 @@ namespace Warehouse.GraphQL
         }
 
         [UseDbContext(typeof(ApplicationDbContext))]
+        public IQueryable<TechnicianPhoto> GetTechnicianPhotos([ScopedService] ApplicationDbContext context)
+        {
+            return context.TechnicianPhotos;
+        }
+
+        [UseDbContext(typeof(ApplicationDbContext))]
         public IQueryable<Technician> GetTechnicians([ScopedService] ApplicationDbContext context)
         {
             return context.Technicians;
