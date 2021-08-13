@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warehouse.Persistence;
 
 namespace Warehouse.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210806122703_InitializeModels")]
+    partial class InitializeModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -348,13 +350,11 @@ namespace Warehouse.Migrations
 
             modelBuilder.Entity("Warehouse.Models.ProductPhoto", b =>
                 {
-                    b.HasOne("Warehouse.Models.Product", "Product")
+                    b.HasOne("Warehouse.Models.Product", null)
                         .WithMany("Photos")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Warehouse.Models.Stock", b =>
@@ -371,7 +371,7 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Models.StockEntry", b =>
                 {
                     b.HasOne("Warehouse.Models.Product", "Product")
-                        .WithMany("StockEntries")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -392,13 +392,11 @@ namespace Warehouse.Migrations
 
             modelBuilder.Entity("Warehouse.Models.TechnicianPhoto", b =>
                 {
-                    b.HasOne("Warehouse.Models.Technician", "Technician")
+                    b.HasOne("Warehouse.Models.Technician", null)
                         .WithMany("Photos")
                         .HasForeignKey("TechnicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Technician");
                 });
 
             modelBuilder.Entity("Warehouse.Models.Order", b =>
@@ -409,8 +407,6 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Models.Product", b =>
                 {
                     b.Navigation("Photos");
-
-                    b.Navigation("StockEntries");
                 });
 
             modelBuilder.Entity("Warehouse.Models.Supplier", b =>

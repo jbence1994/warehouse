@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Warehouse.Core.Models;
+using Warehouse.Models;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
