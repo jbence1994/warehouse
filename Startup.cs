@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehouse.GraphQL;
 using Warehouse.GraphQL.Types;
-using Warehouse.Services.PhotoUpload;
+using Warehouse.Services.Photo;
 using Warehouse.Persistence;
 
 namespace Warehouse

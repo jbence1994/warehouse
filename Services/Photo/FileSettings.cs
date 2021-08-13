@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace Warehouse.Services.PhotoUpload
+namespace Warehouse.Services.Photo
 {
     public class FileSettings
     {
