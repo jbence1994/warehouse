@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Warehouse.Models
+namespace Warehouse.Services.PhotoUpload
 {
     public class FileSystemPhotoStorage
     {
