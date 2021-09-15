@@ -8,7 +8,7 @@ This project was bootstrapped with `dotnet new angular` .NET command.
 
 - Database: MySQL
 - Backend: .NET5 (traditional REST API)
-- Frontend: Angular
+- Frontend: Angular 6.0.0.
 
 ## Run project locally
 
