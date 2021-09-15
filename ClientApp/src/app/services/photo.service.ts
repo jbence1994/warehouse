@@ -13,9 +13,10 @@ export default class PhotoService {
     @Inject("BASE_URL") private baseUrl: string
   ) {}
 
-  getProductPhotos(productId: number) {
+  getProductPhotos() {
+    // TODO: refactor hard-coded resource id in route ...
     return this.http.get<Photo[]>(
-      `${this.baseUrl}${this.ProductsEndpoint}/${productId}/photos`
+      `${this.baseUrl}${this.ProductsEndpoint}/1/photos`
     );
   }
 

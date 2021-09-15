@@ -11,7 +11,6 @@ import StockTableComponent from "./components/stock-table/stock-table.component"
 import StockFormComponent from "./components/stock-form/stock-form.component";
 import ProductTableComponent from "./components/product-table/product-table.component";
 import ProductFormComponent from "./components/product-form/product-form.component";
-import ViewProductComponent from "./components/view-product/view-product.component";
 import TechniciansTableComponent from "./components/technician-table/technicians-table.component";
 import TechnicianFormComponent from "./components/technician-form/technician-form.component";
 import TechnicianProfileComponent from "./components/technician-profile/technician-profile.component";
@@ -34,7 +33,6 @@ import SupplierService from "./services/supplier.service";
     StockFormComponent,
     ProductTableComponent,
     ProductFormComponent,
-    ViewProductComponent,
     TechniciansTableComponent,
     TechnicianFormComponent,
     TechnicianProfileComponent,
@@ -51,7 +49,6 @@ import SupplierService from "./services/supplier.service";
       { path: "raktarkeszlet/uj", component: StockFormComponent },
       { path: "termeklista", component: ProductTableComponent },
       { path: "termeklista/uj", component: ProductFormComponent },
-      { path: "termeklista/:id", component: ViewProductComponent },
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
