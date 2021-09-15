@@ -11,9 +11,9 @@ export default class ProductFormComponent implements OnInit {
   suppliers: KeyValuePair[];
 
   saveProduct: SaveProduct = {
-    name: null,
+    name: "",
     price: 0,
-    unit: null,
+    unit: "",
     supplierId: 0,
   };
 
