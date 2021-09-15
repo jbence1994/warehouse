@@ -11,13 +11,8 @@
     class="col-sm-12 col-md-12 col-lg-4"
     *ngFor="let product of products"
   >
-    <div class="card mt-3">
-      <div *ngFor="let photo of photos">
-        <!-- TODO: replace it with an upload button -->
-        <button *ngIf="product.id !== photo.productId" class="btn btn-primary">
-          Fénykép feltöltése
-        </button>
-        <!-------------------------------------------->
+    <div class="card mt-3" *ngFor="let photo of photos">
+      <div>
         <img
           *ngIf="product.id === photo.productId"
           src="/uploads/products/{{ photo.fileName }}"
@@ -31,6 +26,15 @@
           <p>Egységár: {{ product.price }}.- Forint</p>
           <p>Mennyiségi egység: {{ product.unit }}</p>
           <p>Beszállító: {{ product.supplierName }}</p>
+        </div>
+        <div class="photo-upload">
+          <button
+            *ngIf="product.id !== photo.productId"
+            class="btn btn-primary"
+          >
+            Fénykép feltöltése
+          </button>
+          <input type="file" (change)="uploadPhoto()" #fileInput />
         </div>
       </div>
     </div>

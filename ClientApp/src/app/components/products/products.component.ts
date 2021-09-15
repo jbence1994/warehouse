@@ -7,6 +7,7 @@ import ProductPhoto from "../../models/productPhoto";
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
+  styleUrls: ["./products.component.css"],
 })
 export default class Products implements OnInit {
   products: Product[];
@@ -33,4 +34,6 @@ export default class Products implements OnInit {
       .getProductPhotos()
       .subscribe((photos) => (this.photos = photos));
   }
+
+  uploadPhoto() {}
 }
