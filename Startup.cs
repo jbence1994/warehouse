@@ -1,25 +1,28 @@
-using GraphQL.Server.Ui.Voyager;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Warehouse.GraphQL;
-using Warehouse.GraphQL.Types;
-using Warehouse.Services.Photo;
+using Warehouse.Core;
+using Warehouse.Core.Models;
+using Warehouse.Core.Repositories;
+using Warehouse.Facades;
 using Warehouse.Persistence;
+using Warehouse.Persistence.Repositories;
 
 namespace Warehouse
 {
     public class Startup
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration configuration;
         private const string DefaultCorsPolicy = "DefaultCorsPolicy";
 
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -35,27 +38,34 @@ namespace Warehouse
                 });
             });
 
-            services
-                .AddGraphQLServer()
-                .ModifyRequestOptions(options => options.IncludeExceptionDetails = true)
-                .AddQueryType<Query>()
-                .AddType<OrderDetailType>()
-                .AddType<OrderType>()
-                .AddType<ProductPhotoType>()
-                .AddType<ProductType>()
-                .AddType<StockType>()
-                .AddType<StockEntryType>()
-                .AddType<SupplierType>()
-                .AddType<TechnicianBalanceEntryType>()
-                .AddType<TechnicianPhotoType>()
-                .AddType<TechnicianType>();
+            services.Configure<FileSettings>(configuration.GetSection("FileSettings"));
 
-            services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));
+            services.AddAutoMapper();
 
-            services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
-                options.UseMySQL(_configuration.GetValue<string>("ConnectionStrings:Default")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySQL(configuration.GetConnectionString("Default")));
+
+            services.AddScoped<IOrderFacade, OrderFacade>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ITechnicianRepository, TechnicianRepository>();
+            services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
+            services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
+            services.AddScoped<IStockRepository, StockRepository>();
+            services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
             services.AddScoped<FileSystemPhotoStorage>();
+
+            services.AddControllersWithViews();
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,17 +75,42 @@ namespace Warehouse
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
 
             app.UseCors(DefaultCorsPolicy);
 
-            app.UseEndpoints(endpoints => endpoints.MapGraphQL());
-
-            app.UseGraphQLVoyager(new GraphQLVoyagerOptions
+            app.UseEndpoints(endpoints =>
             {
-                GraphQLEndPoint = "/graphql",
-                Path = "/graphql-voyager"
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }
