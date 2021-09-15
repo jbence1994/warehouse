@@ -1,5 +1,6 @@
 {
   "productsEndpoint": "api/products",
+  "productPhotosEndpoint": "api/products/photos",
   "stocksEndpoint": "api/stocks",
   "suppliersEndpoint": "api/suppliers",
   "supplierKeyValuePairsEndpoint": "api/suppliers/supplierKeyValuePairs",

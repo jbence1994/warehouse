@@ -12,16 +12,19 @@
     *ngFor="let product of products"
   >
     <div class="card mt-3">
-      <fieldset *ngFor="let photo of photos">
-        <p *ngIf="photos?.length == 0">
-          A termékről még nincs egyetlen fénykép sem.
-        </p>
+      <div *ngFor="let photo of photos">
+        <!-- TODO: replace it with an upload button -->
+        <button *ngIf="product.id !== photo.productId" class="btn btn-primary">
+          Fénykép feltöltése
+        </button>
+        <!-------------------------------------------->
         <img
+          *ngIf="product.id === photo.productId"
           src="/uploads/products/{{ photo.fileName }}"
           class="card-img-top"
           alt="{{ product.name }}"
         />
-      </fieldset>
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
         <div class="card-text">

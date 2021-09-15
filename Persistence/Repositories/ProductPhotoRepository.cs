@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -16,11 +15,9 @@ namespace Warehouse.Persistence.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<ProductPhoto>> GetPhotos(int productId)
+        public async Task<IEnumerable<ProductPhoto>> GetPhotos()
         {
-            return await context.ProductPhotos
-                .Where(p => p.ProductId == productId)
-                .ToListAsync();
+            return await context.ProductPhotos.ToListAsync();
         }
     }
 }

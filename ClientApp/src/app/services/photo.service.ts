@@ -1,12 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import Photo from "../models/photo";
 import * as config from "../config/endpoints.json";
+import Photo from "../models/photo";
+import ProductPhoto from "../models/productPhoto";
 
 @Injectable()
 export default class PhotoService {
   private readonly ProductsEndpoint = config.productsEndpoint;
   private readonly TechniciansEndpoint = config.techniciansEndpoint;
+  private readonly ProductPhotosEndpoint = config.productPhotosEndpoint;
 
   constructor(
     private http: HttpClient,
@@ -14,9 +16,8 @@ export default class PhotoService {
   ) {}
 
   getProductPhotos() {
-    // TODO: refactor hard-coded resource id in route ...
-    return this.http.get<Photo[]>(
-      `${this.baseUrl}${this.ProductsEndpoint}/1/photos`
+    return this.http.get<ProductPhoto[]>(
+      `${this.baseUrl}${this.ProductPhotosEndpoint}`
     );
   }
 

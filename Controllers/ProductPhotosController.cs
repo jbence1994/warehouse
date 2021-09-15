@@ -15,7 +15,7 @@ using Warehouse.Core.Repositories;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/products/{productId:int}/photos")]
+    [Route("api/products/photos")]
     public class ProductPhotosController : ControllerBase
     {
         private readonly IProductPhotoRepository productPhotoRepository;
@@ -45,7 +45,18 @@ namespace Warehouse.Controllers
             fileSettings = options.Value;
         }
 
-        [HttpPost]
+        [HttpGet]
+        public async Task<IActionResult> GetPhotos()
+        {
+            var photos = await productPhotoRepository.GetPhotos();
+
+            var photoResources = mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<ProductPhotoResource>>(photos);
+
+            return Ok(photoResources);
+        }
+
+        // TODO: refactor if needed in case of errors of client-side endpoint call ...
+        [HttpPost("{productId:int}")]
         public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
         {
             var product = await productRepository.GetProduct(productId, includeRelated: false);
@@ -80,16 +91,6 @@ namespace Warehouse.Controllers
             var result = mapper.Map<ProductPhoto, PhotoResource>(photo);
 
             return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetPhotos(int productId)
-        {
-            var photos = await productPhotoRepository.GetPhotos(productId);
-
-            var photoResources = mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<PhotoResource>>(photos);
-
-            return Ok(photoResources);
         }
     }
 }

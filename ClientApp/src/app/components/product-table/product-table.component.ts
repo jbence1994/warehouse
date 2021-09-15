@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import ProductService from "src/app/services/product.service";
 import PhotoService from "../../services/photo.service";
 import Product from "src/app/models/product";
-import Photo from "../../models/photo";
+import ProductPhoto from "../../models/productPhoto";
 
 @Component({
   selector: "app-product-table",
@@ -10,7 +10,7 @@ import Photo from "../../models/photo";
 })
 export default class ProductTableComponent implements OnInit {
   products: Product[];
-  photos: Photo[];
+  photos: ProductPhoto[];
 
   constructor(
     private productService: ProductService,
