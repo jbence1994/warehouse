@@ -5,10 +5,10 @@ import Product from "src/app/models/product";
 import ProductPhoto from "../../models/productPhoto";
 
 @Component({
-  selector: "app-product-table",
-  templateUrl: "./product-table.component.html",
+  selector: "app-products",
+  templateUrl: "./products.component.html",
 })
-export default class ProductTableComponent implements OnInit {
+export default class Products implements OnInit {
   products: Product[];
   photos: ProductPhoto[];
 

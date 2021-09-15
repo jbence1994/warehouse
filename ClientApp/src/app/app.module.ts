@@ -9,7 +9,7 @@ import NavMenuComponent from "./components/nav-menu/nav-menu.component";
 import HomeComponent from "./components/home/home.component";
 import StockTableComponent from "./components/stock-table/stock-table.component";
 import StockFormComponent from "./components/stock-form/stock-form.component";
-import ProductTableComponent from "./components/product-table/product-table.component";
+import Products from "./components/products/products.component";
 import ProductFormComponent from "./components/product-form/product-form.component";
 import TechniciansTableComponent from "./components/technician-table/technicians-table.component";
 import TechnicianFormComponent from "./components/technician-form/technician-form.component";
@@ -31,7 +31,7 @@ import SupplierService from "./services/supplier.service";
     HomeComponent,
     StockTableComponent,
     StockFormComponent,
-    ProductTableComponent,
+    Products,
     ProductFormComponent,
     TechniciansTableComponent,
     TechnicianFormComponent,
@@ -47,7 +47,7 @@ import SupplierService from "./services/supplier.service";
       { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "raktarkeszlet", component: StockTableComponent },
       { path: "raktarkeszlet/uj", component: StockFormComponent },
-      { path: "termeklista", component: ProductTableComponent },
+      { path: "termeklista", component: Products },
       { path: "termeklista/uj", component: ProductFormComponent },
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
