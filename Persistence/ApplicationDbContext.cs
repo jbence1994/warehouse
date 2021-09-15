@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Warehouse.Models;
+using Warehouse.Core.Models;
 using Warehouse.Persistence.EntityConfigurations;
 
 namespace Warehouse.Persistence
@@ -7,14 +7,12 @@ namespace Warehouse.Persistence
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockEntry> StockEntries { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Technician> Technicians { get; set; }
-        public DbSet<TechnicianBalanceEntry> TechnicianBalanceEntries { get; set; }
         public DbSet<TechnicianPhoto> TechnicianPhotos { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

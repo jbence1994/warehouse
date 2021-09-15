@@ -1,0 +1,36 @@
+<p class="text-center" *ngIf="!products">Betöltés...</p>
+
+<div class="form-group" *ngIf="products">
+  <a [routerLink]="['/termeklista/uj']" class="btn btn-primary"
+    >Terméklista bővítése</a
+  >
+</div>
+
+<table
+  class="table table-hover table-responsive-md"
+  aria-labelledby="tableLabel"
+  *ngIf="products"
+>
+  <thead>
+    <tr>
+      <th>Név</th>
+      <th>Egységár</th>
+      <th>Egység</th>
+      <th>Beszállító</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products">
+      <td>{{ p.name }}</td>
+      <td>{{ p.price }}</td>
+      <td>{{ p.unit }}</td>
+      <td>{{ p.supplierName }}</td>
+      <td>
+        <a class="btn btn-primary" [routerLink]="['/termeklista/', p.id]"
+          >Részletek</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
