@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import ProductService from "src/app/services/product.service";
 import PhotoService from "../../services/photo.service";
 import Product from "src/app/models/product";
@@ -10,8 +10,9 @@ import ProductPhoto from "../../models/productPhoto";
   styleUrls: ["./products.component.css"],
 })
 export default class Products implements OnInit {
+  @ViewChild("fileInput", { read: "", static: true }) fileInput: ElementRef;
   products: Product[];
-  photos: ProductPhoto[];
+  productPhotos: ProductPhoto[];
 
   constructor(
     private productService: ProductService,
@@ -32,8 +33,17 @@ export default class Products implements OnInit {
   populatePhotos() {
     this.photoService
       .getProductPhotos()
-      .subscribe((photos) => (this.photos = photos));
+      .subscribe((productPhotos) => (this.productPhotos = productPhotos));
   }
 
-  uploadPhoto() {}
+  uploadProductPhoto(productId: number) {
+    let nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+    let file = nativeElement.files[0];
+
+    nativeElement.value = "";
+
+    this.photoService
+      .uploadProductPhoto(productId, file)
+      .subscribe((productPhoto) => this.productPhotos.push(productPhoto));
+  }
 }

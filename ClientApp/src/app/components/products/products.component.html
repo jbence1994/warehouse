@@ -11,14 +11,36 @@
     class="col-sm-12 col-md-12 col-lg-4"
     *ngFor="let product of products"
   >
-    <div class="card mt-3" *ngFor="let photo of photos">
-      <div>
-        <img
-          *ngIf="product.id === photo.productId"
-          src="/uploads/products/{{ photo.fileName }}"
-          class="card-img-top"
-          alt="{{ product.name }}"
-        />
+    <div class="card mt-3">
+      <!--div *ngIf="productPhotos?.length === 0">
+        <div class="photo-upload">
+          <button class="btn btn-primary">Fénykép feltöltése</button>
+          <input
+            type="file"
+            (change)="uploadProductPhoto(product.id)"
+            #fileInput
+          />
+        </div>
+      </div-->
+      <div *ngIf="productPhotos?.length !== 0">
+        <div *ngFor="let photo of productPhotos">
+          <img
+            *ngIf="product.id === photo.productId"
+            src="/uploads/products/{{ photo.fileName }}"
+            class="card-img-top"
+            alt="{{ product.name }}"
+          />
+          <div *ngIf="product.id !== photo.productId">
+            <div class="photo-upload">
+              <button class="btn btn-primary">Fénykép feltöltése</button>
+              <input
+                type="file"
+                (change)="uploadProductPhoto(product.id)"
+                #fileInput
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
@@ -26,15 +48,6 @@
           <p>Egységár: {{ product.price }}.- Forint</p>
           <p>Mennyiségi egység: {{ product.unit }}</p>
           <p>Beszállító: {{ product.supplierName }}</p>
-        </div>
-        <div class="photo-upload">
-          <button
-            *ngIf="product.id !== photo.productId"
-            class="btn btn-primary"
-          >
-            Fénykép feltöltése
-          </button>
-          <input type="file" (change)="uploadPhoto()" #fileInput />
         </div>
       </div>
     </div>
