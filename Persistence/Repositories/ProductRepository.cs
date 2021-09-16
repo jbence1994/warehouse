@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -19,6 +20,7 @@ namespace Warehouse.Persistence.Repositories
         {
             return await context.Products
                 .Include(p => p.Supplier)
+                .OrderBy(p => p.Id)
                 .ToListAsync();
         }
 
