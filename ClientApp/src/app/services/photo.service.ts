@@ -31,8 +31,8 @@ export default class PhotoService {
     const formData = new FormData();
     formData.append("photoToUpload", photoToUpload);
 
-    return this.http.post<Photo>(
-      `${this.baseUrl}${this.ProductsEndpoint}/${productId}/photos`,
+    return this.http.post<ProductPhoto>(
+      `${this.baseUrl}${this.ProductPhotosEndpoint}/${productId}`,
       formData
     );
   }

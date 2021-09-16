@@ -55,7 +55,6 @@ namespace Warehouse.Controllers
             return Ok(photoResources);
         }
 
-        // TODO: refactor if needed in case of errors of client-side endpoint call ...
         [HttpPost("{productId:int}")]
         public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
         {
