@@ -1,9 +1,7 @@
 namespace Warehouse.Core.Models
 {
-    public class ProductPhoto
+    public class ProductPhoto : Photo
     {
-        public int Id { get; set; }
-        public string FileName { get; set; }
         public int ProductId { get; set; }
     }
 }
