@@ -7,16 +7,16 @@ namespace Warehouse.Persistence.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public OrderRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<Order> GetOrder(int id)
         {
-            return await context.Orders
+            return await _context.Orders
                 .Include(o => o.OrderDetails)
                 .ThenInclude(o => o.Product)
                 .ThenInclude(p => p.Supplier)

@@ -8,33 +8,33 @@ namespace Warehouse.Persistence.Repositories
 {
     public class SupplierRepository : ISupplierRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public SupplierRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Supplier>> GetSuppliers(bool includeRelated = true)
         {
             if (includeRelated)
             {
-                return await context.Suppliers
+                return await _context.Suppliers
                     .Include(s => s.Products)
                     .ToListAsync();
             }
 
-            return await context.Suppliers.ToListAsync();
+            return await _context.Suppliers.ToListAsync();
         }
 
         public async Task<Supplier> GetSupplier(int id)
         {
-            return await context.Suppliers.FindAsync(id);
+            return await _context.Suppliers.FindAsync(id);
         }
 
         public async Task Add(Supplier supplier)
         {
-            await context.Suppliers.AddAsync(supplier);
+            await _context.Suppliers.AddAsync(supplier);
         }
     }
 }

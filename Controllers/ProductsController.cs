@@ -14,9 +14,9 @@ namespace Warehouse.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository productRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public ProductsController(
             IProductRepository productRepository,
@@ -24,17 +24,17 @@ namespace Warehouse.Controllers
             IMapper mapper
         )
         {
-            this.productRepository = productRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await productRepository.GetProducts();
+            var products = await _productRepository.GetProducts();
 
-            var productResources = mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
+            var productResources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
 
             return Ok(productResources);
         }
@@ -42,14 +42,14 @@ namespace Warehouse.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var product = await productRepository.GetProduct(id);
+            var product = await _productRepository.GetProduct(id);
 
             if (product == null)
             {
                 return NotFound();
             }
 
-            var productResource = mapper.Map<Product, ProductResource>(product);
+            var productResource = _mapper.Map<Product, ProductResource>(product);
 
             return Ok(productResource);
         }
@@ -62,14 +62,14 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = mapper.Map<SaveProductResource, Product>(productResource);
+            var product = _mapper.Map<SaveProductResource, Product>(productResource);
 
-            await productRepository.Add(product);
-            await unitOfWork.CompleteAsync();
+            await _productRepository.Add(product);
+            await _unitOfWork.CompleteAsync();
 
-            product = await productRepository.GetProduct(product.Id);
+            product = await _productRepository.GetProduct(product.Id);
 
-            var result = mapper.Map<Product, ProductResource>(product);
+            var result = _mapper.Map<Product, ProductResource>(product);
 
             return Ok(result);
         }

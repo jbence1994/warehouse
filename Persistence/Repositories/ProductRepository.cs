@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -8,17 +9,18 @@ namespace Warehouse.Persistence.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public ProductRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await context.Products
+            return await _context.Products
                 .Include(p => p.Supplier)
+                .OrderBy(p => p.Id)
                 .ToListAsync();
         }
 
@@ -26,17 +28,17 @@ namespace Warehouse.Persistence.Repositories
         {
             if (includeRelated)
             {
-                return await context.Products
+                return await _context.Products
                     .Include(p => p.Supplier)
                     .SingleOrDefaultAsync(p => p.Id == id);
             }
 
-            return await context.Products.FindAsync(id);
+            return await _context.Products.FindAsync(id);
         }
 
         public async Task Add(Product product)
         {
-            await context.Products.AddAsync(product);
+            await _context.Products.AddAsync(product);
         }
     }
 }

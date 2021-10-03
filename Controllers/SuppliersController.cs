@@ -14,9 +14,9 @@ namespace Warehouse.Controllers
     [Route("api/[controller]")]
     public class SuppliersController : ControllerBase
     {
-        private readonly ISupplierRepository supplierRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly ISupplierRepository _supplierRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public SuppliersController(
             ISupplierRepository supplierRepository,
@@ -24,18 +24,18 @@ namespace Warehouse.Controllers
             IMapper mapper
         )
         {
-            this.supplierRepository = supplierRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _supplierRepository = supplierRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSuppliers()
         {
-            var suppliers = await supplierRepository.GetSuppliers(includeRelated: false);
+            var suppliers = await _supplierRepository.GetSuppliers(includeRelated: false);
 
             var supplierResources =
-                mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierResource>>(suppliers);
+                _mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierResource>>(suppliers);
 
             return Ok(supplierResources);
         }
@@ -43,10 +43,11 @@ namespace Warehouse.Controllers
         [HttpGet("supplierKeyValuePairsWithProductKeyValuePairs")]
         public async Task<IActionResult> GetSupplierKeyValuePairsWithProductKeyValuePairs()
         {
-            var suppliers = await supplierRepository.GetSuppliers();
+            var suppliers = await _supplierRepository.GetSuppliers();
 
             var supplierResources =
-                mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierKeyValuePairWithProductKeyValuePairsResource>>(suppliers);
+                _mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierKeyValuePairWithProductKeyValuePairsResource>>(
+                    suppliers);
 
             return Ok(supplierResources);
         }
@@ -54,9 +55,9 @@ namespace Warehouse.Controllers
         [HttpGet("supplierKeyValuePairs")]
         public async Task<IActionResult> GetSupplierKeyValuePairs()
         {
-            var suppliers = await supplierRepository.GetSuppliers(includeRelated: false);
+            var suppliers = await _supplierRepository.GetSuppliers(includeRelated: false);
 
-            var supplierResources = mapper.Map<IEnumerable<Supplier>, IEnumerable<KeyValuePairResource>>(suppliers);
+            var supplierResources = _mapper.Map<IEnumerable<Supplier>, IEnumerable<KeyValuePairResource>>(suppliers);
 
             return Ok(supplierResources);
         }
@@ -69,14 +70,14 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var supplier = mapper.Map<SaveSupplierResource, Supplier>(saveSupplierResource);
+            var supplier = _mapper.Map<SaveSupplierResource, Supplier>(saveSupplierResource);
 
-            await supplierRepository.Add(supplier);
-            await unitOfWork.CompleteAsync();
+            await _supplierRepository.Add(supplier);
+            await _unitOfWork.CompleteAsync();
 
-            supplier = await supplierRepository.GetSupplier(supplier.Id);
+            supplier = await _supplierRepository.GetSupplier(supplier.Id);
 
-            var result = mapper.Map<Supplier, SupplierResource>(supplier);
+            var result = _mapper.Map<Supplier, SupplierResource>(supplier);
 
             return Ok(result);
         }

@@ -15,16 +15,16 @@ using Warehouse.Core.Repositories;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/products/{productId:int}/photos")]
+    [Route("api/products/photos")]
     public class ProductPhotosController : ControllerBase
     {
-        private readonly IProductPhotoRepository productPhotoRepository;
-        private readonly IProductRepository productRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
-        private readonly IWebHostEnvironment host;
-        private readonly FileSystemPhotoStorage photoStorage;
-        private readonly FileSettings fileSettings;
+        private readonly IProductPhotoRepository _productPhotoRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _host;
+        private readonly FileSystemPhotoStorage _photoStorage;
+        private readonly FileSettings _fileSettings;
 
         public ProductPhotosController(
             IProductPhotoRepository productPhotoRepository,
@@ -36,19 +36,29 @@ namespace Warehouse.Controllers
             IOptions<FileSettings> options
         )
         {
-            this.productPhotoRepository = productPhotoRepository;
-            this.productRepository = productRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-            this.host = host;
-            this.photoStorage = photoStorage;
-            fileSettings = options.Value;
+            _productPhotoRepository = productPhotoRepository;
+            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _host = host;
+            _photoStorage = photoStorage;
+            _fileSettings = options.Value;
         }
 
-        [HttpPost]
+        [HttpGet]
+        public async Task<IActionResult> GetPhotos()
+        {
+            var photos = await _productPhotoRepository.GetPhotos();
+
+            var photoResources = _mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<ProductPhotoResource>>(photos);
+
+            return Ok(photoResources);
+        }
+
+        [HttpPost("{productId:int}")]
         public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
         {
-            var product = await productRepository.GetProduct(productId, includeRelated: false);
+            var product = await _productRepository.GetProduct(productId, includeRelated: false);
 
             if (product == null)
             {
@@ -57,16 +67,16 @@ namespace Warehouse.Controllers
 
             try
             {
-                photoToUpload.Validate(fileSettings);
+                photoToUpload.Validate(_fileSettings);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
 
-            var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/products");
+            var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/products");
 
-            var fileName = await photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
+            var fileName = await _photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
 
             var photo = new ProductPhoto
             {
@@ -75,21 +85,11 @@ namespace Warehouse.Controllers
 
             product.Photos.Add(photo);
 
-            await unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
 
-            var result = mapper.Map<ProductPhoto, PhotoResource>(photo);
+            var result = _mapper.Map<ProductPhoto, PhotoResource>(photo);
 
             return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetPhotos(int productId)
-        {
-            var photos = await productPhotoRepository.GetPhotos(productId);
-
-            var photoResources = mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<PhotoResource>>(photos);
-
-            return Ok(photoResources);
         }
     }
 }

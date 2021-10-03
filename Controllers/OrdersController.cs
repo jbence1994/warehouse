@@ -15,10 +15,10 @@ namespace Warehouse.Controllers
     [Route("/api/[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderRepository orderRepository;
-        private readonly IOrderFacade orderFacade;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderFacade _orderFacade;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public OrdersController(
             IOrderRepository orderRepository,
@@ -27,10 +27,10 @@ namespace Warehouse.Controllers
             IMapper mapper
         )
         {
-            this.orderRepository = orderRepository;
-            this.orderFacade = orderFacade;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _orderRepository = orderRepository;
+            _orderFacade = orderFacade;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -41,17 +41,17 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var order = mapper.Map<SaveOrderResource, Order>(orderResource);
+            var order = _mapper.Map<SaveOrderResource, Order>(orderResource);
             order.CreatedAt = DateTime.Now;
 
             try
             {
-                await orderFacade.Checkout(order);
-                await unitOfWork.CompleteAsync();
+                await _orderFacade.Checkout(order);
+                await _unitOfWork.CompleteAsync();
 
-                order = await orderRepository.GetOrder(order.Id);
+                order = await _orderRepository.GetOrder(order.Id);
 
-                var result = mapper.Map<Order, OrderResource>(order);
+                var result = _mapper.Map<Order, OrderResource>(order);
 
                 return Ok(result);
             }

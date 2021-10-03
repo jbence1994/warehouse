@@ -9,16 +9,16 @@ namespace Warehouse.Persistence.Repositories
 {
     public class TechnicianPhotoRepository : ITechnicianPhotoRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public TechnicianPhotoRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<TechnicianPhoto>> GetPhotos(int technicianId)
         {
-            return await context.TechnicianPhotos
+            return await _context.TechnicianPhotos
                 .Where(p => p.TechnicianId == technicianId)
                 .ToListAsync();
         }

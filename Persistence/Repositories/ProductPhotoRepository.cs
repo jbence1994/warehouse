@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -9,18 +8,16 @@ namespace Warehouse.Persistence.Repositories
 {
     public class ProductPhotoRepository : IProductPhotoRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public ProductPhotoRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public async Task<IEnumerable<ProductPhoto>> GetPhotos(int productId)
+        public async Task<IEnumerable<ProductPhoto>> GetPhotos()
         {
-            return await context.ProductPhotos
-                .Where(p => p.ProductId == productId)
-                .ToListAsync();
+            return await _context.ProductPhotos.ToListAsync();
         }
     }
 }

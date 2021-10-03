@@ -30,7 +30,7 @@ namespace Warehouse.Mapping
             CreateMap<Supplier, KeyValuePairResource>();
             CreateMap<Supplier, SupplierResource>();
             CreateMap<StockEntry, StockEntryResource>();
-            CreateMap<ProductPhoto, PhotoResource>();
+            CreateMap<ProductPhoto, ProductPhotoResource>();
             CreateMap<Technician, TechnicianResource>();
             CreateMap<TechnicianPhoto, PhotoResource>();
             CreateMap<Order, OrderResource>();

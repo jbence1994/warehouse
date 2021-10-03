@@ -9,16 +9,16 @@ namespace Warehouse.Persistence.Repositories
 {
     public class TechnicianOrderRepository : ITechnicianOrderRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public TechnicianOrderRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Order>> GetOrders(int technicianId)
         {
-            return await context.Orders
+            return await _context.Orders
                 .Include(s => s.OrderDetails)
                 .ThenInclude(s => s.Product)
                 .ThenInclude(s => s.Supplier)
