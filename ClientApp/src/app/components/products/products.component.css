@@ -10,3 +10,11 @@
   top: 0;
   opacity: 0;
 }
+
+img {
+  width: 250px;
+  height: 250px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+}
