@@ -1,4 +1,4 @@
-# netsurf-warehouse
+# warehouse
 
 Netsurf Távközlési Szolgáltató Kft. stock management application.
 
