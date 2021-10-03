@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import ProductService from "./../../services/product.service";
 import SaveProduct from "src/app/models/saveProduct";
 import KeyValuePair from "./../../models/keyValuePair";
@@ -11,20 +12,21 @@ export default class ProductFormComponent implements OnInit {
   suppliers: KeyValuePair[];
 
   saveProduct: SaveProduct = {
-    name: null,
+    name: "",
     price: 0,
-    unit: null,
+    unit: "",
     supplierId: 0,
   };
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit() {
     this.populateSuppliers();
   }
 
   submit() {
-    console.log("POST request to REST API ...");
+    this.productService.createProduct(this.saveProduct).subscribe();
+    this.router.navigate(["/termeklista/"]);
   }
 
   populateSuppliers() {
