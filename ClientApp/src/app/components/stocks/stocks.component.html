@@ -1,7 +1,7 @@
-<p class="text-center" *ngIf="!products">Betöltés...</p>
+﻿<p class="text-center" *ngIf="!products">Betöltés...</p>
 
 <div class="form-group" *ngIf="products">
-  <a [routerLink]="['/termeklista/uj']" class="btn btn-primary"
+  <a [routerLink]="['termek/uj']" class="btn btn-primary"
     >Terméklista bővítése</a
   >
 </div>
@@ -26,6 +26,7 @@
           <p>Egységár: {{ product.price }}.- Forint</p>
           <p>Mennyiségi egység: {{ product.unit }}</p>
           <p>Beszállító: {{ product.supplierName }}</p>
+          <p>Jelenleg raktáron: {{ 0 }}</p>
         </div>
       </div>
     </div>

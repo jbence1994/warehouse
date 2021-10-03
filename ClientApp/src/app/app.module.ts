@@ -7,9 +7,7 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import NavMenuComponent from "./components/nav-menu/nav-menu.component";
 import HomeComponent from "./components/home/home.component";
-import StockTableComponent from "./components/stock-table/stock-table.component";
-import StockFormComponent from "./components/stock-form/stock-form.component";
-import Products from "./components/products/products.component";
+import StocksComponent from "./components/stocks/stocks.component";
 import ProductFormComponent from "./components/product-form/product-form.component";
 import TechniciansTableComponent from "./components/technician-table/technicians-table.component";
 import TechnicianFormComponent from "./components/technician-form/technician-form.component";
@@ -29,9 +27,7 @@ import SupplierService from "./services/supplier.service";
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    StockTableComponent,
-    StockFormComponent,
-    Products,
+    StocksComponent,
     ProductFormComponent,
     TechniciansTableComponent,
     TechnicianFormComponent,
@@ -45,10 +41,8 @@ import SupplierService from "./services/supplier.service";
     FormsModule,
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "raktarkeszlet", component: StockTableComponent },
-      { path: "raktarkeszlet/uj", component: StockFormComponent },
-      { path: "termeklista", component: Products },
-      { path: "termeklista/uj", component: ProductFormComponent },
+      { path: "raktarkeszlet", component: StocksComponent },
+      { path: "raktarkeszlet/termek/uj", component: ProductFormComponent },
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
