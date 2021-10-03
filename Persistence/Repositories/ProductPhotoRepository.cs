@@ -8,16 +8,16 @@ namespace Warehouse.Persistence.Repositories
 {
     public class ProductPhotoRepository : IProductPhotoRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public ProductPhotoRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<ProductPhoto>> GetPhotos()
         {
-            return await context.ProductPhotos.ToListAsync();
+            return await _context.ProductPhotos.ToListAsync();
         }
     }
 }

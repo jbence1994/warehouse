@@ -15,9 +15,9 @@ namespace Warehouse.Controllers
     [Route("api/[controller]")]
     public class TechniciansController : ControllerBase
     {
-        private readonly ITechnicianRepository technicianRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly ITechnicianRepository _technicianRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public TechniciansController(
             ITechnicianRepository technicianRepository,
@@ -25,17 +25,18 @@ namespace Warehouse.Controllers
             IMapper mapper
         )
         {
-            this.technicianRepository = technicianRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _technicianRepository = technicianRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTechnicians()
         {
-            var technicians = await technicianRepository.GetTechnicians();
+            var technicians = await _technicianRepository.GetTechnicians();
 
-            var technicianResources = mapper.Map<IEnumerable<Technician>, IEnumerable<TechnicianResource>>(technicians);
+            var technicianResources =
+                _mapper.Map<IEnumerable<Technician>, IEnumerable<TechnicianResource>>(technicians);
 
             return Ok(technicianResources);
         }
@@ -43,14 +44,14 @@ namespace Warehouse.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTechnician(int id)
         {
-            var technician = await technicianRepository.GetTechnician(id);
+            var technician = await _technicianRepository.GetTechnician(id);
 
             if (technician == null)
             {
                 return NotFound();
             }
 
-            var technicianResource = mapper.Map<Technician, TechnicianResource>(technician);
+            var technicianResource = _mapper.Map<Technician, TechnicianResource>(technician);
 
             return Ok(technicianResource);
         }
@@ -63,7 +64,7 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var technician = mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
+            var technician = _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
             technician.BalanceEntries.Add(new TechnicianBalanceEntry
             {
@@ -71,13 +72,13 @@ namespace Warehouse.Controllers
                 CreatedAt = DateTime.Now
             });
 
-            await technicianRepository.Add(technician);
+            await _technicianRepository.Add(technician);
 
-            await unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
 
-            technician = await technicianRepository.GetTechnician(technician.Id);
+            technician = await _technicianRepository.GetTechnician(technician.Id);
 
-            var result = mapper.Map<Technician, TechnicianResource>(technician);
+            var result = _mapper.Map<Technician, TechnicianResource>(technician);
 
             return Ok(result);
         }

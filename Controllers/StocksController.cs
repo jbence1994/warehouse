@@ -15,9 +15,9 @@ namespace Warehouse.Controllers
     [Route("api/[controller]")]
     public class StocksController : ControllerBase
     {
-        private readonly IStockRepository stockRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly IStockRepository _stockRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public StocksController(
             IStockRepository stockRepository,
@@ -25,17 +25,17 @@ namespace Warehouse.Controllers
             IMapper mapper
         )
         {
-            this.stockRepository = stockRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _stockRepository = stockRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetStocks()
         {
-            var stocks = await stockRepository.GetStocks();
+            var stocks = await _stockRepository.GetStocks();
 
-            var stockResources = mapper.Map<IEnumerable<Stock>, IEnumerable<StockResource>>(stocks);
+            var stockResources = _mapper.Map<IEnumerable<Stock>, IEnumerable<StockResource>>(stocks);
 
             return Ok(stockResources);
         }
@@ -48,12 +48,12 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var stockEntry = mapper.Map<SaveStockEntryResource, StockEntry>(stockEntryResource);
+            var stockEntry = _mapper.Map<SaveStockEntryResource, StockEntry>(stockEntryResource);
             stockEntry.CreatedAt = DateTime.Now;
 
-            if (await stockRepository.IsProductOnStock(stockEntry.ProductId))
+            if (await _stockRepository.IsProductOnStock(stockEntry.ProductId))
             {
-                var stock = await stockRepository.GetStock(stockEntry.ProductId);
+                var stock = await _stockRepository.GetStock(stockEntry.ProductId);
                 stock.Quantity += stockEntry.Quantity;
             }
             else
@@ -64,16 +64,16 @@ namespace Warehouse.Controllers
                     Quantity = stockEntry.Quantity
                 };
 
-                await stockRepository.Add(stock);
+                await _stockRepository.Add(stock);
             }
 
-            await stockRepository.Add(stockEntry);
+            await _stockRepository.Add(stockEntry);
 
-            await unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
 
-            stockEntry = await stockRepository.GetStockEntry(stockEntry.Id);
+            stockEntry = await _stockRepository.GetStockEntry(stockEntry.Id);
 
-            var result = mapper.Map<StockEntry, StockEntryResource>(stockEntry);
+            var result = _mapper.Map<StockEntry, StockEntryResource>(stockEntry);
 
             return Ok(result);
         }
