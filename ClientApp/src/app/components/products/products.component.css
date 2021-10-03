@@ -1,14 +1,6 @@
-img {
-  margin: 10px;
-  width: 210px;
-  height: 210px;
-  object-fit: contain;
-}
-
-.photo-upload {
+﻿.photo-upload {
   position: relative;
   overflow: hidden;
-  display: inline-block;
 }
 
 .photo-upload input[type="file"] {
@@ -19,6 +11,10 @@ img {
   opacity: 0;
 }
 
-ul li {
-  list-style-type: none;
+img {
+  width: 250px;
+  height: 250px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
 }

@@ -18,13 +18,13 @@ namespace Warehouse.Controllers
     [Route("api/technicians/{technicianId:int}/photos")]
     public class TechnicianPhotosController : ControllerBase
     {
-        private readonly ITechnicianPhotoRepository technicianPhotoRepository;
-        private readonly ITechnicianRepository technicianRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
-        private readonly IWebHostEnvironment host;
-        private readonly FileSystemPhotoStorage photoStorage;
-        private readonly FileSettings fileSettings;
+        private readonly ITechnicianPhotoRepository _technicianPhotoRepository;
+        private readonly ITechnicianRepository _technicianRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _host;
+        private readonly FileSystemPhotoStorage _photoStorage;
+        private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
             ITechnicianPhotoRepository technicianPhotoRepository,
@@ -36,19 +36,19 @@ namespace Warehouse.Controllers
             IOptions<FileSettings> options
         )
         {
-            this.technicianPhotoRepository = technicianPhotoRepository;
-            this.technicianRepository = technicianRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-            this.host = host;
-            this.photoStorage = photoStorage;
-            fileSettings = options.Value;
+            _technicianPhotoRepository = technicianPhotoRepository;
+            _technicianRepository = technicianRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _host = host;
+            _photoStorage = photoStorage;
+            _fileSettings = options.Value;
         }
 
         [HttpPost]
         public async Task<IActionResult> UploadPhoto(int technicianId, IFormFile photoToUpload)
         {
-            var technician = await technicianRepository.GetTechnician(technicianId);
+            var technician = await _technicianRepository.GetTechnician(technicianId);
 
             if (technician == null)
             {
@@ -57,16 +57,16 @@ namespace Warehouse.Controllers
 
             try
             {
-                photoToUpload.Validate(fileSettings);
+                photoToUpload.Validate(_fileSettings);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
 
-            var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads/technicians");
+            var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/technicians");
 
-            var fileName = await photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
+            var fileName = await _photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
 
             var photo = new TechnicianPhoto
             {
@@ -75,9 +75,9 @@ namespace Warehouse.Controllers
 
             technician.Photos.Add(photo);
 
-            await unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
 
-            var result = mapper.Map<TechnicianPhoto, PhotoResource>(photo);
+            var result = _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
 
             return Ok(result);
         }
@@ -85,9 +85,9 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotos(int technicianId)
         {
-            var photos = await technicianPhotoRepository.GetPhotos(technicianId);
+            var photos = await _technicianPhotoRepository.GetPhotos(technicianId);
 
-            var photoResources = mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
+            var photoResources = _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
 
             return Ok(photoResources);
         }

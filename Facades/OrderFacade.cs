@@ -8,9 +8,9 @@ namespace Warehouse.Facades
 {
     public class OrderFacade : IOrderFacade
     {
-        private readonly IStockRepository stockRepository;
-        private readonly IProductRepository productRepository;
-        private readonly ITechnicianRepository technicianRepository;
+        private readonly IStockRepository _stockRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly ITechnicianRepository _technicianRepository;
 
         public OrderFacade(
             IStockRepository stockRepository,
@@ -18,9 +18,9 @@ namespace Warehouse.Facades
             ITechnicianRepository technicianRepository
         )
         {
-            this.stockRepository = stockRepository;
-            this.productRepository = productRepository;
-            this.technicianRepository = technicianRepository;
+            _stockRepository = stockRepository;
+            _productRepository = productRepository;
+            _technicianRepository = technicianRepository;
         }
 
         public async Task Checkout(Order order)
@@ -34,7 +34,7 @@ namespace Warehouse.Facades
         {
             foreach (var orderDetail in order.OrderDetails)
             {
-                orderDetail.Product = await productRepository.GetProduct(orderDetail.ProductId, includeRelated: false);
+                orderDetail.Product = await _productRepository.GetProduct(orderDetail.ProductId, includeRelated: false);
                 orderDetail.CalculateSubTotal();
             }
 
@@ -45,7 +45,7 @@ namespace Warehouse.Facades
         {
             foreach (var orderDetail in orderDetails)
             {
-                var stock = await stockRepository.GetStock(orderDetail.ProductId);
+                var stock = await _stockRepository.GetStock(orderDetail.ProductId);
 
                 if (!stock.IsAvailable(orderDetail.Quantity))
                 {
@@ -58,12 +58,12 @@ namespace Warehouse.Facades
 
         private async Task AddToTechnician(Order order)
         {
-            var technician = await technicianRepository.GetTechnician(order.TechnicianId);
+            var technician = await _technicianRepository.GetTechnician(order.TechnicianId);
 
             technician.Orders.Add(order);
-            
+
             technician.Balance -= order.Total;
-            
+
             technician.BalanceEntries.Add(new TechnicianBalanceEntry
             {
                 Amount = technician.Balance,

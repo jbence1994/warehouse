@@ -9,16 +9,16 @@ namespace Warehouse.Persistence.Repositories
 {
     public class StockRepository : IStockRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public StockRepository(ApplicationDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Stock>> GetStocks()
         {
-            return await context.Stocks
+            return await _context.Stocks
                 .Include(s => s.Product)
                 .ThenInclude(p => p.Supplier)
                 .ToListAsync();
@@ -26,14 +26,14 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<Stock> GetStock(int productId)
         {
-            return await context.Stocks
+            return await _context.Stocks
                 .Where(s => s.ProductId == productId)
                 .SingleOrDefaultAsync();
         }
 
         public async Task<StockEntry> GetStockEntry(int id)
         {
-            return await context.StockEntries
+            return await _context.StockEntries
                 .Include(s => s.Product)
                 .ThenInclude(s => s.Supplier)
                 .SingleOrDefaultAsync(s => s.Id == id);
@@ -41,18 +41,18 @@ namespace Warehouse.Persistence.Repositories
 
         public async Task<bool> IsProductOnStock(int productId)
         {
-            return await context.StockEntries
+            return await _context.StockEntries
                 .AnyAsync(s => s.ProductId == productId);
         }
 
         public async Task Add(StockEntry stockEntry)
         {
-            await context.StockEntries.AddAsync(stockEntry);
+            await _context.StockEntries.AddAsync(stockEntry);
         }
 
         public async Task Add(Stock stock)
         {
-            await context.Stocks.AddAsync(stock);
+            await _context.Stocks.AddAsync(stock);
         }
     }
 }

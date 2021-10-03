@@ -17,12 +17,12 @@ namespace Warehouse
 {
     public class Startup
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
         private const string DefaultCorsPolicy = "DefaultCorsPolicy";
 
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -38,12 +38,12 @@ namespace Warehouse
                 });
             });
 
-            services.Configure<FileSettings>(configuration.GetSection("FileSettings"));
+            services.Configure<FileSettings>(_configuration.GetSection("FileSettings"));
 
             services.AddAutoMapper();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(configuration.GetConnectionString("Default")));
+                options.UseMySQL(_configuration.GetConnectionString("Default")));
 
             services.AddScoped<IOrderFacade, OrderFacade>();
 
