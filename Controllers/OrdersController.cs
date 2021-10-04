@@ -42,7 +42,6 @@ namespace Warehouse.Controllers
             }
 
             var order = _mapper.Map<SaveOrderResource, Order>(orderResource);
-            order.CreatedAt = DateTime.Now;
 
             try
             {
