@@ -39,6 +39,8 @@ namespace Warehouse.Controllers
             var product = _mapper.Map<SaveProductResource, Product>(productResource);
 
             await _productRepository.Add(product);
+            product.Stocks.Add(new Stock {Quantity = 0});
+
             await _unitOfWork.CompleteAsync();
 
             product = await _productRepository.GetProduct(product.Id);
