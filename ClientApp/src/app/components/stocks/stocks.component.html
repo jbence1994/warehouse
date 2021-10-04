@@ -26,7 +26,11 @@
           <p>Egységár: {{ product.price }}.- Forint</p>
           <p>Mennyiségi egység: {{ product.unit }}</p>
           <p>Beszállító: {{ product.supplierName }}</p>
-          <p>Jelenleg raktáron: {{ 0 }}</p>
+          <div *ngFor="let stock of stocks">
+            <div *ngIf="stock.productName === product.name">
+              <p>Jelenleg raktáron: {{ stock.quantity }} {{ product.unit }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
