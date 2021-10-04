@@ -1,7 +1,6 @@
 ﻿import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import ProductService from "src/app/services/product.service";
 import PhotoService from "../../services/photo.service";
-import Product from "src/app/models/product";
 import ProductPhoto from "../../models/productPhoto";
 import Stock from "../../models/stock";
 import StockService from "../../services/stock.service";
@@ -13,7 +12,6 @@ import StockService from "../../services/stock.service";
 })
 export default class StocksComponent implements OnInit {
   @ViewChild("fileInput", { read: "", static: true }) fileInput: ElementRef;
-  products: Product[];
   stocks: Stock[];
   productPhotos: ProductPhoto[];
 
@@ -24,18 +22,11 @@ export default class StocksComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.populateProducts();
-    this.populatePhotos();
+    this.populateProductPhotos();
     this.populateStocks();
   }
 
-  populateProducts() {
-    this.productService
-      .getProducts()
-      .subscribe((products) => (this.products = products));
-  }
-
-  populatePhotos() {
+  populateProductPhotos() {
     this.photoService
       .getProductPhotos()
       .subscribe((productPhotos) => (this.productPhotos = productPhotos));

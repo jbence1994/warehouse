@@ -1,36 +1,31 @@
-﻿<p class="text-center" *ngIf="!products">Betöltés...</p>
+﻿<p class="text-center" *ngIf="!stocks">Betöltés...</p>
 
-<div class="form-group" *ngIf="products">
+<div class="form-group" *ngIf="stocks">
   <a [routerLink]="['termek/uj']" class="btn btn-primary"
     >Terméklista bővítése</a
   >
 </div>
 
 <section class="row">
-  <article
-    class="col-sm-12 col-md-12 col-lg-4"
-    *ngFor="let product of products"
-  >
+  <article class="col-sm-12 col-md-12 col-lg-4" *ngFor="let stock of stocks">
     <div class="card mt-3 mb-3">
       <div *ngFor="let photo of productPhotos">
         <img
-          *ngIf="product.id === photo.productId"
+          *ngIf="stock.product.id === photo.productId"
           src="/uploads/products/{{ photo.fileName }}"
           class="card-img-top"
-          alt="{{ product.name }}"
+          alt="{{ stock.product.name }}"
         />
       </div>
       <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
+        <h5 class="card-title">{{ stock.product.name }}</h5>
         <div class="card-text">
-          <p>Egységár: {{ product.price }}.- Forint</p>
-          <p>Mennyiségi egység: {{ product.unit }}</p>
-          <p>Beszállító: {{ product.supplierName }}</p>
-          <div *ngFor="let stock of stocks">
-            <div *ngIf="stock.productName === product.name">
-              <p>Jelenleg raktáron: {{ stock.quantity }} {{ product.unit }}</p>
-            </div>
-          </div>
+          <p>Egységár: {{ stock.product.price }}.- Forint</p>
+          <p>Mennyiségi egység: {{ stock.product.unit }}</p>
+          <p>Beszállító: {{ stock.product.supplierName }}</p>
+          <p>
+            Jelenleg raktáron: {{ stock.quantity }} {{ stock.product.unit }}
+          </p>
         </div>
       </div>
     </div>
