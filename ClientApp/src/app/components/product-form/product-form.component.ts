@@ -31,7 +31,7 @@ export default class ProductFormComponent implements OnInit {
 
   submit() {
     this.productService.createProduct(this.saveProduct).subscribe();
-    this.router.navigate(["/termeklista/"]);
+    this.router.navigate(["/raktarkeszlet/"]);
   }
 
   populateSuppliers() {
