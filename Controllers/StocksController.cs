@@ -4,10 +4,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using System;
 using Warehouse.Controllers.Resources.Requests;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 
 namespace Warehouse.Controllers
 {
@@ -16,16 +16,19 @@ namespace Warehouse.Controllers
     public class StocksController : ControllerBase
     {
         private readonly IStockRepository _stockRepository;
+        private readonly IStockFacade _stockFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public StocksController(
             IStockRepository stockRepository,
+            IStockFacade stockFacade,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _stockRepository = stockRepository;
+            _stockFacade = stockFacade;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -49,26 +52,8 @@ namespace Warehouse.Controllers
             }
 
             var stockEntry = _mapper.Map<SaveStockEntryResource, StockEntry>(stockEntryResource);
-            stockEntry.CreatedAt = DateTime.Now;
 
-            if (await _stockRepository.IsProductOnStock(stockEntry.ProductId))
-            {
-                var stock = await _stockRepository.GetStock(stockEntry.ProductId);
-                stock.Quantity += stockEntry.Quantity;
-            }
-            else
-            {
-                var stock = new Stock
-                {
-                    ProductId = stockEntry.ProductId,
-                    Quantity = stockEntry.Quantity
-                };
-
-                await _stockRepository.Add(stock);
-            }
-
-            await _stockRepository.Add(stockEntry);
-
+            await _stockFacade.Add(stockEntry);
             await _unitOfWork.CompleteAsync();
 
             stockEntry = await _stockRepository.GetStockEntry(stockEntry.Id);

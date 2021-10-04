@@ -6,8 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Warehouse.Configuration.FileUpload;
 using Warehouse.Core;
-using Warehouse.Core.Models;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Repositories;
 using Warehouse.Facades;
 using Warehouse.Persistence;
@@ -46,6 +47,10 @@ namespace Warehouse
                 options.UseMySQL(_configuration.GetConnectionString("Default")));
 
             services.AddScoped<IOrderFacade, OrderFacade>();
+            services.AddScoped<IPhotoFacade, FileSystemPhotoFacade>();
+            services.AddScoped<IProductFacade, ProductFacade>();
+            services.AddScoped<IStockFacade, StockFacade>();
+            services.AddScoped<ITechnicianFacade, TechnicianFacade>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -58,14 +63,9 @@ namespace Warehouse
             services.AddScoped<IStockRepository, StockRepository>();
             services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
-            services.AddScoped<FileSystemPhotoStorage>();
-
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

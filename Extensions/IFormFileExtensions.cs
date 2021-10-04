@@ -1,5 +1,5 @@
 ﻿using System;
-using Warehouse.Core.Models;
+using Warehouse.Configuration.FileUpload;
 
 namespace Microsoft.AspNetCore.Http
 {

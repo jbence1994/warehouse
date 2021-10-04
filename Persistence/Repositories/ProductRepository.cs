@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -14,14 +12,6 @@ namespace Warehouse.Persistence.Repositories
         public ProductRepository(ApplicationDbContext context)
         {
             _context = context;
-        }
-
-        public async Task<IEnumerable<Product>> GetProducts()
-        {
-            return await _context.Products
-                .Include(p => p.Supplier)
-                .OrderBy(p => p.Id)
-                .ToListAsync();
         }
 
         public async Task<Product> GetProduct(int id, bool includeRelated = true)

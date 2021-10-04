@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
 
-namespace Warehouse.Core.Models
+namespace Warehouse.Configuration.FileUpload
 {
     public class FileSettings
     {
