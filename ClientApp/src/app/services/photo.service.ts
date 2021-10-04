@@ -6,7 +6,6 @@ import ProductPhoto from "../models/productPhoto";
 
 @Injectable()
 export default class PhotoService {
-  private readonly ProductsEndpoint = config.productsEndpoint;
   private readonly TechniciansEndpoint = config.techniciansEndpoint;
   private readonly ProductPhotosEndpoint = config.productPhotosEndpoint;
 

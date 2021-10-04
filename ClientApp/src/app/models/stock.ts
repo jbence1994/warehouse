@@ -1,8 +1,7 @@
+import Product from "./product";
+
 export default interface Stock {
   id: number;
-  productName: string;
-  productSupplierName: string;
-  productPrice: number;
+  product: Product;
   quantity: number;
-  productUnit: string;
 }

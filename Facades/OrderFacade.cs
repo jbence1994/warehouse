@@ -59,6 +59,7 @@ namespace Warehouse.Facades
         private async Task AddToTechnician(Order order)
         {
             var technician = await _technicianRepository.GetTechnician(order.TechnicianId);
+            order.CreatedAt = DateTime.Now;
 
             technician.Orders.Add(order);
 

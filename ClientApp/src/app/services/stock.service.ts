@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import Stock from "../models/stock";
 import SaveStockEntry from "../models/saveStockEntry";
-import SupplierKeyValuePairWithProductKeyValuePairs from "../models/supplierKeyValuePairWithProductKeyValuePairs";
 import * as config from "../config/endpoints.json";
 
 @Injectable()
@@ -24,12 +23,6 @@ export default class StockService {
     return this.http.post<Stock>(
       `${this.baseUrl}${this.StocksEndpoint}`,
       saveStockEntry
-    );
-  }
-
-  getSuppliersKeyValuePairWithProductKeyValuePairs() {
-    return this.http.get<SupplierKeyValuePairWithProductKeyValuePairs[]>(
-      `${this.baseUrl}${this.SupplierKeyValuePairsWithProductKeyValuePairsEndpoint}`
     );
   }
 }

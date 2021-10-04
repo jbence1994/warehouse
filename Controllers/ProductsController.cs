@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -29,31 +28,6 @@ namespace Warehouse.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProducts()
-        {
-            var products = await _productRepository.GetProducts();
-
-            var productResources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
-
-            return Ok(productResources);
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetProduct(int id)
-        {
-            var product = await _productRepository.GetProduct(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            var productResource = _mapper.Map<Product, ProductResource>(product);
-
-            return Ok(productResource);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] SaveProductResource productResource)
         {
@@ -65,6 +39,8 @@ namespace Warehouse.Controllers
             var product = _mapper.Map<SaveProductResource, Product>(productResource);
 
             await _productRepository.Add(product);
+            product.Stocks.Add(new Stock {Quantity = 0});
+
             await _unitOfWork.CompleteAsync();
 
             product = await _productRepository.GetProduct(product.Id);
