@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Requests;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
@@ -16,16 +16,19 @@ namespace Warehouse.Controllers
     public class TechniciansController : ControllerBase
     {
         private readonly ITechnicianRepository _technicianRepository;
+        private readonly ITechnicianFacade _technicianFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public TechniciansController(
             ITechnicianRepository technicianRepository,
+            ITechnicianFacade technicianFacade,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _technicianRepository = technicianRepository;
+            _technicianFacade = technicianFacade;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -66,14 +69,7 @@ namespace Warehouse.Controllers
 
             var technician = _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
-            technician.BalanceEntries.Add(new TechnicianBalanceEntry
-            {
-                Amount = 0,
-                CreatedAt = DateTime.Now
-            });
-
-            await _technicianRepository.Add(technician);
-
+            await _technicianFacade.Add(technician);
             await _unitOfWork.CompleteAsync();
 
             technician = await _technicianRepository.GetTechnician(technician.Id);

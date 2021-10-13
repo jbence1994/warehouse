@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Warehouse.Configuration.FileUpload;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
@@ -23,7 +25,7 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly FileSystemPhotoStorage _photoStorage;
+        private readonly IPhotoFacade _photoFacade;
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
@@ -32,7 +34,7 @@ namespace Warehouse.Controllers
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
-            FileSystemPhotoStorage photoStorage,
+            IPhotoFacade photoFacade,
             IOptions<FileSettings> options
         )
         {
@@ -41,7 +43,7 @@ namespace Warehouse.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _host = host;
-            _photoStorage = photoStorage;
+            _photoFacade = photoFacade;
             _fileSettings = options.Value;
         }
 
@@ -66,7 +68,7 @@ namespace Warehouse.Controllers
 
             var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/technicians");
 
-            var fileName = await _photoStorage.StorePhoto(uploadsFolderPath, photoToUpload);
+            var fileName = await _photoFacade.StorePhoto(uploadsFolderPath, photoToUpload);
 
             var photo = new TechnicianPhoto
             {

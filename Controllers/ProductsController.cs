@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Requests;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
+using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
@@ -14,16 +15,19 @@ namespace Warehouse.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
+        private readonly IProductFacade _productFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public ProductsController(
             IProductRepository productRepository,
+            IProductFacade productFacade,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _productRepository = productRepository;
+            _productFacade = productFacade;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -38,9 +42,7 @@ namespace Warehouse.Controllers
 
             var product = _mapper.Map<SaveProductResource, Product>(productResource);
 
-            await _productRepository.Add(product);
-            product.Stocks.Add(new Stock {Quantity = 0});
-
+            await _productFacade.Add(product);
             await _unitOfWork.CompleteAsync();
 
             product = await _productRepository.GetProduct(product.Id);

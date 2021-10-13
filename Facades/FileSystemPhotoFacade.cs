@@ -2,10 +2,11 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Warehouse.Core.Facades;
 
-namespace Warehouse.Core.Models
+namespace Warehouse.Facades
 {
-    public class FileSystemPhotoStorage
+    public class FileSystemPhotoFacade : IPhotoFacade
     {
         public async Task<string> StorePhoto(string uploadsFolderPath, IFormFile file)
         {

@@ -39,12 +39,6 @@ namespace Warehouse.Persistence.Repositories
                 .SingleOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task<bool> IsProductOnStock(int productId)
-        {
-            return await _context.StockEntries
-                .AnyAsync(s => s.ProductId == productId);
-        }
-
         public async Task Add(StockEntry stockEntry)
         {
             await _context.StockEntries.AddAsync(stockEntry);
