@@ -16,18 +16,14 @@ namespace Warehouse.Facades
 
         public async Task Add(Product product)
         {
-            var initialStock = GetInitialStock();
-            product.Stocks.Add(initialStock);
-
-            await _productRepository.Add(product);
-        }
-
-        private Stock GetInitialStock()
-        {
-            return new()
+            var initialStock = new Stock
             {
                 Quantity = 0
             };
+
+            product.Stocks.Add(initialStock);
+
+            await _productRepository.Add(product);
         }
     }
 }

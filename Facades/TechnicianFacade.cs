@@ -17,19 +17,15 @@ namespace Warehouse.Facades
 
         public async Task Add(Technician technician)
         {
-            var initialBalanceEntry = GetInitialBalanceEntry();
-            technician.BalanceEntries.Add(initialBalanceEntry);
-
-            await _technicianRepository.Add(technician);
-        }
-
-        private TechnicianBalanceEntry GetInitialBalanceEntry()
-        {
-            return new()
+            var initialBalanceEntry = new TechnicianBalanceEntry
             {
                 Amount = 0,
                 CreatedAt = DateTime.Now
             };
+
+            technician.BalanceEntries.Add(initialBalanceEntry);
+
+            await _technicianRepository.Add(technician);
         }
     }
 }
