@@ -9,7 +9,7 @@ namespace Warehouse.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<SupplyEntry> builder)
         {
             builder
-                .ToTable("stock_entries");
+                .ToTable("supply_entries");
 
             builder
                 .Property(supplyEntry => supplyEntry.Id)
