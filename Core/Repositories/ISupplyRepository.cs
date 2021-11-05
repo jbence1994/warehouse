@@ -10,6 +10,5 @@ namespace Warehouse.Core.Repositories
         Task<Supply> GetSupply(int productId);
         Task<SupplyEntry> GetSupplyEntry(int id);
         Task Add(SupplyEntry supplyEntry);
-        Task Add(Supply supply);
     }
 }
