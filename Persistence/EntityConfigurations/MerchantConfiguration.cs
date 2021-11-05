@@ -9,7 +9,7 @@ namespace Warehouse.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Merchant> builder)
         {
             builder
-                .ToTable("suppliers");
+                .ToTable("merchants");
 
             builder
                 .Property(merchant => merchant.Id)
