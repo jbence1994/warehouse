@@ -12,28 +12,28 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("products");
 
             builder
-                .Property(p => p.Id)
+                .Property(product => product.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(p => p.Name)
+                .Property(product => product.Name)
                 .HasColumnName("name")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(p => p.Price)
+                .Property(product => product.Price)
                 .HasColumnName("price")
                 .IsRequired();
 
             builder
-                .Property(p => p.Unit)
+                .Property(product => product.Unit)
                 .HasColumnName("unit")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(p => p.MerchantId)
+                .Property(product => product.MerchantId)
                 .HasColumnName("merchant_id");
         }
     }

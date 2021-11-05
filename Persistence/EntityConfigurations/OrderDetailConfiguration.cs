@@ -10,26 +10,26 @@ namespace Warehouse.Persistence.EntityConfigurations
         {
             builder
                 .ToTable("order_details");
-            
+
             builder
-                .Property(s => s.Id)
+                .Property(orderDetail => orderDetail.Id)
                 .HasColumnName("id");
-            
+
             builder
-                .Property(s => s.OrderId)
+                .Property(orderDetail => orderDetail.OrderId)
                 .HasColumnName("order_id");
-            
+
             builder
-                .Property(s => s.ProductId)
+                .Property(orderDetail => orderDetail.ProductId)
                 .HasColumnName("product_id");
 
             builder
-                .Property(s => s.Quantity)
+                .Property(orderDetail => orderDetail.Quantity)
                 .HasColumnName("quantity")
                 .IsRequired();
-            
+
             builder
-                .Property(s => s.SubTotal)
+                .Property(orderDetail => orderDetail.SubTotal)
                 .HasColumnName("sub_total")
                 .IsRequired();
         }

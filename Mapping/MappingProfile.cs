@@ -13,7 +13,8 @@ namespace Warehouse.Mapping
 
             CreateMap<Product, ProductResource>()
                 .ForMember(productResource => productResource.MerchantName,
-                    opt => opt.MapFrom(product => product.Merchant.Name));
+                    memberOptions =>
+                        memberOptions.MapFrom(product => product.Merchant.Name));
 
             CreateMap<Supply, SupplyResource>();
             CreateMap<Product, KeyValuePairResource>();

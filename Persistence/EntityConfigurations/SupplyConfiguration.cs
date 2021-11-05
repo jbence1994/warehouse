@@ -12,15 +12,15 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("supplies");
 
             builder
-                .Property(s => s.Id)
+                .Property(supply => supply.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(s => s.ProductId)
+                .Property(supply => supply.ProductId)
                 .HasColumnName("product_id");
 
             builder
-                .Property(s => s.Quantity)
+                .Property(supply => supply.Quantity)
                 .HasColumnName("quantity")
                 .IsRequired();
         }

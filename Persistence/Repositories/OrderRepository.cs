@@ -17,10 +17,10 @@ namespace Warehouse.Persistence.Repositories
         public async Task<Order> GetOrder(int id)
         {
             return await _context.Orders
-                .Include(o => o.OrderDetails)
-                .ThenInclude(o => o.Product)
-                .ThenInclude(p => p.Merchant)
-                .SingleOrDefaultAsync(o => o.Id == id);
+                .Include(order => order.OrderDetails)
+                .ThenInclude(orderDetail => orderDetail.Product)
+                .ThenInclude(product => product.Merchant)
+                .SingleOrDefaultAsync(order => order.Id == id);
         }
     }
 }

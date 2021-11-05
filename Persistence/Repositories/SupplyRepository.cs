@@ -19,24 +19,24 @@ namespace Warehouse.Persistence.Repositories
         public async Task<IEnumerable<Supply>> GetSupplies()
         {
             return await _context.Supplies
-                .Include(s => s.Product)
-                .ThenInclude(m => m.Merchant)
+                .Include(supply => supply.Product)
+                .ThenInclude(product => product.Merchant)
                 .ToListAsync();
         }
 
         public async Task<Supply> GetSupply(int productId)
         {
             return await _context.Supplies
-                .Where(s => s.ProductId == productId)
+                .Where(supply => supply.ProductId == productId)
                 .SingleOrDefaultAsync();
         }
 
         public async Task<SupplyEntry> GetSupplyEntry(int id)
         {
             return await _context.SupplyEntries
-                .Include(s => s.Product)
-                .ThenInclude(s => s.Merchant)
-                .SingleOrDefaultAsync(s => s.Id == id);
+                .Include(supplyEntry => supplyEntry.Product)
+                .ThenInclude(product => product.Merchant)
+                .SingleOrDefaultAsync(supplyEntry => supplyEntry.Id == id);
         }
 
         public async Task Add(SupplyEntry supplyEntry)

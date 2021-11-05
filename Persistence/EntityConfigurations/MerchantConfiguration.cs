@@ -12,28 +12,28 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("suppliers");
 
             builder
-                .Property(m => m.Id)
+                .Property(merchant => merchant.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(m => m.Name)
+                .Property(merchant => merchant.Name)
                 .HasColumnName("name")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(m => m.City)
+                .Property(merchant => merchant.City)
                 .HasColumnName("city")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(m => m.Email)
+                .Property(merchant => merchant.Email)
                 .HasColumnName("email")
                 .HasMaxLength(255);
 
             builder
-                .Property(m => m.Phone)
+                .Property(merchant => merchant.Phone)
                 .HasColumnName("phone")
                 .HasMaxLength(25);
         }

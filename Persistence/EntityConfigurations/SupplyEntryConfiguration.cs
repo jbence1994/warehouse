@@ -12,20 +12,20 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("stock_entries");
 
             builder
-                .Property(s => s.Id)
+                .Property(supplyEntry => supplyEntry.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(p => p.ProductId)
+                .Property(supplyEntry => supplyEntry.ProductId)
                 .HasColumnName("product_id");
 
             builder
-                .Property(p => p.Quantity)
+                .Property(supplyEntry => supplyEntry.Quantity)
                 .HasColumnName("quantity")
                 .IsRequired();
 
             builder
-                .Property(p => p.CreatedAt)
+                .Property(supplyEntry => supplyEntry.CreatedAt)
                 .HasColumnName("created_at")
                 .IsRequired();
         }
