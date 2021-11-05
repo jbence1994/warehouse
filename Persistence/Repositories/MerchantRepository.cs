@@ -20,7 +20,7 @@ namespace Warehouse.Persistence.Repositories
             if (includeRelated)
             {
                 return await _context.Merchants
-                    .Include(s => s.Products)
+                    .Include(m => m.Products)
                     .ToListAsync();
             }
 

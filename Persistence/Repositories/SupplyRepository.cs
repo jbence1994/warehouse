@@ -7,46 +7,46 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Persistence.Repositories
 {
-    public class StockRepository : IStockRepository
+    public class SupplyRepository : ISupplyRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public StockRepository(ApplicationDbContext context)
+        public SupplyRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Stock>> GetStocks()
+        public async Task<IEnumerable<Supply>> GetSupplies()
         {
-            return await _context.Stocks
+            return await _context.Supplies
                 .Include(s => s.Product)
-                .ThenInclude(p => p.Merchant)
+                .ThenInclude(m => m.Merchant)
                 .ToListAsync();
         }
 
-        public async Task<Stock> GetStock(int productId)
+        public async Task<Supply> GetSupply(int productId)
         {
-            return await _context.Stocks
+            return await _context.Supplies
                 .Where(s => s.ProductId == productId)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<StockEntry> GetStockEntry(int id)
+        public async Task<SupplyEntry> GetSupplyEntry(int id)
         {
-            return await _context.StockEntries
+            return await _context.SupplyEntries
                 .Include(s => s.Product)
                 .ThenInclude(s => s.Merchant)
                 .SingleOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task Add(StockEntry stockEntry)
+        public async Task Add(SupplyEntry supplyEntry)
         {
-            await _context.StockEntries.AddAsync(stockEntry);
+            await _context.SupplyEntries.AddAsync(supplyEntry);
         }
 
-        public async Task Add(Stock stock)
+        public async Task Add(Supply supply)
         {
-            await _context.Stocks.AddAsync(stock);
+            await _context.Supplies.AddAsync(supply);
         }
     }
 }

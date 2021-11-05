@@ -3,8 +3,8 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Core.Facades
 {
-    public interface IStockFacade
+    public interface ISupplyFacade
     {
-        Task Add(StockEntry stockEntry);
+        Task Add(SupplyEntry supplyEntry);
     }
 }

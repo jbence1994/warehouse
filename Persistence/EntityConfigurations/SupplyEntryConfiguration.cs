@@ -4,9 +4,9 @@ using Warehouse.Core.Models;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class StockEntryConfiguration : IEntityTypeConfiguration<StockEntry>
+    public class SupplyEntryConfiguration : IEntityTypeConfiguration<SupplyEntry>
     {
-        public void Configure(EntityTypeBuilder<StockEntry> builder)
+        public void Configure(EntityTypeBuilder<SupplyEntry> builder)
         {
             builder
                 .ToTable("stock_entries");
