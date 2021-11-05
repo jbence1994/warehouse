@@ -19,7 +19,7 @@ namespace Warehouse.Persistence.Repositories
             return await _context.Orders
                 .Include(o => o.OrderDetails)
                 .ThenInclude(o => o.Product)
-                .ThenInclude(p => p.Supplier)
+                .ThenInclude(p => p.Merchant)
                 .SingleOrDefaultAsync(o => o.Id == id);
         }
     }

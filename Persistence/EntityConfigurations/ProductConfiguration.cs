@@ -33,8 +33,8 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .IsRequired();
 
             builder
-                .Property(p => p.SupplierId)
-                .HasColumnName("supplier_id");
+                .Property(p => p.MerchantId)
+                .HasColumnName("merchant_id");
         }
     }
 }

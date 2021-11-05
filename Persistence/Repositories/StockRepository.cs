@@ -20,7 +20,7 @@ namespace Warehouse.Persistence.Repositories
         {
             return await _context.Stocks
                 .Include(s => s.Product)
-                .ThenInclude(p => p.Supplier)
+                .ThenInclude(p => p.Merchant)
                 .ToListAsync();
         }
 
@@ -35,7 +35,7 @@ namespace Warehouse.Persistence.Repositories
         {
             return await _context.StockEntries
                 .Include(s => s.Product)
-                .ThenInclude(s => s.Supplier)
+                .ThenInclude(s => s.Merchant)
                 .SingleOrDefaultAsync(s => s.Id == id);
         }
 

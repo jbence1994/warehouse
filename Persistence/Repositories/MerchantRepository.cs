@@ -6,35 +6,35 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Persistence.Repositories
 {
-    public class SupplierRepository : ISupplierRepository
+    public class MerchantRepository : IMerchantRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public SupplierRepository(ApplicationDbContext context)
+        public MerchantRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliers(bool includeRelated = true)
+        public async Task<IEnumerable<Merchant>> GetMerchants(bool includeRelated = true)
         {
             if (includeRelated)
             {
-                return await _context.Suppliers
+                return await _context.Merchants
                     .Include(s => s.Products)
                     .ToListAsync();
             }
 
-            return await _context.Suppliers.ToListAsync();
+            return await _context.Merchants.ToListAsync();
         }
 
-        public async Task<Supplier> GetSupplier(int id)
+        public async Task<Merchant> GetMerchant(int id)
         {
-            return await _context.Suppliers.FindAsync(id);
+            return await _context.Merchants.FindAsync(id);
         }
 
-        public async Task Add(Supplier supplier)
+        public async Task Add(Merchant merchant)
         {
-            await _context.Suppliers.AddAsync(supplier);
+            await _context.Merchants.AddAsync(merchant);
         }
     }
 }

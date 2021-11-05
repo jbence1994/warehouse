@@ -2,7 +2,7 @@
 
 namespace Warehouse.Controllers.Resources.Requests
 {
-    public class SaveSupplierResource
+    public class SaveMerchantResource
     {
         [Required]
         [StringLength(255)]

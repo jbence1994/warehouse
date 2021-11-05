@@ -9,8 +9,8 @@ namespace Warehouse.Core.Models
         public string Name { get; set; }
         public double Price { get; set; }
         public string Unit { get; set; }
-        public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; }
+        public int MerchantId { get; set; }
+        public Merchant Merchant { get; set; }
         public ICollection<Stock> Stocks { get; set; }
         public ICollection<StockEntry> StockEntries { get; set; }
         public ICollection<ProductPhoto> Photos { get; set; }

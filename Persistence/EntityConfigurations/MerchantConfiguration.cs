@@ -4,36 +4,36 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
+    public class MerchantConfiguration : IEntityTypeConfiguration<Merchant>
     {
-        public void Configure(EntityTypeBuilder<Supplier> builder)
+        public void Configure(EntityTypeBuilder<Merchant> builder)
         {
             builder
                 .ToTable("suppliers");
 
             builder
-                .Property(s => s.Id)
+                .Property(m => m.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(p => p.Name)
+                .Property(m => m.Name)
                 .HasColumnName("name")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(p => p.City)
+                .Property(m => m.City)
                 .HasColumnName("city")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(p => p.Email)
+                .Property(m => m.Email)
                 .HasColumnName("email")
                 .HasMaxLength(255);
 
             builder
-                .Property(p => p.Phone)
+                .Property(m => m.Phone)
                 .HasColumnName("phone")
                 .HasMaxLength(25);
         }

@@ -21,7 +21,7 @@ namespace Warehouse.Persistence.Repositories
             return await _context.Orders
                 .Include(s => s.OrderDetails)
                 .ThenInclude(s => s.Product)
-                .ThenInclude(s => s.Supplier)
+                .ThenInclude(s => s.Merchant)
                 .Where(s => s.TechnicianId == technicianId)
                 .ToListAsync();
         }
