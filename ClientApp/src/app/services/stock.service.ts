@@ -7,8 +7,8 @@ import * as config from "../config/endpoints.json";
 @Injectable()
 export default class StockService {
   private readonly StocksEndpoint = config.stocksEndpoint;
-  private readonly SupplierKeyValuePairsWithProductKeyValuePairsEndpoint =
-    config.supplierKeyValuePairsWithProductKeyValuePairsEndpoint;
+  private readonly MerchantKeyValuePairsWithProductKeyValuePairsEndpoint =
+    config.merchantKeyValuePairsWithProductKeyValuePairsEndpoint;
 
   constructor(
     private http: HttpClient,

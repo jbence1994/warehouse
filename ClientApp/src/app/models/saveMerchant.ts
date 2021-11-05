@@ -1,4 +1,4 @@
-export default interface SaveSupplier {
+export default interface SaveMerchant {
   name: string;
   city: string;
   email: string;

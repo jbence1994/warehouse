@@ -2,8 +2,8 @@
   "productsEndpoint": "api/products",
   "productPhotosEndpoint": "api/products/photos",
   "stocksEndpoint": "api/stocks",
-  "suppliersEndpoint": "api/suppliers",
-  "supplierKeyValuePairsEndpoint": "api/suppliers/supplierKeyValuePairs",
-  "supplierKeyValuePairsWithProductKeyValuePairsEndpoint": "api/suppliers/supplierKeyValuePairsWithProductKeyValuePairs",
+  "merchantsEndpoint": "api/merchants",
+  "merchantKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairs",
+  "merchantKeyValuePairsWithProductKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairsWithProductKeyValuePairs",
   "techniciansEndpoint": "api/technicians"
 }

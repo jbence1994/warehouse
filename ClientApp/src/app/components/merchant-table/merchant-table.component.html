@@ -1,6 +1,6 @@
-<p class="text-center" *ngIf="!suppliers">Betöltés...</p>
+<p class="text-center" *ngIf="!merchants">Betöltés...</p>
 
-<div class="form-group" *ngIf="suppliers">
+<div class="form-group" *ngIf="merchants">
   <a [routerLink]="['/beszallitok/uj']" class="btn btn-primary"
     >Beszállítók listájának bővítése</a
   >
@@ -9,7 +9,7 @@
 <table
   class="table table-hover table-responsive-md"
   aria-labelledby="tableLabel"
-  *ngIf="suppliers"
+  *ngIf="merchants"
 >
   <thead>
     <tr>
@@ -20,11 +20,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let s of suppliers">
-      <td>{{ s.name }}</td>
-      <td>{{ s.city }}</td>
-      <td>{{ s.email }}</td>
-      <td>{{ s.phone }}</td>
+    <tr *ngFor="let merchant of merchants">
+      <td>{{ merchant.name }}</td>
+      <td>{{ merchant.city }}</td>
+      <td>{{ merchant.email }}</td>
+      <td>{{ merchant.phone }}</td>
     </tr>
   </tbody>
 </table>

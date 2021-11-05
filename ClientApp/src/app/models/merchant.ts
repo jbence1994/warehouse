@@ -1,4 +1,4 @@
-export default interface Supplier {
+export default interface Merchant {
   id: number;
   name: string;
   city: string;

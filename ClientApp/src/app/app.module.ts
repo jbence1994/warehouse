@@ -12,15 +12,15 @@ import ProductFormComponent from "./components/product-form/product-form.compone
 import TechniciansTableComponent from "./components/technician-table/technicians-table.component";
 import TechnicianFormComponent from "./components/technician-form/technician-form.component";
 import TechnicianProfileComponent from "./components/technician-profile/technician-profile.component";
-import SupplierTableComponent from "./components/supplier-table/supplier-table.component";
-import SupplierFormComponent from "./components/supplier-form/supplier-form.component";
+import MerchantTableComponent from "./components/merchant-table/merchant-table.component";
+import MerchantFormComponent from "./components/merchant-form/merchant-form.component";
 
 import DateService from "./services/date.service";
 import StockService from "./services/stock.service";
 import ProductService from "./services/product.service";
 import PhotoService from "./services/photo.service";
 import TechnicianService from "src/app/services/technician.service";
-import SupplierService from "./services/supplier.service";
+import MerchantService from "./services/merchant.service";
 
 @NgModule({
   declarations: [
@@ -32,8 +32,8 @@ import SupplierService from "./services/supplier.service";
     TechniciansTableComponent,
     TechnicianFormComponent,
     TechnicianProfileComponent,
-    SupplierTableComponent,
-    SupplierFormComponent,
+    MerchantTableComponent,
+    MerchantFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -46,8 +46,8 @@ import SupplierService from "./services/supplier.service";
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
-      { path: "beszallitok", component: SupplierTableComponent },
-      { path: "beszallitok/uj", component: SupplierFormComponent },
+      { path: "beszallitok", component: MerchantTableComponent },
+      { path: "beszallitok/uj", component: MerchantFormComponent },
     ]),
   ],
   providers: [
@@ -56,7 +56,7 @@ import SupplierService from "./services/supplier.service";
     ProductService,
     PhotoService,
     TechnicianService,
-    SupplierService,
+    MerchantService,
   ],
   bootstrap: [AppComponent],
 })
