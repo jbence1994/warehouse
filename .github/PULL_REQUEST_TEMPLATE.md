@@ -5,6 +5,7 @@
 - [ ] Configuration
 - [ ] Feature
 - [ ] Bugfix
+- [ ] Enhancement
 
 ## Short description
 
