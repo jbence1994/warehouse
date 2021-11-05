@@ -212,7 +212,7 @@ namespace Warehouse.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("stock_entries");
+                    b.ToTable("supply_entries");
                 });
 
             modelBuilder.Entity("Warehouse.Core.Models.Technician", b =>

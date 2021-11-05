@@ -9,8 +9,8 @@ using Warehouse.Persistence;
 namespace Warehouse.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211105123128_GenerateTables")]
-    partial class GenerateTables
+    [Migration("20211105125104_AddTables")]
+    partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,7 +214,7 @@ namespace Warehouse.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("stock_entries");
+                    b.ToTable("supply_entries");
                 });
 
             modelBuilder.Entity("Warehouse.Core.Models.Technician", b =>
