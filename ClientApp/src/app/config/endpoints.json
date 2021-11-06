@@ -1,7 +1,7 @@
 {
   "productsEndpoint": "api/products",
   "productPhotosEndpoint": "api/products/photos",
-  "stocksEndpoint": "api/stocks",
+  "suppliesEndpoint": "api/supplies",
   "merchantsEndpoint": "api/merchants",
   "merchantKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairs",
   "merchantKeyValuePairsWithProductKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairsWithProductKeyValuePairs",

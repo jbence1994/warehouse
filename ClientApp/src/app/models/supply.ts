@@ -1,6 +1,6 @@
 import Product from "./product";
 
-export default interface Stock {
+export default interface Supply {
   id: number;
   product: Product;
   quantity: number;

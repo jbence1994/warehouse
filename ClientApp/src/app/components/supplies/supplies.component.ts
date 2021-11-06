@@ -1,29 +1,29 @@
 ﻿import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import ProductService from "src/app/services/product.service";
 import PhotoService from "../../services/photo.service";
-import StockService from "../../services/stock.service";
+import SupplyService from "../../services/supply.service";
 import ProductPhoto from "../../models/productPhoto";
-import Stock from "../../models/stock";
+import Supply from "../../models/supply";
 
 @Component({
-  selector: "app-products",
-  templateUrl: "./stocks.component.html",
-  styleUrls: ["./stocks.component.css"],
+  selector: "app-supplies",
+  templateUrl: "./supplies.component.html",
+  styleUrls: ["./supplies.component.css"],
 })
-export default class StocksComponent implements OnInit {
+export default class SuppliesComponent implements OnInit {
   @ViewChild("fileInput", { read: "", static: true }) fileInput: ElementRef;
-  stocks: Stock[];
+  supplies: Supply[];
   productPhotos: ProductPhoto[];
 
   constructor(
     private productService: ProductService,
     private photoService: PhotoService,
-    private stockService: StockService
+    private supplyService: SupplyService
   ) {}
 
   ngOnInit() {
     this.populateProductPhotos();
-    this.populateStocks();
+    this.populateSupplies();
   }
 
   populateProductPhotos() {
@@ -32,8 +32,10 @@ export default class StocksComponent implements OnInit {
       .subscribe((productPhotos) => (this.productPhotos = productPhotos));
   }
 
-  populateStocks() {
-    this.stockService.getStocks().subscribe((stocks) => (this.stocks = stocks));
+  populateSupplies() {
+    this.supplyService
+      .getSupplies()
+      .subscribe((supplies) => (this.supplies = supplies));
   }
 
   uploadProductPhoto(productId: number) {
