@@ -1,14 +1,8 @@
-# warehouse
+# Warehouse
 
 Netsurf Távközlési Szolgáltató Kft. stock management application.
 
 This project was bootstrapped with `dotnet new angular` .NET command.
-
-## Tech stack
-
-- Database: MySQL 8.0
-- Backend: .NET5
-- Frontend: Angular 6.0.0.
 
 ## Set up project locally
 
@@ -30,7 +24,7 @@ to download third-party dependencies to your local machine.
 
 ### Initialize user secrets
 
-### `dotnet user-secrets list`
+### `dotnet user-secrets set`
 
 In the root of the project directory execute this command in command line\
 to create directory for user secrets on your local machine
@@ -43,12 +37,9 @@ to create directory for user secrets on your local machine
 
 `~/.microsoft/usersecrets/warehouse-secrets`
 
-Create a file with the name `secrets.json` into the directory named above and paste this configuration
-to use this as the default, local database connection string in this application:
-
-```json
+```bash
 {
-    "ConnectionStrings:Default": "SERVER=127.0.0.1;DATABASE=warehouse;UID=[YOUR_MYSQL_USERNAME];PASSWORD=[YOUR_MYSQL_PASSWORD];PORT=3306;"
+    dotnet user-secrets set "ConnectionStrings:Default": "SERVER=127.0.0.1;DATABASE=warehouse;UID=[YOUR_MYSQL_USERNAME];PASSWORD=[YOUR_MYSQL_PASSWORD];PORT=3306;"
 }
 ```
 

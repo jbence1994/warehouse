@@ -14,6 +14,6 @@ namespace Warehouse.Controllers.Resources.Requests
         public string Unit { get; set; }
 
         [Required]
-        public int SupplierId { get; set; }
+        public int MerchantId { get; set; }
     }
 }

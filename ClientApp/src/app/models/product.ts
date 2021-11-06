@@ -3,5 +3,5 @@ export default interface Product {
   name: string;
   price: number;
   unit: string;
-  supplierName: string;
+  merchantName: string;
 }

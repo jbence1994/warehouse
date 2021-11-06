@@ -49,13 +49,15 @@
     <select
       id="supplier"
       class="form-control"
-      [(ngModel)]="saveProduct.supplierId"
+      [(ngModel)]="saveProduct.merchantId"
       name="supplierId"
       #supplier="ngModel"
       required
     >
       <option value=""></option>
-      <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
+      <option *ngFor="let s of merchantKeyValuePairs" [ngValue]="s.id">
+        {{ s.name }}
+      </option>
     </select>
     <div
       class="alert alert-danger mt-3"

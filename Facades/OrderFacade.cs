@@ -9,17 +9,17 @@ namespace Warehouse.Facades
 {
     public class OrderFacade : IOrderFacade
     {
-        private readonly IStockRepository _stockRepository;
+        private readonly ISupplyRepository _supplyRepository;
         private readonly IProductRepository _productRepository;
         private readonly ITechnicianRepository _technicianRepository;
 
         public OrderFacade(
-            IStockRepository stockRepository,
+            ISupplyRepository supplyRepository,
             IProductRepository productRepository,
             ITechnicianRepository technicianRepository
         )
         {
-            _stockRepository = stockRepository;
+            _supplyRepository = supplyRepository;
             _productRepository = productRepository;
             _technicianRepository = technicianRepository;
         }
@@ -27,7 +27,7 @@ namespace Warehouse.Facades
         public async Task Checkout(Order order)
         {
             await CalculatePrices(order);
-            await UpdateStock(order.OrderDetails);
+            await UpdateSupply(order.OrderDetails);
             await AddToTechnician(order);
         }
 
@@ -42,18 +42,18 @@ namespace Warehouse.Facades
             order.CalculateTotal();
         }
 
-        private async Task UpdateStock(IEnumerable<OrderDetail> orderDetails)
+        private async Task UpdateSupply(IEnumerable<OrderDetail> orderDetails)
         {
             foreach (var orderDetail in orderDetails)
             {
-                var stock = await _stockRepository.GetStock(orderDetail.ProductId);
+                var supply = await _supplyRepository.GetSupply(orderDetail.ProductId);
 
-                if (!stock.IsAvailable(orderDetail.Quantity))
+                if (!supply.IsAvailable(orderDetail.Quantity))
                 {
-                    throw new Exception("There is not enough product on stock to checkout order.");
+                    throw new Exception("There is not enough supply of this product to checkout order.");
                 }
 
-                stock.Quantity -= orderDetail.Quantity;
+                supply.Quantity -= orderDetail.Quantity;
             }
         }
 

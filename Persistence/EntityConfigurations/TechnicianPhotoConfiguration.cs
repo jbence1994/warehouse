@@ -12,17 +12,17 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("technician_photos");
 
             builder
-                .Property(p => p.Id)
+                .Property(technicianPhoto => technicianPhoto.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(p => p.FileName)
+                .Property(technicianPhoto => technicianPhoto.FileName)
                 .HasColumnName("file_name")
                 .HasMaxLength(255)
                 .IsRequired();
-            
+
             builder
-                .Property(p => p.TechnicianId)
+                .Property(technicianPhoto => technicianPhoto.TechnicianId)
                 .HasColumnName("technician_id");
         }
     }

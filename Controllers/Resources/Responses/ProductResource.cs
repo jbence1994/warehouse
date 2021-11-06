@@ -6,6 +6,6 @@ namespace Warehouse.Controllers.Resources.Responses
         public string Name { get; set; }
         public double Price { get; set; }
         public string Unit { get; set; }
-        public string SupplierName { get; set; }
+        public string MerchantName { get; set; }
     }
 }

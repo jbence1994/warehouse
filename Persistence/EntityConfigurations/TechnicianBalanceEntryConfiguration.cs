@@ -12,20 +12,20 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("technician_balance_entries");
 
             builder
-                .Property(t => t.Id)
+                .Property(technicianBalanceEntry => technicianBalanceEntry.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(t => t.TechnicianId)
+                .Property(technicianBalanceEntry => technicianBalanceEntry.TechnicianId)
                 .HasColumnName("technician_id");
 
             builder
-                .Property(t => t.Amount)
+                .Property(technicianBalanceEntry => technicianBalanceEntry.Amount)
                 .HasColumnName("amount")
                 .IsRequired();
 
             builder
-                .Property(t => t.CreatedAt)
+                .Property(technicianBalanceEntry => technicianBalanceEntry.CreatedAt)
                 .HasColumnName("created_at")
                 .IsRequired();
         }

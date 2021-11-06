@@ -7,33 +7,33 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import NavMenuComponent from "./components/nav-menu/nav-menu.component";
 import HomeComponent from "./components/home/home.component";
-import StocksComponent from "./components/stocks/stocks.component";
+import SuppliesComponent from "./components/supplies/supplies.component";
 import ProductFormComponent from "./components/product-form/product-form.component";
 import TechniciansTableComponent from "./components/technician-table/technicians-table.component";
 import TechnicianFormComponent from "./components/technician-form/technician-form.component";
 import TechnicianProfileComponent from "./components/technician-profile/technician-profile.component";
-import SupplierTableComponent from "./components/supplier-table/supplier-table.component";
-import SupplierFormComponent from "./components/supplier-form/supplier-form.component";
+import MerchantTableComponent from "./components/merchant-table/merchant-table.component";
+import MerchantFormComponent from "./components/merchant-form/merchant-form.component";
 
 import DateService from "./services/date.service";
-import StockService from "./services/stock.service";
+import SupplyService from "./services/supply.service";
 import ProductService from "./services/product.service";
 import PhotoService from "./services/photo.service";
 import TechnicianService from "src/app/services/technician.service";
-import SupplierService from "./services/supplier.service";
+import MerchantService from "./services/merchant.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    StocksComponent,
+    SuppliesComponent,
     ProductFormComponent,
     TechniciansTableComponent,
     TechnicianFormComponent,
     TechnicianProfileComponent,
-    SupplierTableComponent,
-    SupplierFormComponent,
+    MerchantTableComponent,
+    MerchantFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -41,22 +41,22 @@ import SupplierService from "./services/supplier.service";
     FormsModule,
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "raktarkeszlet", component: StocksComponent },
+      { path: "raktarkeszlet", component: SuppliesComponent },
       { path: "raktarkeszlet/termek/uj", component: ProductFormComponent },
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
-      { path: "beszallitok", component: SupplierTableComponent },
-      { path: "beszallitok/uj", component: SupplierFormComponent },
+      { path: "kereskedok", component: MerchantTableComponent },
+      { path: "kereskedok/uj", component: MerchantFormComponent },
     ]),
   ],
   providers: [
     DateService,
-    StockService,
+    SupplyService,
     ProductService,
     PhotoService,
     TechnicianService,
-    SupplierService,
+    MerchantService,
   ],
   bootstrap: [AppComponent],
 })

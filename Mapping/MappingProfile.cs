@@ -12,15 +12,16 @@ namespace Warehouse.Mapping
             // Model to API resource
 
             CreateMap<Product, ProductResource>()
-                .ForMember(productResource => productResource.SupplierName,
-                    opt => opt.MapFrom(product => product.Supplier.Name));
+                .ForMember(productResource => productResource.MerchantName,
+                    memberOptions =>
+                        memberOptions.MapFrom(product => product.Merchant.Name));
 
-            CreateMap<Stock, StockResource>();
+            CreateMap<Supply, SupplyResource>();
             CreateMap<Product, KeyValuePairResource>();
-            CreateMap<Supplier, SupplierKeyValuePairWithProductKeyValuePairsResource>();
-            CreateMap<Supplier, KeyValuePairResource>();
-            CreateMap<Supplier, SupplierResource>();
-            CreateMap<StockEntry, StockEntryResource>();
+            CreateMap<Merchant, MerchantKeyValuePairWithProductKeyValuePairsResource>();
+            CreateMap<Merchant, KeyValuePairResource>();
+            CreateMap<Merchant, MerchantResource>();
+            CreateMap<SupplyEntry, SupplyEntryResource>();
             CreateMap<ProductPhoto, ProductPhotoResource>();
             CreateMap<Technician, TechnicianResource>();
             CreateMap<TechnicianPhoto, PhotoResource>();
@@ -29,8 +30,8 @@ namespace Warehouse.Mapping
 
             // API resource to model
 
-            CreateMap<SaveSupplierResource, Supplier>();
-            CreateMap<SaveStockEntryResource, StockEntry>();
+            CreateMap<SaveMerchantResource, Merchant>();
+            CreateMap<SaveSupplyEntryResource, SupplyEntry>();
             CreateMap<SaveProductResource, Product>();
             CreateMap<SaveOrderResource, Order>();
             CreateMap<SaveOrderDetailResource, OrderDetail>();

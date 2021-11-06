@@ -12,35 +12,35 @@ namespace Warehouse.Persistence.EntityConfigurations
                 .ToTable("technicians");
 
             builder
-                .Property(t => t.Id)
+                .Property(technician => technician.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(t => t.FirstName)
+                .Property(technician => technician.FirstName)
                 .HasColumnName("first_name")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(t => t.LastName)
+                .Property(technician => technician.LastName)
                 .HasColumnName("last_name")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(t => t.Email)
+                .Property(technician => technician.Email)
                 .HasColumnName("email")
                 .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .Property(t => t.Phone)
+                .Property(technician => technician.Phone)
                 .HasColumnName("phone")
                 .HasMaxLength(25)
                 .IsRequired();
 
             builder
-                .Property(t => t.Balance)
+                .Property(technician => technician.Balance)
                 .HasColumnName("balance")
                 .IsRequired();
         }

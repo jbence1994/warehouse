@@ -19,7 +19,7 @@ namespace Warehouse.Persistence.Repositories
         public async Task<IEnumerable<TechnicianPhoto>> GetPhotos(int technicianId)
         {
             return await _context.TechnicianPhotos
-                .Where(p => p.TechnicianId == technicianId)
+                .Where(technicianPhoto => technicianPhoto.TechnicianId == technicianId)
                 .ToListAsync();
         }
     }

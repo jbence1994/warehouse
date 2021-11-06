@@ -15,7 +15,41 @@ namespace Warehouse.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("Warehouse.Core.Models.Merchant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("city");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
+                        .HasColumnName("phone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("merchants");
+                });
 
             modelBuilder.Entity("Warehouse.Core.Models.Order", b =>
                 {
@@ -82,6 +116,10 @@ namespace Warehouse.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("int")
+                        .HasColumnName("merchant_id");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -92,10 +130,6 @@ namespace Warehouse.Migrations
                         .HasColumnType("double")
                         .HasColumnName("price");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int")
-                        .HasColumnName("supplier_id");
-
                     b.Property<string>("Unit")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -104,7 +138,7 @@ namespace Warehouse.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SupplierId");
+                    b.HasIndex("MerchantId");
 
                     b.ToTable("products");
                 });
@@ -133,7 +167,7 @@ namespace Warehouse.Migrations
                     b.ToTable("product_photos");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Stock", b =>
+            modelBuilder.Entity("Warehouse.Core.Models.Supply", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,10 +186,10 @@ namespace Warehouse.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("stocks");
+                    b.ToTable("supplies");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.StockEntry", b =>
+            modelBuilder.Entity("Warehouse.Core.Models.SupplyEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,41 +212,7 @@ namespace Warehouse.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("stock_entries");
-                });
-
-            modelBuilder.Entity("Warehouse.Core.Models.Supplier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("city");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("email");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)")
-                        .HasColumnName("phone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("suppliers");
+                    b.ToTable("supply_entries");
                 });
 
             modelBuilder.Entity("Warehouse.Core.Models.Technician", b =>
@@ -337,13 +337,13 @@ namespace Warehouse.Migrations
 
             modelBuilder.Entity("Warehouse.Core.Models.Product", b =>
                 {
-                    b.HasOne("Warehouse.Core.Models.Supplier", "Supplier")
+                    b.HasOne("Warehouse.Core.Models.Merchant", "Merchant")
                         .WithMany("Products")
-                        .HasForeignKey("SupplierId")
+                        .HasForeignKey("MerchantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Supplier");
+                    b.Navigation("Merchant");
                 });
 
             modelBuilder.Entity("Warehouse.Core.Models.ProductPhoto", b =>
@@ -355,10 +355,10 @@ namespace Warehouse.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Stock", b =>
+            modelBuilder.Entity("Warehouse.Core.Models.Supply", b =>
                 {
                     b.HasOne("Warehouse.Core.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Supplies")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -366,10 +366,10 @@ namespace Warehouse.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Warehouse.Core.Models.StockEntry", b =>
+            modelBuilder.Entity("Warehouse.Core.Models.SupplyEntry", b =>
                 {
                     b.HasOne("Warehouse.Core.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("SupplyEntries")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -397,6 +397,11 @@ namespace Warehouse.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Warehouse.Core.Models.Merchant", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Warehouse.Core.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
@@ -405,11 +410,10 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Core.Models.Product", b =>
                 {
                     b.Navigation("Photos");
-                });
 
-            modelBuilder.Entity("Warehouse.Core.Models.Supplier", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("Supplies");
+
+                    b.Navigation("SupplyEntries");
                 });
 
             modelBuilder.Entity("Warehouse.Core.Models.Technician", b =>

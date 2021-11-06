@@ -1,0 +1,30 @@
+<p class="text-center" *ngIf="!merchants">Betöltés...</p>
+
+<div class="form-group" *ngIf="merchants">
+  <a [routerLink]="['/kereskedok/uj']" class="btn btn-primary"
+    >Kereskedők listájának bővítése</a
+  >
+</div>
+
+<table
+  class="table table-hover table-responsive-md"
+  aria-labelledby="tableLabel"
+  *ngIf="merchants"
+>
+  <thead>
+    <tr>
+      <th>Név</th>
+      <th>Település</th>
+      <th>E-mail</th>
+      <th>Telefonszám</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let merchant of merchants">
+      <td>{{ merchant.name }}</td>
+      <td>{{ merchant.city }}</td>
+      <td>{{ merchant.email }}</td>
+      <td>{{ merchant.phone }}</td>
+    </tr>
+  </tbody>
+</table>

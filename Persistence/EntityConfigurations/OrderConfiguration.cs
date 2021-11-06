@@ -10,22 +10,22 @@ namespace Warehouse.Persistence.EntityConfigurations
         {
             builder
                 .ToTable("orders");
-            
+
             builder
-                .Property(s => s.Id)
+                .Property(order => order.Id)
                 .HasColumnName("id");
-            
+
             builder
-                .Property(s => s.TechnicianId)
+                .Property(order => order.TechnicianId)
                 .HasColumnName("technician_id");
-                        
+
             builder
-                .Property(s => s.Total)
+                .Property(order => order.Total)
                 .HasColumnName("total")
                 .IsRequired();
-            
+
             builder
-                .Property(s => s.CreatedAt)
+                .Property(order => order.CreatedAt)
                 .HasColumnName("created_at")
                 .IsRequired();
         }
