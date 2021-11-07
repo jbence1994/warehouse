@@ -1,9 +1,9 @@
 using AutoMapper;
-using Warehouse.Controllers.Resources.Requests;
-using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Resources.Requests;
+using Warehouse.Resources.Responses;
 using Warehouse.Core.Models;
 
-namespace Warehouse.Mapping
+namespace Warehouse.Resources.Mapping
 {
     public class MappingProfile : Profile
     {

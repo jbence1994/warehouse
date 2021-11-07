@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Warehouse.Controllers.Resources.Requests
+namespace Warehouse.Resources.Requests
 {
     public class SaveOrderResource
     {

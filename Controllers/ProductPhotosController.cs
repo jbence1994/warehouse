@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
-using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Resources.Responses;
 using Warehouse.Core;
 using Warehouse.Core.Facades;
 using Warehouse.Core.Models;

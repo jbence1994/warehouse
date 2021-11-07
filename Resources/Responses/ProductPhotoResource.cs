@@ -1,4 +1,4 @@
-﻿namespace Warehouse.Controllers.Resources.Responses
+﻿namespace Warehouse.Resources.Responses
 {
     public class ProductPhotoResource : PhotoResource
     {
