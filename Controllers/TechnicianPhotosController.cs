@@ -79,7 +79,8 @@ namespace Warehouse.Controllers
 
             await _unitOfWork.CompleteAsync();
 
-            var result = _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
+            var result =
+                _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
 
             return Ok(result);
         }
@@ -89,7 +90,8 @@ namespace Warehouse.Controllers
         {
             var photos = await _technicianPhotoRepository.GetPhotos(technicianId);
 
-            var photoResources = _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
+            var photoResources =
+                _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
 
             return Ok(photoResources);
         }

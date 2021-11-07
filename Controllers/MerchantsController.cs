@@ -66,7 +66,8 @@ namespace Warehouse.Controllers
 
             merchant = await _merchantRepository.GetMerchant(merchant.Id);
 
-            var result = _mapper.Map<Merchant, MerchantResource>(merchant);
+            var result =
+                _mapper.Map<Merchant, MerchantResource>(merchant);
 
             return Ok(result);
         }

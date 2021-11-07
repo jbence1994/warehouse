@@ -40,14 +40,16 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = _mapper.Map<SaveProductResource, Product>(productResource);
+            var product =
+                _mapper.Map<SaveProductResource, Product>(productResource);
 
             await _productOperations.Add(product);
             await _unitOfWork.CompleteAsync();
 
             product = await _productRepository.GetProduct(product.Id);
 
-            var result = _mapper.Map<Product, ProductResource>(product);
+            var result =
+                _mapper.Map<Product, ProductResource>(product);
 
             return Ok(result);
         }

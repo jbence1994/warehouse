@@ -41,7 +41,8 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var order = _mapper.Map<SaveOrderResource, Order>(orderResource);
+            var order =
+                _mapper.Map<SaveOrderResource, Order>(orderResource);
 
             try
             {
@@ -50,7 +51,8 @@ namespace Warehouse.Controllers
 
                 order = await _orderRepository.GetOrder(order.Id);
 
-                var result = _mapper.Map<Order, OrderResource>(order);
+                var result =
+                    _mapper.Map<Order, OrderResource>(order);
 
                 return Ok(result);
             }

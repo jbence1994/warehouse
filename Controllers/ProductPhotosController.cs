@@ -90,7 +90,8 @@ namespace Warehouse.Controllers
 
             await _unitOfWork.CompleteAsync();
 
-            var result = _mapper.Map<ProductPhoto, PhotoResource>(photo);
+            var result =
+                _mapper.Map<ProductPhoto, PhotoResource>(photo);
 
             return Ok(result);
         }

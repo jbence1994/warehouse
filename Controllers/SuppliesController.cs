@@ -38,7 +38,8 @@ namespace Warehouse.Controllers
         {
             var supplies = await _supplyRepository.GetSupplies();
 
-            var supplyResources = _mapper.Map<IEnumerable<Supply>, IEnumerable<SupplyResource>>(supplies);
+            var supplyResources =
+                _mapper.Map<IEnumerable<Supply>, IEnumerable<SupplyResource>>(supplies);
 
             return Ok(supplyResources);
         }
@@ -51,14 +52,16 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var supplyEntry = _mapper.Map<SaveSupplyEntryResource, SupplyEntry>(saveSupplyEntryResource);
+            var supplyEntry =
+                _mapper.Map<SaveSupplyEntryResource, SupplyEntry>(saveSupplyEntryResource);
 
             await _supplyOperations.Add(supplyEntry);
             await _unitOfWork.CompleteAsync();
 
             supplyEntry = await _supplyRepository.GetSupplyEntry(supplyEntry.Id);
 
-            var result = _mapper.Map<SupplyEntry, SupplyEntryResource>(supplyEntry);
+            var result =
+                _mapper.Map<SupplyEntry, SupplyEntryResource>(supplyEntry);
 
             return Ok(result);
         }

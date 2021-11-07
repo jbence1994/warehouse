@@ -29,7 +29,8 @@ namespace Warehouse.Controllers
         {
             var orders = await _technicianOrderRepository.GetOrders(technicianId);
 
-            var orderResources = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
+            var orderResources =
+                _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
 
             return Ok(orderResources);
         }

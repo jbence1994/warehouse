@@ -54,7 +54,8 @@ namespace Warehouse.Controllers
                 return NotFound();
             }
 
-            var technicianResource = _mapper.Map<Technician, TechnicianResource>(technician);
+            var technicianResource =
+                _mapper.Map<Technician, TechnicianResource>(technician);
 
             return Ok(technicianResource);
         }
@@ -67,14 +68,16 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var technician = _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
+            var technician =
+                _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
             await _technicianOperations.Add(technician);
             await _unitOfWork.CompleteAsync();
 
             technician = await _technicianRepository.GetTechnician(technician.Id);
 
-            var result = _mapper.Map<Technician, TechnicianResource>(technician);
+            var result =
+                _mapper.Map<Technician, TechnicianResource>(technician);
 
             return Ok(result);
         }
