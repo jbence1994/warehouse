@@ -4,30 +4,30 @@ using Microsoft.AspNetCore.Mvc;
 using Warehouse.Resources.Requests;
 using Warehouse.Resources.Responses;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Services;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
-        private readonly IProductFacade _productFacade;
+        private readonly ProductOperations _productOperations;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public ProductsController(
             IProductRepository productRepository,
-            IProductFacade productFacade,
+            ProductOperations productOperations,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _productRepository = productRepository;
-            _productFacade = productFacade;
+            _productOperations = productOperations;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -42,7 +42,7 @@ namespace Warehouse.Controllers
 
             var product = _mapper.Map<SaveProductResource, Product>(productResource);
 
-            await _productFacade.Add(product);
+            await _productOperations.Add(product);
             await _unitOfWork.CompleteAsync();
 
             product = await _productRepository.GetProduct(product.Id);

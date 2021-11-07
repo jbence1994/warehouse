@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
-namespace Warehouse.Facades
+namespace Warehouse.Services
 {
-    public class TechnicianFacade : ITechnicianFacade
+    public class TechnicianOperations
     {
         private readonly ITechnicianRepository _technicianRepository;
 
-        public TechnicianFacade(ITechnicianRepository technicianRepository)
+        public TechnicianOperations(ITechnicianRepository technicianRepository)
         {
             _technicianRepository = technicianRepository;
         }

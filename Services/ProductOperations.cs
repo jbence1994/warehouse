@@ -1,15 +1,14 @@
 ﻿using System.Threading.Tasks;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
-namespace Warehouse.Facades
+namespace Warehouse.Services
 {
-    public class ProductFacade : IProductFacade
+    public class ProductOperations
     {
         private readonly IProductRepository _productRepository;
 
-        public ProductFacade(IProductRepository productRepository)
+        public ProductOperations(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }

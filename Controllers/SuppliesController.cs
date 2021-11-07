@@ -7,28 +7,28 @@ using Warehouse.Core.Repositories;
 using Warehouse.Resources.Requests;
 using Warehouse.Resources.Responses;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
+using Warehouse.Services;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class SuppliesController : ControllerBase
     {
         private readonly ISupplyRepository _supplyRepository;
-        private readonly ISupplyFacade _supplyFacade;
+        private readonly SupplyOperations _supplyOperations;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public SuppliesController(
             ISupplyRepository supplyRepository,
-            ISupplyFacade supplyFacade,
+            SupplyOperations supplyOperations,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _supplyRepository = supplyRepository;
-            _supplyFacade = supplyFacade;
+            _supplyOperations = supplyOperations;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -53,7 +53,7 @@ namespace Warehouse.Controllers
 
             var supplyEntry = _mapper.Map<SaveSupplyEntryResource, SupplyEntry>(saveSupplyEntryResource);
 
-            await _supplyFacade.Add(supplyEntry);
+            await _supplyOperations.Add(supplyEntry);
             await _unitOfWork.CompleteAsync();
 
             supplyEntry = await _supplyRepository.GetSupplyEntry(supplyEntry.Id);

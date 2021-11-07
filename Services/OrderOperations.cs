@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
-namespace Warehouse.Facades
+namespace Warehouse.Services
 {
-    public class OrderFacade : IOrderFacade
+    public class OrderOperations
     {
         private readonly ISupplyRepository _supplyRepository;
         private readonly IProductRepository _productRepository;
         private readonly ITechnicianRepository _technicianRepository;
 
-        public OrderFacade(
+        public OrderOperations(
             ISupplyRepository supplyRepository,
             IProductRepository productRepository,
             ITechnicianRepository technicianRepository
