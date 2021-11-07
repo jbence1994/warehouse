@@ -1,0 +1,7 @@
+﻿import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-orders",
+  templateUrl: "./orders.component.html",
+})
+export default class OrdersComponent {}

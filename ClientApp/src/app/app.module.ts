@@ -9,6 +9,7 @@ import NavMenuComponent from "./components/nav-menu/nav-menu.component";
 import HomeComponent from "./components/home/home.component";
 import SuppliesComponent from "./components/supplies/supplies.component";
 import ProductFormComponent from "./components/product-form/product-form.component";
+import OrdersComponent from "./components/orders/orders.component";
 import TechniciansTableComponent from "./components/technician-table/technicians-table.component";
 import TechnicianFormComponent from "./components/technician-form/technician-form.component";
 import TechnicianProfileComponent from "./components/technician-profile/technician-profile.component";
@@ -29,6 +30,7 @@ import MerchantService from "./services/merchant.service";
     HomeComponent,
     SuppliesComponent,
     ProductFormComponent,
+    OrdersComponent,
     TechniciansTableComponent,
     TechnicianFormComponent,
     TechnicianProfileComponent,
@@ -46,6 +48,7 @@ import MerchantService from "./services/merchant.service";
       { path: "technikus-info", component: TechniciansTableComponent },
       { path: "technikus-info/uj", component: TechnicianFormComponent },
       { path: "technikus-info/:id", component: TechnicianProfileComponent },
+      { path: "vasarlas", component: OrdersComponent },
       { path: "kereskedok", component: MerchantTableComponent },
       { path: "kereskedok/uj", component: MerchantFormComponent },
     ]),
