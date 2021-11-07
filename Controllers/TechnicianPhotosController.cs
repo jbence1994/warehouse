@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
@@ -48,7 +47,7 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadPhoto(int technicianId, IFormFile photoToUpload)
+        public async Task<IActionResult> UploadPhoto(int technicianId, IFile photoToUpload)
         {
             var technician = await _technicianRepository.GetTechnician(technicianId);
 

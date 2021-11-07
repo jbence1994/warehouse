@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
@@ -25,7 +24,7 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly FileSystemPhotoOperations _photoOperations;
+        private readonly IPhotoOperations _photoOperations;
         private readonly FileSettings _fileSettings;
 
         public ProductPhotosController(
@@ -34,7 +33,7 @@ namespace Warehouse.Controllers
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
-            FileSystemPhotoOperations photoOperations,
+            IPhotoOperations photoOperations,
             IOptions<FileSettings> options
         )
         {
@@ -59,7 +58,7 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost("{productId:int}")]
-        public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
+        public async Task<IActionResult> UploadPhoto(int productId, IFile photoToUpload)
         {
             var product = await _productRepository.GetProduct(productId, includeRelated: false);
 
