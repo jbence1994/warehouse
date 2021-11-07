@@ -4,31 +4,31 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Controllers.Resources.Requests;
-using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Resources.Requests;
+using Warehouse.Resources.Responses;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
+using Warehouse.Services;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class SuppliesController : ControllerBase
     {
         private readonly ISupplyRepository _supplyRepository;
-        private readonly ISupplyFacade _supplyFacade;
+        private readonly SupplyOperations _supplyOperations;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public SuppliesController(
             ISupplyRepository supplyRepository,
-            ISupplyFacade supplyFacade,
+            SupplyOperations supplyOperations,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _supplyRepository = supplyRepository;
-            _supplyFacade = supplyFacade;
+            _supplyOperations = supplyOperations;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -38,7 +38,8 @@ namespace Warehouse.Controllers
         {
             var supplies = await _supplyRepository.GetSupplies();
 
-            var supplyResources = _mapper.Map<IEnumerable<Supply>, IEnumerable<SupplyResource>>(supplies);
+            var supplyResources =
+                _mapper.Map<IEnumerable<Supply>, IEnumerable<SupplyResource>>(supplies);
 
             return Ok(supplyResources);
         }
@@ -51,14 +52,16 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var supplyEntry = _mapper.Map<SaveSupplyEntryResource, SupplyEntry>(saveSupplyEntryResource);
+            var supplyEntry =
+                _mapper.Map<SaveSupplyEntryResource, SupplyEntry>(saveSupplyEntryResource);
 
-            await _supplyFacade.Add(supplyEntry);
+            await _supplyOperations.Add(supplyEntry);
             await _unitOfWork.CompleteAsync();
 
             supplyEntry = await _supplyRepository.GetSupplyEntry(supplyEntry.Id);
 
-            var result = _mapper.Map<SupplyEntry, SupplyEntryResource>(supplyEntry);
+            var result =
+                _mapper.Map<SupplyEntry, SupplyEntryResource>(supplyEntry);
 
             return Ok(result);
         }

@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
-using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Resources.Responses;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Services;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/technicians/{technicianId:int}/photos")]
+    [Route("api/technicians/{technicianId:int}/photos/")]
     public class TechnicianPhotosController : ControllerBase
     {
         private readonly ITechnicianPhotoRepository _technicianPhotoRepository;
@@ -25,7 +25,7 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly IPhotoFacade _photoFacade;
+        private readonly FileSystemPhotoOperations _photoOperations;
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
@@ -34,7 +34,7 @@ namespace Warehouse.Controllers
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
-            IPhotoFacade photoFacade,
+            FileSystemPhotoOperations photoOperations,
             IOptions<FileSettings> options
         )
         {
@@ -43,7 +43,7 @@ namespace Warehouse.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _host = host;
-            _photoFacade = photoFacade;
+            _photoOperations = photoOperations;
             _fileSettings = options.Value;
         }
 
@@ -59,7 +59,7 @@ namespace Warehouse.Controllers
 
             try
             {
-                photoToUpload.Validate(_fileSettings);
+                _photoOperations.Validate(photoToUpload, _fileSettings);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace Warehouse.Controllers
 
             var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/technicians");
 
-            var fileName = await _photoFacade.StorePhoto(uploadsFolderPath, photoToUpload);
+            var fileName = await _photoOperations.StorePhoto(uploadsFolderPath, photoToUpload);
 
             var photo = new TechnicianPhoto
             {
@@ -79,7 +79,8 @@ namespace Warehouse.Controllers
 
             await _unitOfWork.CompleteAsync();
 
-            var result = _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
+            var result =
+                _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
 
             return Ok(result);
         }
@@ -89,7 +90,8 @@ namespace Warehouse.Controllers
         {
             var photos = await _technicianPhotoRepository.GetPhotos(technicianId);
 
-            var photoResources = _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
+            var photoResources =
+                _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
 
             return Ok(photoResources);
         }

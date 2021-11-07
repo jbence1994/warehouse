@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Resources.Responses;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("/api/technicians/{technicianId:int}/orders")]
+    [Route("/api/technicians/{technicianId:int}/orders/")]
     public class TechnicianOrdersController : ControllerBase
     {
         private readonly ITechnicianOrderRepository _technicianOrderRepository;
@@ -29,7 +29,8 @@ namespace Warehouse.Controllers
         {
             var orders = await _technicianOrderRepository.GetOrders(technicianId);
 
-            var orderResources = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
+            var orderResources =
+                _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
 
             return Ok(orderResources);
         }

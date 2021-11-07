@@ -8,11 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehouse.Configuration.FileUpload;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Repositories;
-using Warehouse.Facades;
 using Warehouse.Persistence;
 using Warehouse.Persistence.Repositories;
+using Warehouse.Services;
 
 namespace Warehouse
 {
@@ -46,11 +45,11 @@ namespace Warehouse
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(_configuration.GetConnectionString("Default")));
 
-            services.AddScoped<IOrderFacade, OrderFacade>();
-            services.AddScoped<IPhotoFacade, FileSystemPhotoFacade>();
-            services.AddScoped<IProductFacade, ProductFacade>();
-            services.AddScoped<ISupplyFacade, SupplyFacade>();
-            services.AddScoped<ITechnicianFacade, TechnicianFacade>();
+            services.AddScoped<OrderOperations>();
+            services.AddScoped<FileSystemPhotoOperations>();
+            services.AddScoped<ProductOperations>();
+            services.AddScoped<SupplyOperations>();
+            services.AddScoped<TechnicianOperations>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -69,7 +68,7 @@ namespace Warehouse
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
