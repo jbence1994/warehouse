@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import TechnicianService from "src/app/services/technician.service";
-import Technician from "src/app/models/technician";
+import TechnicianService from "../../services/technician.service";
+import Technician from "../../models/responses/technician";
 
 @Component({
   selector: "app-technicians-table",

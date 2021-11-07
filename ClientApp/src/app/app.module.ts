@@ -19,7 +19,7 @@ import DateService from "./services/date.service";
 import SupplyService from "./services/supply.service";
 import ProductService from "./services/product.service";
 import PhotoService from "./services/photo.service";
-import TechnicianService from "src/app/services/technician.service";
+import TechnicianService from "./services/technician.service";
 import MerchantService from "./services/merchant.service";
 
 @NgModule({

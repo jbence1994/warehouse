@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import ProductService from "./../../services/product.service";
+import ProductService from "../../services/product.service";
 import MerchantService from "../../services/merchant.service";
-import SaveProduct from "src/app/models/saveProduct";
-import KeyValuePair from "./../../models/keyValuePair";
+import SaveProduct from "../../models/requests/saveProduct";
+import KeyValuePair from "../../models/responses/keyValuePair";
 
 @Component({
   selector: "app-product-form",

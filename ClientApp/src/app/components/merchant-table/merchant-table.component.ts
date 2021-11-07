@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import MerchantService from "./../../services/merchant.service";
-import Merchant from "./../../models/merchant";
+import MerchantService from "../../services/merchant.service";
+import Merchant from "../../models/responses/merchant";
 
 @Component({
   selector: "app-merchant-table",

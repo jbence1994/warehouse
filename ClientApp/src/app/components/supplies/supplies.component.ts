@@ -1,9 +1,9 @@
 ﻿import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import ProductService from "src/app/services/product.service";
+import ProductService from "../../services/product.service";
 import PhotoService from "../../services/photo.service";
 import SupplyService from "../../services/supply.service";
-import ProductPhoto from "../../models/productPhoto";
-import Supply from "../../models/supply";
+import ProductPhoto from "../../models/responses/productPhoto";
+import Supply from "../../models/responses/supply";
 
 @Component({
   selector: "app-supplies",
