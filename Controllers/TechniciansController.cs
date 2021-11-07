@@ -2,33 +2,33 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Controllers.Resources.Requests;
-using Warehouse.Controllers.Resources.Responses;
+using Warehouse.Resources.Requests;
+using Warehouse.Resources.Responses;
 using Warehouse.Core;
-using Warehouse.Core.Facades;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Services;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class TechniciansController : ControllerBase
     {
         private readonly ITechnicianRepository _technicianRepository;
-        private readonly ITechnicianFacade _technicianFacade;
+        private readonly TechnicianOperations _technicianOperations;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public TechniciansController(
             ITechnicianRepository technicianRepository,
-            ITechnicianFacade technicianFacade,
+            TechnicianOperations technicianOperations,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _technicianRepository = technicianRepository;
-            _technicianFacade = technicianFacade;
+            _technicianOperations = technicianOperations;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -54,7 +54,8 @@ namespace Warehouse.Controllers
                 return NotFound();
             }
 
-            var technicianResource = _mapper.Map<Technician, TechnicianResource>(technician);
+            var technicianResource =
+                _mapper.Map<Technician, TechnicianResource>(technician);
 
             return Ok(technicianResource);
         }
@@ -67,14 +68,16 @@ namespace Warehouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var technician = _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
+            var technician =
+                _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
 
-            await _technicianFacade.Add(technician);
+            await _technicianOperations.Add(technician);
             await _unitOfWork.CompleteAsync();
 
             technician = await _technicianRepository.GetTechnician(technician.Id);
 
-            var result = _mapper.Map<Technician, TechnicianResource>(technician);
+            var result =
+                _mapper.Map<Technician, TechnicianResource>(technician);
 
             return Ok(result);
         }
