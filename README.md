@@ -38,9 +38,7 @@ to create directory for user secrets on your local machine
 `~/.microsoft/usersecrets/warehouse-secrets`
 
 ```bash
-{
     dotnet user-secrets set "ConnectionStrings:Default": "SERVER=127.0.0.1;DATABASE=warehouse;UID=[YOUR_MYSQL_USERNAME];PASSWORD=[YOUR_MYSQL_PASSWORD];PORT=3306;"
-}
 ```
 
 ### Build database schema
