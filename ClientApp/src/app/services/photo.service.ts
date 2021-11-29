@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import * as config from "../config/endpoints.json";
-import Photo from "../models/photo";
-import ProductPhoto from "../models/productPhoto";
+import Photo from "../models/responses/photo";
+import ProductPhoto from "../models/responses/productPhoto";
 
 @Injectable()
 export default class PhotoService {

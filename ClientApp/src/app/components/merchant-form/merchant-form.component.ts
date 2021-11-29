@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import MerchantService from "./../../services/merchant.service";
-import SaveMerchant from "./../../models/saveMerchant";
+import MerchantService from "../../services/merchant.service";
+import SaveMerchant from "../../models/requests/saveMerchant";
 
 @Component({
   selector: "app-merchant-form",
