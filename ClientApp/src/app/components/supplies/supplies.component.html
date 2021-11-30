@@ -26,6 +26,7 @@
           <p>
             Jelenleg raktáron: {{ supply.quantity }} {{ supply.product.unit }}
           </p>
+          <code>{{ saveStockEntry | json }}</code>
           <input class="form-control" type="number" min="1" />
           <button class="mt-2 btn btn-primary">Raktárkészlet bővítése</button>
         </div>
