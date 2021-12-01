@@ -4,11 +4,11 @@ using Warehouse.Core.Repositories;
 
 namespace Warehouse.Services
 {
-    public class ProductOperations
+    public class ProductService
     {
         private readonly IProductRepository _productRepository;
 
-        public ProductOperations(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }

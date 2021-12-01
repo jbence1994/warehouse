@@ -15,19 +15,19 @@ namespace Warehouse.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
-        private readonly ProductOperations _productOperations;
+        private readonly ProductService _productService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public ProductsController(
             IProductRepository productRepository,
-            ProductOperations productOperations,
+            ProductService productOperations,
             IUnitOfWork unitOfWork,
             IMapper mapper
         )
         {
             _productRepository = productRepository;
-            _productOperations = productOperations;
+            _productService = productOperations;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -43,7 +43,7 @@ namespace Warehouse.Controllers
             var product =
                 _mapper.Map<SaveProductResource, Product>(productResource);
 
-            await _productOperations.Add(product);
+            await _productService.Add(product);
             await _unitOfWork.CompleteAsync();
 
             product = await _productRepository.GetProduct(product.Id);
