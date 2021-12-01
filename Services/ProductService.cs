@@ -34,6 +34,11 @@ namespace Warehouse.Services
 
         public async Task Add(Product product)
         {
+            product.Supply = new Supply
+            {
+                Quantity = 0
+            };
+
             await _productRepository.Add(product);
             await _unitOfWork.CompleteAsync();
         }
