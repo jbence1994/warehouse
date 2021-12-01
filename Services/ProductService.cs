@@ -2,6 +2,7 @@
 using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Services
 {
@@ -21,8 +22,14 @@ namespace Warehouse.Services
 
         public async Task<Product> GetProduct(int id)
         {
-            // TODO: null-check
-            return await _productRepository.GetProduct(id);
+            var product = await _productRepository.GetProduct(id);
+
+            if (product == null)
+            {
+                throw new ProductNotFoundException(id);
+            }
+
+            return product;
         }
 
         public async Task Add(Product product)
