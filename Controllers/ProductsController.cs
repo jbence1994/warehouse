@@ -28,7 +28,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(
-            [FromBody] CreateProductRequestResource createProductRequestResource
+            [FromBody] CreateProductRequestResource request
         )
         {
             try
@@ -39,7 +39,7 @@ namespace Warehouse.Controllers
                 }
 
                 var product =
-                    _mapper.Map<CreateProductRequestResource, Product>(createProductRequestResource);
+                    _mapper.Map<CreateProductRequestResource, Product>(request);
 
                 await _productService.Add(product);
 
