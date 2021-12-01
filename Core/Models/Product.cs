@@ -11,13 +11,12 @@ namespace Warehouse.Core.Models
         public string Unit { get; set; }
         public int MerchantId { get; set; }
         public Merchant Merchant { get; set; }
-        public ICollection<Supply> Supplies { get; set; }
+        public Supply Supply { get; set; }
         public ICollection<SupplyEntry> SupplyEntries { get; set; }
         public ICollection<ProductPhoto> Photos { get; set; }
 
         public Product()
         {
-            Supplies = new Collection<Supply>();
             SupplyEntries = new Collection<SupplyEntry>();
             Photos = new Collection<ProductPhoto>();
         }

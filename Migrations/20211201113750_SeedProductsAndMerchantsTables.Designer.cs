@@ -9,8 +9,8 @@ using Warehouse.Persistence;
 namespace Warehouse.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211105180407_SeedTechnicianBalanceEntriesTable")]
-    partial class SeedTechnicianBalanceEntriesTable
+    [Migration("20211201113750_SeedProductsAndMerchantsTables")]
+    partial class SeedProductsAndMerchantsTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,7 +186,8 @@ namespace Warehouse.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("supplies");
                 });
@@ -360,8 +361,8 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Core.Models.Supply", b =>
                 {
                     b.HasOne("Warehouse.Core.Models.Product", "Product")
-                        .WithMany("Supplies")
-                        .HasForeignKey("ProductId")
+                        .WithOne("Supply")
+                        .HasForeignKey("Warehouse.Core.Models.Supply", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -413,7 +414,7 @@ namespace Warehouse.Migrations
                 {
                     b.Navigation("Photos");
 
-                    b.Navigation("Supplies");
+                    b.Navigation("Supply");
 
                     b.Navigation("SupplyEntries");
                 });

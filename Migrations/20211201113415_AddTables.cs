@@ -242,7 +242,8 @@ namespace Warehouse.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_supplies_product_id",
                 table: "supplies",
-                column: "product_id");
+                column: "product_id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_supply_entries_product_id",

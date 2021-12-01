@@ -26,7 +26,7 @@ namespace Warehouse.Persistence
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelBuilder.ApplyConfiguration(new ProductPhotoConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SupplyConfiguration());
             modelBuilder.ApplyConfiguration(new SupplyEntryConfiguration());
             modelBuilder.ApplyConfiguration(new TechnicianBalanceEntryConfiguration());

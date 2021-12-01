@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Warehouse.Persistence.EntityConfigurations
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class ProductEntityConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
