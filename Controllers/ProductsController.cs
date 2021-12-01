@@ -18,11 +18,11 @@ namespace Warehouse.Controllers
         private readonly IMapper _mapper;
 
         public ProductsController(
-            ProductService productOperations,
+            ProductService productService,
             IMapper mapper
         )
         {
-            _productService = productOperations;
+            _productService = productService;
             _mapper = mapper;
         }
 
