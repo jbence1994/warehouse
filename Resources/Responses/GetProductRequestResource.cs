@@ -1,6 +1,6 @@
 namespace Warehouse.Resources.Responses
 {
-    public class ProductResource
+    public class GetProductRequestResource
     {
         public int Id { get; set; }
         public string Name { get; set; }
