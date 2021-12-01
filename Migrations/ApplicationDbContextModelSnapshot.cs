@@ -184,7 +184,8 @@ namespace Warehouse.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("supplies");
                 });
@@ -358,8 +359,8 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Core.Models.Supply", b =>
                 {
                     b.HasOne("Warehouse.Core.Models.Product", "Product")
-                        .WithMany("Supplies")
-                        .HasForeignKey("ProductId")
+                        .WithOne("Supply")
+                        .HasForeignKey("Warehouse.Core.Models.Supply", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -411,7 +412,7 @@ namespace Warehouse.Migrations
                 {
                     b.Navigation("Photos");
 
-                    b.Navigation("Supplies");
+                    b.Navigation("Supply");
 
                     b.Navigation("SupplyEntries");
                 });
