@@ -1,5 +1,5 @@
 {
-  "productsEndpoint": "api/products",
+  "productsEndpoint": "api/v1/products",
   "productPhotosEndpoint": "api/products/photos",
   "suppliesEndpoint": "api/supplies",
   "merchantsEndpoint": "api/merchants",
