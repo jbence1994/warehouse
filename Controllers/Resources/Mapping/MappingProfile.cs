@@ -1,20 +1,20 @@
 using AutoMapper;
-using Warehouse.Resources.Requests;
-using Warehouse.Resources.Responses;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
 
-namespace Warehouse.Resources.Mapping
+namespace Warehouse.Controllers.Resources.Mapping
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            // Model to API resource
+            // Models to API response resources
 
             CreateMap<Product, GetProductRequestResource>()
-                .ForMember(productResource => productResource.MerchantName,
-                    memberOptions =>
-                        memberOptions.MapFrom(product => product.Merchant.Name));
+                .ForMember(getProductRequestResource => getProductRequestResource.MerchantName,
+                    options =>
+                        options.MapFrom(product => product.Merchant.Name));
 
             CreateMap<Supply, SupplyResource>();
             CreateMap<Product, GetKeyValuePairResponseResource>();
@@ -28,7 +28,7 @@ namespace Warehouse.Resources.Mapping
             CreateMap<Order, OrderResource>();
             CreateMap<OrderDetail, OrderDetailResource>();
 
-            // API resource to model
+            // API request resources to models
 
             CreateMap<CreateMerchantRequestResource, Merchant>();
             CreateMap<SaveSupplyEntryResource, SupplyEntry>();

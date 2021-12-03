@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
-using Warehouse.Resources.Requests;
-using Warehouse.Resources.Responses;
 using Warehouse.Core;
 using Warehouse.Services;
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Warehouse.Resources.Responses
+namespace Warehouse.Controllers.Resources.Responses
 {
     public class OrderResource
     {

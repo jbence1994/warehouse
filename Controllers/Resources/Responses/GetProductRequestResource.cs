@@ -1,4 +1,4 @@
-namespace Warehouse.Resources.Responses
+namespace Warehouse.Controllers.Resources.Responses
 {
     public class GetProductRequestResource
     {
