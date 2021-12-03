@@ -45,9 +45,9 @@ namespace Warehouse
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(_configuration.GetConnectionString("Default")));
 
-            services.AddScoped<OrderService>();
-            services.AddScoped<FileSystemPhotoOperations>();
             services.AddScoped<MerchantService>();
+            services.AddScoped<OrderService>();
+            services.AddScoped<PhotoService>();
             services.AddScoped<ProductService>();
             services.AddScoped<SupplyOperations>();
             services.AddScoped<TechnicianService>();

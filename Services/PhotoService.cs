@@ -3,10 +3,11 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Warehouse.Configuration.FileUpload;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Services
 {
-    public class FileSystemPhotoOperations
+    public class PhotoService
     {
         public async Task<string> StorePhoto(string uploadsFolderPath, IFormFile file)
         {

@@ -25,7 +25,7 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly FileSystemPhotoOperations _photoOperations;
+        private readonly PhotoService _photoOperations;
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
@@ -34,7 +34,7 @@ namespace Warehouse.Controllers
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
-            FileSystemPhotoOperations photoOperations,
+            PhotoService photoOperations,
             IOptions<FileSettings> options
         )
         {
