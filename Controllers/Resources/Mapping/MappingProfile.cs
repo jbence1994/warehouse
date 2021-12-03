@@ -25,16 +25,16 @@ namespace Warehouse.Controllers.Resources.Mapping
             CreateMap<ProductPhoto, ProductPhotoResource>();
             CreateMap<Technician, GetTechnicianResponseResource>();
             CreateMap<TechnicianPhoto, PhotoResource>();
-            CreateMap<Order, OrderResource>();
-            CreateMap<OrderDetail, OrderDetailResource>();
+            CreateMap<Order, GetOrderResponseResource>();
+            CreateMap<OrderDetail, GetOrderDetailResponseResource>();
 
             // API request resources to models
 
             CreateMap<CreateMerchantRequestResource, Merchant>();
             CreateMap<SaveSupplyEntryResource, SupplyEntry>();
             CreateMap<CreateProductRequestResource, Product>();
-            CreateMap<SaveOrderResource, Order>();
-            CreateMap<SaveOrderDetailResource, OrderDetail>();
+            CreateMap<CreateOrderRequestResource, Order>();
+            CreateMap<CreateOrderDetailRequestResource, OrderDetail>();
             CreateMap<CreateTechnicianRequestResource, Technician>();
         }
     }
