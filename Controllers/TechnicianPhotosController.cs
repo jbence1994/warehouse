@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
 using Warehouse.Controllers.Resources.Responses;
-using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Services;
 using Warehouse.Services.Exceptions;
@@ -21,26 +20,23 @@ namespace Warehouse.Controllers
     public class TechnicianPhotosController : ControllerBase
     {
         private readonly TechnicianService _technicianService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly PhotoService _photoService;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly PhotoService _photoService;
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
             TechnicianService technicianService,
-            IUnitOfWork unitOfWork,
+            PhotoService photoService,
             IMapper mapper,
             IWebHostEnvironment host,
-            PhotoService photoService,
             IOptions<FileSettings> options
         )
         {
             _technicianService = technicianService;
-            _unitOfWork = unitOfWork;
+            _photoService = photoService;
             _mapper = mapper;
             _host = host;
-            _photoService = photoService;
             _fileSettings = options.Value;
         }
 
@@ -83,19 +79,9 @@ namespace Warehouse.Controllers
                 var fileName =
                     await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
 
-                var photo = new TechnicianPhoto
-                {
-                    FileName = fileName
-                };
+                await _technicianService.AddPhoto(technician, fileName);
 
-                technician.Photos.Add(photo);
-
-                await _unitOfWork.CompleteAsync();
-
-                var response =
-                    _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
-
-                return Ok(response);
+                return Ok();
             }
             catch (TechnicianNotFoundException technicianNotFoundException)
             {

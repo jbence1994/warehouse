@@ -27,18 +27,6 @@ namespace Warehouse.Services
             return await _technicianRepository.GetTechnicians();
         }
 
-        public async Task<Technician> GetTechnician(int id)
-        {
-            var technician = await _technicianRepository.GetTechnician(id);
-
-            if (technician == null)
-            {
-                throw new TechnicianNotFoundException(id);
-            }
-
-            return technician;
-        }
-
         public async Task<IEnumerable<TechnicianPhoto>> GetPhoto(int id)
         {
             var technician = _technicianRepository.GetTechnician(id);
@@ -49,6 +37,18 @@ namespace Warehouse.Services
             }
 
             return await _technicianRepository.GetPhoto(technician.Id);
+        }
+
+        public async Task<Technician> GetTechnician(int id)
+        {
+            var technician = await _technicianRepository.GetTechnician(id);
+
+            if (technician == null)
+            {
+                throw new TechnicianNotFoundException(id);
+            }
+
+            return technician;
         }
 
         public async Task Add(Technician technician)
@@ -62,6 +62,14 @@ namespace Warehouse.Services
             technician.BalanceEntries.Add(initialBalanceEntry);
 
             await _technicianRepository.Add(technician);
+            await _unitOfWork.CompleteAsync();
+        }
+
+        public async Task AddPhoto(Technician technician, string fileName)
+        {
+            var photo = new TechnicianPhoto {FileName = fileName};
+
+            technician.Photos.Add(photo);
             await _unitOfWork.CompleteAsync();
         }
     }

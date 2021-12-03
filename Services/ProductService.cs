@@ -48,5 +48,13 @@ namespace Warehouse.Services
             await _productRepository.Add(product);
             await _unitOfWork.CompleteAsync();
         }
+
+        public async Task AddPhoto(Product product, string fileName)
+        {
+            var photo = new ProductPhoto {FileName = fileName};
+
+            product.Photos.Add(photo);
+            await _unitOfWork.CompleteAsync();
+        }
     }
 }

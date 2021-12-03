@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
 using Warehouse.Controllers.Resources.Responses;
-using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Services;
 using Warehouse.Services.Exceptions;
@@ -21,26 +20,23 @@ namespace Warehouse.Controllers
     public class ProductPhotosController : ControllerBase
     {
         private readonly ProductService _productService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly PhotoService _photoService;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly PhotoService _photoService;
         private readonly FileSettings _fileSettings;
 
         public ProductPhotosController(
             ProductService productService,
-            IUnitOfWork unitOfWork,
+            PhotoService photoService,
             IMapper mapper,
             IWebHostEnvironment host,
-            PhotoService photoService,
             IOptions<FileSettings> options
         )
         {
             _productService = productService;
-            _unitOfWork = unitOfWork;
+            _photoService = photoService;
             _mapper = mapper;
             _host = host;
-            _photoService = photoService;
             _fileSettings = options.Value;
         }
 
@@ -72,19 +68,9 @@ namespace Warehouse.Controllers
                 var fileName =
                     await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
 
-                var photo = new ProductPhoto
-                {
-                    FileName = fileName
-                };
+                await _productService.AddPhoto(product, fileName);
 
-                product.Photos.Add(photo);
-
-                await _unitOfWork.CompleteAsync();
-
-                var response =
-                    _mapper.Map<ProductPhoto, PhotoResource>(photo);
-
-                return Ok(response);
+                return Ok();
             }
             catch (ProductNotFoundException productNotFoundException)
             {
