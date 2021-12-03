@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
@@ -27,13 +29,24 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders(int technicianId)
         {
-            var orders =
-                await _orderService.GetOrders(technicianId);
+            try
+            {
+                var orders =
+                    await _orderService.GetOrders(technicianId);
 
-            var response =
-                _mapper.Map<IEnumerable<Order>, IEnumerable<GetOrderResponseResource>>(orders);
+                var response =
+                    _mapper.Map<IEnumerable<Order>, IEnumerable<GetOrderResponseResource>>(orders);
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (TechnicianNotFoundException technicianNotFoundException)
+            {
+                return NotFound(technicianNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

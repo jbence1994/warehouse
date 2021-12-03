@@ -42,7 +42,13 @@ namespace Warehouse.Services
 
         public async Task<IEnumerable<Order>> GetOrders(int technicianId)
         {
-            // TODO: check if technician id is valid.
+            var technician = await _technicianRepository.GetTechnician(technicianId);
+
+            if (technician == null)
+            {
+                throw new TechnicianNotFoundException(technicianId);
+            }
+
             return await _orderRepository.GetOrders(technicianId);
         }
 
