@@ -58,8 +58,6 @@ namespace Warehouse
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IMerchantRepository, MerchantRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
-            services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
-            services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
             services.AddScoped<ISupplyRepository, SupplyRepository>();
 
             services.AddControllersWithViews();

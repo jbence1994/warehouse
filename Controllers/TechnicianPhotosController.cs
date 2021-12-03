@@ -20,8 +20,7 @@ namespace Warehouse.Controllers
     [Route("/api/v1/technicians/{technicianId:int}/photos/")]
     public class TechnicianPhotosController : ControllerBase
     {
-        private readonly ITechnicianPhotoRepository _technicianPhotoRepository;
-        private readonly ITechnicianRepository _technicianRepository;
+        private readonly ITechnicianRepository _technicianRepository; // TODO: remove this to photo service...
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
@@ -29,7 +28,6 @@ namespace Warehouse.Controllers
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
-            ITechnicianPhotoRepository technicianPhotoRepository,
             ITechnicianRepository technicianRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -38,7 +36,6 @@ namespace Warehouse.Controllers
             IOptions<FileSettings> options
         )
         {
-            _technicianPhotoRepository = technicianPhotoRepository;
             _technicianRepository = technicianRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -88,7 +85,7 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotos(int technicianId)
         {
-            var photos = await _technicianPhotoRepository.GetPhotos(technicianId);
+            var photos = await _technicianRepository.GetPhoto(technicianId);
 
             var photoResources =
                 _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);

@@ -20,8 +20,7 @@ namespace Warehouse.Controllers
     [Route("/api/v1/products/photos/")]
     public class ProductPhotosController : ControllerBase
     {
-        private readonly IProductPhotoRepository _productPhotoRepository;
-        private readonly IProductRepository _productRepository;
+        private readonly IProductRepository _productRepository; // TODO: remove this to photo service...
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
@@ -29,7 +28,6 @@ namespace Warehouse.Controllers
         private readonly FileSettings _fileSettings;
 
         public ProductPhotosController(
-            IProductPhotoRepository productPhotoRepository,
             IProductRepository productRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -38,7 +36,6 @@ namespace Warehouse.Controllers
             IOptions<FileSettings> options
         )
         {
-            _productPhotoRepository = productPhotoRepository;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -50,7 +47,7 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotos()
         {
-            var photos = await _productPhotoRepository.GetPhotos();
+            var photos = await _productRepository.GetPhotos();
 
             var photoResources =
                 _mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<ProductPhotoResource>>(photos);
