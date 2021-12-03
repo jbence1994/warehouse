@@ -1,9 +1,9 @@
 {
-  "productsEndpoint": "api/products",
+  "productsEndpoint": "api/v1/products",
   "productPhotosEndpoint": "api/products/photos",
   "suppliesEndpoint": "api/supplies",
   "merchantsEndpoint": "api/merchants",
   "merchantKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairs",
   "merchantKeyValuePairsWithProductKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairsWithProductKeyValuePairs",
-  "techniciansEndpoint": "api/technicians"
+  "techniciansEndpoint": "api/v1/technicians"
 }
