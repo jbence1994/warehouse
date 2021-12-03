@@ -28,7 +28,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder(
-            [FromBody] CreateOrderRequestResource request
+            [FromBody] CreateOrderRequest request
         )
         {
             if (!ModelState.IsValid)
@@ -37,7 +37,7 @@ namespace Warehouse.Controllers
             }
 
             var order =
-                _mapper.Map<CreateOrderRequestResource, Order>(request);
+                _mapper.Map<CreateOrderRequest, Order>(request);
 
             try
             {

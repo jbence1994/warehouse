@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Warehouse.Controllers.Resources.Requests
 {
-    public class CreateProductRequestResource
+    public class CreateProductRequest
     {
         [Required]
         [StringLength(255)]

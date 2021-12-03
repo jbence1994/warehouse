@@ -29,12 +29,12 @@ namespace Warehouse.Controllers.Resources.Mapping
 
             // API request resources to models
 
-            CreateMap<CreateMerchantRequestResource, Merchant>();
-            CreateMap<CreateOrderRequestResource, Order>();
-            CreateMap<CreateOrderDetailRequestResource, OrderDetail>();
-            CreateMap<CreateProductRequestResource, Product>();
-            CreateMap<CreateSupplyEntryRequestResource, SupplyEntry>();
-            CreateMap<CreateTechnicianRequestResource, Technician>();
+            CreateMap<CreateMerchantRequest, Merchant>();
+            CreateMap<CreateOrderRequest, Order>();
+            CreateMap<CreateOrderDetailRequest, OrderDetail>();
+            CreateMap<CreateProductRequest, Product>();
+            CreateMap<CreateSupplyEntryRequest, SupplyEntry>();
+            CreateMap<CreateTechnicianRequest, Technician>();
         }
     }
 }

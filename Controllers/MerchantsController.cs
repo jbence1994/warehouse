@@ -55,7 +55,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateMerchant(
-            [FromBody] CreateMerchantRequestResource request
+            [FromBody] CreateMerchantRequest request
         )
         {
             try
@@ -66,7 +66,7 @@ namespace Warehouse.Controllers
                 }
 
                 var merchant =
-                    _mapper.Map<CreateMerchantRequestResource, Merchant>(request);
+                    _mapper.Map<CreateMerchantRequest, Merchant>(request);
 
                 await _merchantService.Add(merchant);
 

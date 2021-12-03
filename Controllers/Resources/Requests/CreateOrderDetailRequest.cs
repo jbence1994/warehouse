@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Warehouse.Controllers.Resources.Requests
 {
-    public class CreateSupplyEntryRequestResource
+    public class CreateOrderDetailRequest
     {
         [Required]
         public int ProductId { get; set; }

@@ -41,7 +41,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateSupplyEntry(
-            [FromBody] CreateSupplyEntryRequestResource request
+            [FromBody] CreateSupplyEntryRequest request
         )
         {
             try
@@ -52,7 +52,7 @@ namespace Warehouse.Controllers
                 }
 
                 var supplyEntry =
-                    _mapper.Map<CreateSupplyEntryRequestResource, SupplyEntry>(request);
+                    _mapper.Map<CreateSupplyEntryRequest, SupplyEntry>(request);
 
                 await _supplyService.Add(supplyEntry);
 

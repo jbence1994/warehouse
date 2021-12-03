@@ -64,7 +64,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateTechnician(
-            [FromBody] CreateTechnicianRequestResource request
+            [FromBody] CreateTechnicianRequest request
         )
         {
             try
@@ -75,7 +75,7 @@ namespace Warehouse.Controllers
                 }
 
                 var technician =
-                    _mapper.Map<CreateTechnicianRequestResource, Technician>(request);
+                    _mapper.Map<CreateTechnicianRequest, Technician>(request);
 
                 await _technicianService.Add(technician);
 
