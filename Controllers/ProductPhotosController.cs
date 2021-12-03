@@ -60,7 +60,7 @@ namespace Warehouse.Controllers
         {
             var product = await _productRepository.GetProduct(productId, includeRelated: false);
 
-            if (product == null)
+            if (product == null) // TODO: null-check goes to service ...
             {
                 return NotFound();
             }

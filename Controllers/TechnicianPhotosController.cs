@@ -49,7 +49,7 @@ namespace Warehouse.Controllers
         {
             var technician = await _technicianRepository.GetTechnician(technicianId);
 
-            if (technician == null)
+            if (technician == null) // TODO: null-check goes to service ...
             {
                 return NotFound();
             }
