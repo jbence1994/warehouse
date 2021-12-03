@@ -16,25 +16,25 @@ namespace Warehouse.Controllers.Resources.Mapping
                     options =>
                         options.MapFrom(product => product.Merchant.Name));
 
-            CreateMap<Supply, SupplyResource>();
-            CreateMap<Product, GetKeyValuePairResponseResource>();
             CreateMap<Merchant, GetMerchantKeyValuePairWithProductKeyValuePairsResponseResource>();
             CreateMap<Merchant, GetKeyValuePairResponseResource>();
             CreateMap<Merchant, GetMerchantResponseResource>();
-            CreateMap<SupplyEntry, SupplyEntryResource>();
-            CreateMap<ProductPhoto, ProductPhotoResource>();
-            CreateMap<Technician, GetTechnicianResponseResource>();
-            CreateMap<TechnicianPhoto, PhotoResource>();
             CreateMap<Order, GetOrderResponseResource>();
             CreateMap<OrderDetail, GetOrderDetailResponseResource>();
+            CreateMap<ProductPhoto, ProductPhotoResource>();
+            CreateMap<Product, GetKeyValuePairResponseResource>();
+            CreateMap<Supply, GetSupplyResponseResource>();
+            CreateMap<SupplyEntry, GetSupplyEntryResponseResource>();
+            CreateMap<Technician, GetTechnicianResponseResource>();
+            CreateMap<TechnicianPhoto, PhotoResource>();
 
             // API request resources to models
 
             CreateMap<CreateMerchantRequestResource, Merchant>();
-            CreateMap<SaveSupplyEntryResource, SupplyEntry>();
-            CreateMap<CreateProductRequestResource, Product>();
             CreateMap<CreateOrderRequestResource, Order>();
             CreateMap<CreateOrderDetailRequestResource, OrderDetail>();
+            CreateMap<CreateProductRequestResource, Product>();
+            CreateMap<CreateSupplyEntryRequestResource, SupplyEntry>();
             CreateMap<CreateTechnicianRequestResource, Technician>();
         }
     }
