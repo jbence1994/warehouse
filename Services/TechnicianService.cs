@@ -39,6 +39,18 @@ namespace Warehouse.Services
             return technician;
         }
 
+        public async Task<IEnumerable<TechnicianPhoto>> GetPhoto(int id)
+        {
+            var technician = _technicianRepository.GetTechnician(id);
+
+            if (technician == null)
+            {
+                throw new TechnicianNotFoundException(id);
+            }
+
+            return await _technicianRepository.GetPhoto(technician.Id);
+        }
+
         public async Task Add(Technician technician)
         {
             var initialBalanceEntry = new TechnicianBalanceEntry

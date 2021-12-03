@@ -11,8 +11,8 @@ using Warehouse.Configuration.FileUpload;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
@@ -20,7 +20,7 @@ namespace Warehouse.Controllers
     [Route("/api/v1/technicians/{technicianId:int}/photos/")]
     public class TechnicianPhotosController : ControllerBase
     {
-        private readonly ITechnicianRepository _technicianRepository; // TODO: remove this to photo service...
+        private readonly TechnicianService _technicianService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
@@ -28,7 +28,7 @@ namespace Warehouse.Controllers
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
-            ITechnicianRepository technicianRepository,
+            TechnicianService technicianService,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
@@ -36,7 +36,7 @@ namespace Warehouse.Controllers
             IOptions<FileSettings> options
         )
         {
-            _technicianRepository = technicianRepository;
+            _technicianService = technicianService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _host = host;
@@ -44,53 +44,83 @@ namespace Warehouse.Controllers
             _fileSettings = options.Value;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetPhoto(int technicianId)
+        {
+            try
+            {
+                var photos =
+                    await _technicianService.GetPhoto(technicianId);
+
+                var response =
+                    _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
+
+                return Ok(response);
+            }
+            catch (TechnicianNotFoundException technicianNotFoundException)
+            {
+                return NotFound(technicianNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadPhoto(int technicianId, IFormFile photoToUpload)
         {
-            var technician = await _technicianRepository.GetTechnician(technicianId);
-
-            if (technician == null) // TODO: null-check goes to service ...
-            {
-                return NotFound();
-            }
-
             try
             {
+                var technician =
+                    await _technicianService.GetTechnician(technicianId);
+
                 _photoService.Validate(photoToUpload, _fileSettings);
+
+                var uploadsFolderPath =
+                    Path.Combine(_host.WebRootPath, "uploads/technicians");
+
+                var fileName =
+                    await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
+
+                var photo = new TechnicianPhoto
+                {
+                    FileName = fileName
+                };
+
+                technician.Photos.Add(photo);
+
+                await _unitOfWork.CompleteAsync();
+
+                var response =
+                    _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
+
+                return Ok(response);
             }
-            catch (Exception ex)
+            catch (TechnicianNotFoundException technicianNotFoundException)
             {
-                return BadRequest(ex.Message);
+                return NotFound(technicianNotFoundException.Message);
             }
-
-            var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/technicians");
-
-            var fileName = await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
-
-            var photo = new TechnicianPhoto
+            catch (NullFileException nullFileException)
             {
-                FileName = fileName
-            };
-
-            technician.Photos.Add(photo);
-
-            await _unitOfWork.CompleteAsync();
-
-            var result =
-                _mapper.Map<TechnicianPhoto, PhotoResource>(photo);
-
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetPhotos(int technicianId)
-        {
-            var photos = await _technicianRepository.GetPhoto(technicianId);
-
-            var photoResources =
-                _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
-
-            return Ok(photoResources);
+                return BadRequest(nullFileException.Message);
+            }
+            catch (EmptyFileException emptyFileException)
+            {
+                return BadRequest(emptyFileException.Message);
+            }
+            catch (MaximumFileSizeExceededException maximumFileSizeExceededException)
+            {
+                return BadRequest(maximumFileSizeExceededException.Message);
+            }
+            catch (InvalidFileTypeException invalidFileTypeException)
+            {
+                return BadRequest(invalidFileTypeException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }
