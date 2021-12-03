@@ -48,7 +48,7 @@ namespace Warehouse.Controllers
                     await _technicianService.GetPhoto(technicianId);
 
                 var response =
-                    _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<PhotoResource>>(photos);
+                    _mapper.Map<IEnumerable<TechnicianPhoto>, IEnumerable<GetTechnicianResponseResource>>(photos);
 
                 return Ok(response);
             }

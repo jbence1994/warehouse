@@ -46,7 +46,7 @@ namespace Warehouse.Controllers
                 await _productService.GetPhotos();
 
             var response =
-                _mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<ProductPhotoResource>>(photos);
+                _mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<GetProductPhotoResponseResource>>(photos);
 
             return Ok(response);
         }

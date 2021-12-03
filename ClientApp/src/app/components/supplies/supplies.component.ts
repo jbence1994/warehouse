@@ -4,6 +4,7 @@ import PhotoService from "../../services/photo.service";
 import SupplyService from "../../services/supply.service";
 import ProductPhoto from "../../models/responses/productPhoto";
 import Supply from "../../models/responses/supply";
+import SaveStockEntry from "../../models/responses/saveStockEntry";
 
 @Component({
   selector: "app-supplies",
@@ -14,6 +15,10 @@ export default class SuppliesComponent implements OnInit {
   @ViewChild("fileInput", { read: "", static: true }) fileInput: ElementRef;
   supplies: Supply[];
   productPhotos: ProductPhoto[];
+  saveStockEntry: SaveStockEntry = {
+    productId: 0,
+    quantity: 0,
+  };
 
   constructor(
     private productService: ProductService,
@@ -47,5 +52,9 @@ export default class SuppliesComponent implements OnInit {
     this.photoService
       .uploadProductPhoto(productId, file)
       .subscribe((productPhoto) => this.productPhotos.push(productPhoto));
+  }
+
+  createStockEntry() {
+    return 0;
   }
 }

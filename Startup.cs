@@ -49,7 +49,7 @@ namespace Warehouse
             services.AddScoped<OrderService>();
             services.AddScoped<PhotoService>();
             services.AddScoped<ProductService>();
-            services.AddScoped<SupplyOperations>();
+            services.AddScoped<SupplyService>();
             services.AddScoped<TechnicianService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

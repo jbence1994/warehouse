@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -5,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Requests;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
-using Warehouse.Core;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
@@ -15,55 +15,63 @@ namespace Warehouse.Controllers
     [Route("/api/v1/[controller]/")]
     public class SuppliesController : ControllerBase
     {
-        private readonly ISupplyRepository _supplyRepository;
-        private readonly SupplyOperations _supplyOperations;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly SupplyService _supplyService;
         private readonly IMapper _mapper;
 
         public SuppliesController(
-            ISupplyRepository supplyRepository,
-            SupplyOperations supplyOperations,
-            IUnitOfWork unitOfWork,
+            SupplyService supplyService,
             IMapper mapper
         )
         {
-            _supplyRepository = supplyRepository;
-            _supplyOperations = supplyOperations;
-            _unitOfWork = unitOfWork;
+            _supplyService = supplyService;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSupplies()
         {
-            var supplies = await _supplyRepository.GetSupplies();
+            var supplies =
+                await _supplyService.GetSupplies();
 
-            var supplyResources =
-                _mapper.Map<IEnumerable<Supply>, IEnumerable<SupplyResource>>(supplies);
+            var response =
+                _mapper.Map<IEnumerable<Supply>, IEnumerable<GetSupplyResponseResource>>(supplies);
 
-            return Ok(supplyResources);
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSupplyEntry([FromBody] SaveSupplyEntryResource saveSupplyEntryResource)
+        public async Task<IActionResult> CreateSupplyEntry(
+            [FromBody] CreateSupplyEntryRequestResource request
+        )
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var supplyEntry =
+                    _mapper.Map<CreateSupplyEntryRequestResource, SupplyEntry>(request);
+
+                await _supplyService.Add(supplyEntry);
+
+                supplyEntry =
+                    await _supplyService.GetSupplyEntry(supplyEntry.Id);
+
+                var response =
+                    _mapper.Map<SupplyEntry, GetSupplyEntryResponseResource>(supplyEntry);
+
+                return Ok(response);
             }
-
-            var supplyEntry =
-                _mapper.Map<SaveSupplyEntryResource, SupplyEntry>(saveSupplyEntryResource);
-
-            await _supplyOperations.Add(supplyEntry);
-            await _unitOfWork.CompleteAsync();
-
-            supplyEntry = await _supplyRepository.GetSupplyEntry(supplyEntry.Id);
-
-            var result =
-                _mapper.Map<SupplyEntry, SupplyEntryResource>(supplyEntry);
-
-            return Ok(result);
+            catch (SupplyEntryNotFoundException supplyEntryNotFoundException)
+            {
+                return NotFound(supplyEntryNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }
