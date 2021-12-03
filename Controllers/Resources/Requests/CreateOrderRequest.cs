@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Warehouse.Controllers.Resources.Requests
 {
-    public class CreateOrderRequestResource
+    public class CreateOrderRequest
     {
         [Required]
         public int TechnicianId { get; set; }
 
         [Required]
-        public ICollection<CreateOrderDetailRequestResource> OrderDetails { get; set; }
+        public ICollection<CreateOrderDetailRequest> OrderDetails { get; set; }
 
-        public CreateOrderRequestResource()
+        public CreateOrderRequest()
         {
-            OrderDetails = new Collection<CreateOrderDetailRequestResource>();
+            OrderDetails = new Collection<CreateOrderDetailRequest>();
         }
     }
 }

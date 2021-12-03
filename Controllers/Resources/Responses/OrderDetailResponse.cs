@@ -1,8 +1,8 @@
 namespace Warehouse.Controllers.Resources.Responses
 {
-    public class GetOrderDetailResponseResource
+    public class OrderDetailResponse
     {
-        public GetProductResponseResource Product { get; set; }
+        public ProductResponse Product { get; set; }
         public int Quantity { get; set; }
         public double SubTotal { get; set; }
     }

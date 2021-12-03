@@ -34,7 +34,7 @@ namespace Warehouse.Controllers
                 await _merchantService.GetMerchants();
 
             var response =
-                _mapper.Map<IEnumerable<Merchant>, IEnumerable<GetMerchantResponseResource>>(merchants);
+                _mapper.Map<IEnumerable<Merchant>, IEnumerable<MerchantResponse>>(merchants);
 
             return Ok(response);
         }
@@ -48,14 +48,14 @@ namespace Warehouse.Controllers
             var response =
                 _mapper
                     .Map<IEnumerable<Merchant>,
-                        IEnumerable<GetKeyValuePairResponseResource>>(merchants);
+                        IEnumerable<KeyValuePairResponse>>(merchants);
 
             return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateMerchant(
-            [FromBody] CreateMerchantRequestResource request
+            [FromBody] CreateMerchantRequest request
         )
         {
             try
@@ -66,7 +66,7 @@ namespace Warehouse.Controllers
                 }
 
                 var merchant =
-                    _mapper.Map<CreateMerchantRequestResource, Merchant>(request);
+                    _mapper.Map<CreateMerchantRequest, Merchant>(request);
 
                 await _merchantService.Add(merchant);
 
@@ -74,7 +74,7 @@ namespace Warehouse.Controllers
                     await _merchantService.GetMerchant(merchant.Id);
 
                 var response =
-                    _mapper.Map<Merchant, GetMerchantResponseResource>(merchant);
+                    _mapper.Map<Merchant, MerchantResponse>(merchant);
 
                 return Ok(response);
             }

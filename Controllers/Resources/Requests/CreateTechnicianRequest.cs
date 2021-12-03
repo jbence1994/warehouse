@@ -2,7 +2,7 @@
 
 namespace Warehouse.Controllers.Resources.Requests
 {
-    public class CreateTechnicianRequestResource
+    public class CreateTechnicianRequest
     {
         [Required]
         [StringLength(255)]

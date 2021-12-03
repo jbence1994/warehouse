@@ -34,14 +34,14 @@ namespace Warehouse.Controllers
                 await _supplyService.GetSupplies();
 
             var response =
-                _mapper.Map<IEnumerable<Supply>, IEnumerable<GetSupplyResponseResource>>(supplies);
+                _mapper.Map<IEnumerable<Supply>, IEnumerable<SupplyResponse>>(supplies);
 
             return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateSupplyEntry(
-            [FromBody] CreateSupplyEntryRequestResource request
+            [FromBody] CreateSupplyEntryRequest request
         )
         {
             try
@@ -52,7 +52,7 @@ namespace Warehouse.Controllers
                 }
 
                 var supplyEntry =
-                    _mapper.Map<CreateSupplyEntryRequestResource, SupplyEntry>(request);
+                    _mapper.Map<CreateSupplyEntryRequest, SupplyEntry>(request);
 
                 await _supplyService.Add(supplyEntry);
 
@@ -60,7 +60,7 @@ namespace Warehouse.Controllers
                     await _supplyService.GetSupplyEntry(supplyEntry.Id);
 
                 var response =
-                    _mapper.Map<SupplyEntry, GetSupplyEntryResponseResource>(supplyEntry);
+                    _mapper.Map<SupplyEntry, SupplyEntryResponse>(supplyEntry);
 
                 return Ok(response);
             }

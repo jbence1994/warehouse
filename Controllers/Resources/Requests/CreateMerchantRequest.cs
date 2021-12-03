@@ -2,7 +2,7 @@
 
 namespace Warehouse.Controllers.Resources.Requests
 {
-    public class CreateMerchantRequestResource
+    public class CreateMerchantRequest
     {
         [Required]
         [StringLength(255)]

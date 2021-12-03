@@ -35,7 +35,7 @@ namespace Warehouse.Controllers
                     await _orderService.GetOrders(technicianId);
 
                 var response =
-                    _mapper.Map<IEnumerable<Order>, IEnumerable<GetOrderResponseResource>>(orders);
+                    _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResponse>>(orders);
 
                 return Ok(response);
             }
