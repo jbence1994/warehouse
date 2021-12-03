@@ -11,22 +11,21 @@ namespace Warehouse.Controllers.Resources.Mapping
         {
             // Models to API response resources
 
-            CreateMap<Product, GetProductRequestResource>()
-                .ForMember(getProductRequestResource => getProductRequestResource.MerchantName,
-                    options =>
-                        options.MapFrom(product => product.Merchant.Name));
-
             CreateMap<Merchant, GetMerchantKeyValuePairWithProductKeyValuePairsResponseResource>();
             CreateMap<Merchant, GetKeyValuePairResponseResource>();
             CreateMap<Merchant, GetMerchantResponseResource>();
             CreateMap<Order, GetOrderResponseResource>();
             CreateMap<OrderDetail, GetOrderDetailResponseResource>();
-            CreateMap<ProductPhoto, ProductPhotoResource>();
+            CreateMap<Product, GetProductResponseResource>()
+                .ForMember(getProductRequestResource => getProductRequestResource.MerchantName,
+                    options =>
+                        options.MapFrom(product => product.Merchant.Name));
             CreateMap<Product, GetKeyValuePairResponseResource>();
+            CreateMap<ProductPhoto, GetProductPhotoResponseResource>();
             CreateMap<Supply, GetSupplyResponseResource>();
             CreateMap<SupplyEntry, GetSupplyEntryResponseResource>();
             CreateMap<Technician, GetTechnicianResponseResource>();
-            CreateMap<TechnicianPhoto, PhotoResource>();
+            CreateMap<TechnicianPhoto, GetTechnicianPhotoResponseResource>();
 
             // API request resources to models
 

@@ -1,6 +1,6 @@
 ﻿namespace Warehouse.Controllers.Resources.Responses
 {
-    public class ProductPhotoResource : PhotoResource
+    public class GetProductPhotoResponseResource : GetPhotoResponseResource
     {
         public int ProductId { get; set; }
     }
