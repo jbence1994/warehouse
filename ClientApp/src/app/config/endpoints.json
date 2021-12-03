@@ -5,5 +5,5 @@
   "merchantsEndpoint": "api/merchants",
   "merchantKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairs",
   "merchantKeyValuePairsWithProductKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairsWithProductKeyValuePairs",
-  "techniciansEndpoint": "api/technicians"
+  "techniciansEndpoint": "api/v1/technicians"
 }

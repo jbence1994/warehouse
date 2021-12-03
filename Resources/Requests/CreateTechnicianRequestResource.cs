@@ -2,7 +2,7 @@
 
 namespace Warehouse.Resources.Requests
 {
-    public class SaveTechnicianResource
+    public class CreateTechnicianRequestResource
     {
         [Required]
         [StringLength(255)]

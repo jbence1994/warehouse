@@ -23,7 +23,7 @@ namespace Warehouse.Resources.Mapping
             CreateMap<Merchant, MerchantResource>();
             CreateMap<SupplyEntry, SupplyEntryResource>();
             CreateMap<ProductPhoto, ProductPhotoResource>();
-            CreateMap<Technician, TechnicianResource>();
+            CreateMap<Technician, GetTechnicianResponseResource>();
             CreateMap<TechnicianPhoto, PhotoResource>();
             CreateMap<Order, OrderResource>();
             CreateMap<OrderDetail, OrderDetailResource>();
@@ -35,7 +35,7 @@ namespace Warehouse.Resources.Mapping
             CreateMap<CreateProductRequestResource, Product>();
             CreateMap<SaveOrderResource, Order>();
             CreateMap<SaveOrderDetailResource, OrderDetail>();
-            CreateMap<SaveTechnicianResource, Technician>();
+            CreateMap<CreateTechnicianRequestResource, Technician>();
         }
     }
 }

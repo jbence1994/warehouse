@@ -43,7 +43,8 @@ namespace Warehouse.Controllers
 
                 await _productService.Add(product);
 
-                product = await _productService.GetProduct(product.Id);
+                product =
+                    await _productService.GetProduct(product.Id);
 
                 var response =
                     _mapper.Map<Product, GetProductRequestResource>(product);
