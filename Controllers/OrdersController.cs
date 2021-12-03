@@ -12,7 +12,7 @@ using Warehouse.Services;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]/")]
+    [Route("/api/v1/[controller]/")]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderRepository _orderRepository;
