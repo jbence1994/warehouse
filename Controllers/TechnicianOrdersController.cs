@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
+using Warehouse.Services;
 
 namespace Warehouse.Controllers
 {
@@ -12,27 +12,28 @@ namespace Warehouse.Controllers
     [Route("/api/v1/technicians/{technicianId:int}/orders/")]
     public class TechnicianOrdersController : ControllerBase
     {
-        private readonly ITechnicianOrderRepository _technicianOrderRepository;
+        private readonly OrderService _orderService;
         private readonly IMapper _mapper;
 
         public TechnicianOrdersController(
-            ITechnicianOrderRepository technicianOrderRepository,
+            OrderService orderService,
             IMapper mapper
         )
         {
-            _technicianOrderRepository = technicianOrderRepository;
+            _orderService = orderService;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetOrders(int technicianId)
         {
-            var orders = await _technicianOrderRepository.GetOrders(technicianId);
+            var orders =
+                await _orderService.GetOrders(technicianId);
 
-            var orderResources =
-                _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
+            var response =
+                _mapper.Map<IEnumerable<Order>, IEnumerable<GetOrderResponseResource>>(orders);
 
-            return Ok(orderResources);
+            return Ok(response);
         }
     }
 }
