@@ -47,7 +47,7 @@ namespace Warehouse.Controllers
                     await _productService.GetProduct(product.Id);
 
                 var response =
-                    _mapper.Map<Product, GetProductResponseResource>(product);
+                    _mapper.Map<Product, ProductResponse>(product);
 
                 return Ok(response);
             }

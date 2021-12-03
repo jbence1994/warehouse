@@ -47,7 +47,7 @@ namespace Warehouse.Controllers
                     await _orderService.GetOrder(order.Id);
 
                 var response =
-                    _mapper.Map<Order, GetOrderResponseResource>(order);
+                    _mapper.Map<Order, OrderResponse>(order);
 
                 return Ok(response);
             }

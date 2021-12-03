@@ -34,7 +34,7 @@ namespace Warehouse.Controllers
                 await _merchantService.GetMerchants();
 
             var response =
-                _mapper.Map<IEnumerable<Merchant>, IEnumerable<GetMerchantResponseResource>>(merchants);
+                _mapper.Map<IEnumerable<Merchant>, IEnumerable<MerchantResponse>>(merchants);
 
             return Ok(response);
         }
@@ -48,7 +48,7 @@ namespace Warehouse.Controllers
             var response =
                 _mapper
                     .Map<IEnumerable<Merchant>,
-                        IEnumerable<GetKeyValuePairResponseResource>>(merchants);
+                        IEnumerable<KeyValuePairResponse>>(merchants);
 
             return Ok(response);
         }
@@ -74,7 +74,7 @@ namespace Warehouse.Controllers
                     await _merchantService.GetMerchant(merchant.Id);
 
                 var response =
-                    _mapper.Map<Merchant, GetMerchantResponseResource>(merchant);
+                    _mapper.Map<Merchant, MerchantResponse>(merchant);
 
                 return Ok(response);
             }
