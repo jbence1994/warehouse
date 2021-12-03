@@ -11,7 +11,7 @@ using Warehouse.Core.Repositories;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("/api/v1/[controller]/")]
     public class MerchantsController : ControllerBase
     {
         private readonly IMerchantRepository _merchantRepository;
