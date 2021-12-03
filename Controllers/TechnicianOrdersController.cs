@@ -9,7 +9,7 @@ using Warehouse.Core.Repositories;
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("/api/technicians/{technicianId:int}/orders/")]
+    [Route("/api/v1/technicians/{technicianId:int}/orders/")]
     public class TechnicianOrdersController : ControllerBase
     {
         private readonly ITechnicianOrderRepository _technicianOrderRepository;
