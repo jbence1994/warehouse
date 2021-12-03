@@ -25,7 +25,7 @@ namespace Warehouse.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
-        private readonly PhotoService _photoOperations;
+        private readonly PhotoService _photoService;
         private readonly FileSettings _fileSettings;
 
         public TechnicianPhotosController(
@@ -34,7 +34,7 @@ namespace Warehouse.Controllers
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
-            PhotoService photoOperations,
+            PhotoService photoService,
             IOptions<FileSettings> options
         )
         {
@@ -43,7 +43,7 @@ namespace Warehouse.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _host = host;
-            _photoOperations = photoOperations;
+            _photoService = photoService;
             _fileSettings = options.Value;
         }
 
@@ -59,7 +59,7 @@ namespace Warehouse.Controllers
 
             try
             {
-                _photoOperations.Validate(photoToUpload, _fileSettings);
+                _photoService.Validate(photoToUpload, _fileSettings);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace Warehouse.Controllers
 
             var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/technicians");
 
-            var fileName = await _photoOperations.StorePhoto(uploadsFolderPath, photoToUpload);
+            var fileName = await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
 
             var photo = new TechnicianPhoto
             {
