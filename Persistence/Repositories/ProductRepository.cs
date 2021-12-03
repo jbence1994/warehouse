@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Models;
@@ -24,6 +25,11 @@ namespace Warehouse.Persistence.Repositories
             }
 
             return await _context.Products.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<ProductPhoto>> GetPhotos()
+        {
+            return await _context.ProductPhotos.ToListAsync();
         }
 
         public async Task Add(Product product)

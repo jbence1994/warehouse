@@ -1,9 +1,9 @@
 {
   "productsEndpoint": "api/v1/products",
-  "productPhotosEndpoint": "api/products/photos",
-  "suppliesEndpoint": "api/supplies",
-  "merchantsEndpoint": "api/merchants",
-  "merchantKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairs",
-  "merchantKeyValuePairsWithProductKeyValuePairsEndpoint": "api/merchants/merchantKeyValuePairsWithProductKeyValuePairs",
+  "productPhotosEndpoint": "api/v1/products/photos",
+  "suppliesEndpoint": "api/v1/supplies",
+  "merchantsEndpoint": "api/v1/merchants",
+  "merchantKeyValuePairsEndpoint": "api/v1/merchants/merchantKeyValuePairs",
+  "merchantKeyValuePairsWithProductKeyValuePairsEndpoint": "api/v1/merchants/merchantKeyValuePairsWithProductKeyValuePairs",
   "techniciansEndpoint": "api/v1/technicians"
 }

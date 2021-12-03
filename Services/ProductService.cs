@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Warehouse.Core;
 using Warehouse.Core.Models;
 using Warehouse.Core.Repositories;
@@ -18,6 +19,11 @@ namespace Warehouse.Services
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<ProductPhoto>> GetPhotos()
+        {
+            return await _productRepository.GetPhotos();
         }
 
         public async Task<Product> GetProduct(int id)
@@ -40,6 +46,14 @@ namespace Warehouse.Services
             };
 
             await _productRepository.Add(product);
+            await _unitOfWork.CompleteAsync();
+        }
+
+        public async Task AddPhoto(Product product, string fileName)
+        {
+            var photo = new ProductPhoto {FileName = fileName};
+
+            product.Photos.Add(photo);
             await _unitOfWork.CompleteAsync();
         }
     }
