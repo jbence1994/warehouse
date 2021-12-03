@@ -2,39 +2,34 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Resources.Requests;
-using Warehouse.Resources.Responses;
-using Warehouse.Core;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]/")]
+    [Route("/api/v1/[controller]/")]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly OrderOperations _orderOperations;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly OrderService _orderService;
         private readonly IMapper _mapper;
 
         public OrdersController(
-            IOrderRepository orderRepository,
-            OrderOperations orderOperations,
-            IUnitOfWork unitOfWork,
+            OrderService orderService,
             IMapper mapper
         )
         {
-            _orderRepository = orderRepository;
-            _orderOperations = orderOperations;
-            _unitOfWork = unitOfWork;
+            _orderService = orderService;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] SaveOrderResource orderResource)
+        public async Task<IActionResult> CreateOrder(
+            [FromBody] CreateOrderRequestResource request
+        )
         {
             if (!ModelState.IsValid)
             {
@@ -42,19 +37,27 @@ namespace Warehouse.Controllers
             }
 
             var order =
-                _mapper.Map<SaveOrderResource, Order>(orderResource);
+                _mapper.Map<CreateOrderRequestResource, Order>(request);
 
             try
             {
-                await _orderOperations.Checkout(order);
-                await _unitOfWork.CompleteAsync();
+                await _orderService.Checkout(order);
 
-                order = await _orderRepository.GetOrder(order.Id);
+                order =
+                    await _orderService.GetOrder(order.Id);
 
-                var result =
-                    _mapper.Map<Order, OrderResource>(order);
+                var response =
+                    _mapper.Map<Order, GetOrderResponseResource>(order);
 
-                return Ok(result);
+                return Ok(response);
+            }
+            catch (OrderCheckoutException orderCheckoutException)
+            {
+                return BadRequest(orderCheckoutException.Message);
+            }
+            catch (OrderNotFoundException orderNotFoundException)
+            {
+                return NotFound(orderNotFoundException.Message);
             }
             catch (Exception ex)
             {

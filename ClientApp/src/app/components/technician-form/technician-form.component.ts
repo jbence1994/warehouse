@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import TechnicianService from "src/app/services/technician.service";
-import SaveTechnician from "./../../models/saveTechnician";
+import TechnicianService from "../../services/technician.service";
+import SaveTechnician from "../../models/requests/saveTechnician";
 
 @Component({
   selector: "app-technician-form",

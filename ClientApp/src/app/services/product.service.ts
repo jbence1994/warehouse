@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import SaveProduct from "./../models/saveProduct";
-import Product from "../models/product";
+import SaveProduct from "../models/requests/saveProduct";
+import Product from "../models/responses/product";
 import * as config from "../config/endpoints.json";
 
 @Injectable()

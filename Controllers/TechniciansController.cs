@@ -1,85 +1,101 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Resources.Requests;
-using Warehouse.Resources.Responses;
-using Warehouse.Core;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("/api/v1/[controller]/")]
     public class TechniciansController : ControllerBase
     {
-        private readonly ITechnicianRepository _technicianRepository;
-        private readonly TechnicianOperations _technicianOperations;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly TechnicianService _technicianService;
         private readonly IMapper _mapper;
 
         public TechniciansController(
-            ITechnicianRepository technicianRepository,
-            TechnicianOperations technicianOperations,
-            IUnitOfWork unitOfWork,
+            TechnicianService technicianService,
             IMapper mapper
         )
         {
-            _technicianRepository = technicianRepository;
-            _technicianOperations = technicianOperations;
-            _unitOfWork = unitOfWork;
+            _technicianService = technicianService;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTechnicians()
         {
-            var technicians = await _technicianRepository.GetTechnicians();
+            var technicians =
+                await _technicianService.GetTechnicians();
 
-            var technicianResources =
-                _mapper.Map<IEnumerable<Technician>, IEnumerable<TechnicianResource>>(technicians);
+            var response =
+                _mapper.Map<IEnumerable<Technician>, IEnumerable<GetTechnicianResponseResource>>(technicians);
 
-            return Ok(technicianResources);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTechnician(int id)
         {
-            var technician = await _technicianRepository.GetTechnician(id);
-
-            if (technician == null)
+            try
             {
-                return NotFound();
+                var technician =
+                    await _technicianService.GetTechnician(id);
+
+                var response =
+                    _mapper.Map<Technician, GetTechnicianResponseResource>(technician);
+
+                return Ok(response);
             }
-
-            var technicianResource =
-                _mapper.Map<Technician, TechnicianResource>(technician);
-
-            return Ok(technicianResource);
+            catch (TechnicianNotFoundException technicianNotFoundException)
+            {
+                return NotFound(technicianNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTechnician([FromBody] SaveTechnicianResource technicianResource)
+        public async Task<IActionResult> CreateTechnician(
+            [FromBody] CreateTechnicianRequestResource request
+        )
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var technician =
+                    _mapper.Map<CreateTechnicianRequestResource, Technician>(request);
+
+                await _technicianService.Add(technician);
+
+                technician =
+                    await _technicianService.GetTechnician(technician.Id);
+
+                var response =
+                    _mapper.Map<Technician, GetTechnicianResponseResource>(technician);
+
+                return Ok(response);
+
             }
-
-            var technician =
-                _mapper.Map<SaveTechnicianResource, Technician>(technicianResource);
-
-            await _technicianOperations.Add(technician);
-            await _unitOfWork.CompleteAsync();
-
-            technician = await _technicianRepository.GetTechnician(technician.Id);
-
-            var result =
-                _mapper.Map<Technician, TechnicianResource>(technician);
-
-            return Ok(result);
+            catch (TechnicianNotFoundException technicianNotFoundException)
+            {
+                return NotFound(technicianNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import KeyValuePair from "../models/keyValuePair";
-import Merchant from "./../models/merchant";
-import SaveMerchant from "./../models/saveMerchant";
+import KeyValuePair from "../models/responses/keyValuePair";
+import Merchant from "../models/responses/merchant";
+import SaveMerchant from "../models/requests/saveMerchant";
 import * as config from "../config/endpoints.json";
 
 @Injectable()
