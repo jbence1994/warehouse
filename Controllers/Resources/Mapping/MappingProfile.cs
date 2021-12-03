@@ -12,9 +12,9 @@ namespace Warehouse.Controllers.Resources.Mapping
             // Model to API resource
 
             CreateMap<Product, GetProductRequestResource>()
-                .ForMember(productResource => productResource.MerchantName,
-                    memberOptions =>
-                        memberOptions.MapFrom(product => product.Merchant.Name));
+                .ForMember(getProductRequestResource => getProductRequestResource.MerchantName,
+                    options =>
+                        options.MapFrom(product => product.Merchant.Name));
 
             CreateMap<Supply, SupplyResource>();
             CreateMap<Product, GetKeyValuePairResponseResource>();
