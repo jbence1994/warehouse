@@ -11,7 +11,6 @@ namespace Warehouse.Services
     public class OrderService
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly ITechnicianOrderRepository _technicianOrderRepository;
         private readonly ISupplyRepository _supplyRepository;
         private readonly IProductRepository _productRepository;
         private readonly ITechnicianRepository _technicianRepository;
@@ -19,7 +18,6 @@ namespace Warehouse.Services
 
         public OrderService(
             IOrderRepository orderRepository,
-            ITechnicianOrderRepository technicianOrderRepository,
             ISupplyRepository supplyRepository,
             IProductRepository productRepository,
             ITechnicianRepository technicianRepository,
@@ -31,7 +29,6 @@ namespace Warehouse.Services
             _productRepository = productRepository;
             _technicianRepository = technicianRepository;
             _unitOfWork = unitOfWork;
-            _technicianOrderRepository = technicianOrderRepository;
         }
 
         public async Task Checkout(Order order)
@@ -46,7 +43,7 @@ namespace Warehouse.Services
         public async Task<IEnumerable<Order>> GetOrders(int technicianId)
         {
             // TODO: check if technician id is valid.
-            return await _technicianOrderRepository.GetOrders(technicianId);
+            return await _orderRepository.GetOrders(technicianId);
         }
 
         public async Task<Order> GetOrder(int id)

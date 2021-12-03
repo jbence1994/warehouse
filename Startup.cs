@@ -61,7 +61,6 @@ namespace Warehouse
             services.AddScoped<IProductPhotoRepository, ProductPhotoRepository>();
             services.AddScoped<ITechnicianPhotoRepository, TechnicianPhotoRepository>();
             services.AddScoped<ISupplyRepository, SupplyRepository>();
-            services.AddScoped<ITechnicianOrderRepository, TechnicianOrderRepository>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
