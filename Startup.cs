@@ -47,6 +47,7 @@ namespace Warehouse
 
             services.AddScoped<OrderOperations>();
             services.AddScoped<FileSystemPhotoOperations>();
+            services.AddScoped<MerchantService>();
             services.AddScoped<ProductService>();
             services.AddScoped<SupplyOperations>();
             services.AddScoped<TechnicianService>();
