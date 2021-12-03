@@ -28,22 +28,22 @@ namespace Warehouse.Services
         {
             if (file == null)
             {
-                throw new Exception("Null file.");
+                throw new NullFileException();
             }
 
             if (file.Length == 0)
             {
-                throw new Exception("Empty file.");
+                throw new EmptyFileException();
             }
 
             if (file.Length > fileSettings.MaxBytes)
             {
-                throw new Exception("Maximum file size exceeded.");
+                throw new MaximumFileSizeExceededException();
             }
 
             if (!fileSettings.IsSupportedType(file.FileName))
             {
-                throw new Exception("Invalid file type.");
+                throw new InvalidFileTypeException();
             }
         }
     }
