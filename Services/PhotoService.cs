@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Warehouse.Configuration.FileUpload;
 using Warehouse.Services.Exceptions;
 
@@ -9,7 +8,7 @@ namespace Warehouse.Services
 {
     public class PhotoService
     {
-        public async Task<string> StorePhoto(string uploadsFolderPath, IFormFile file)
+        public async Task<string> StorePhoto(string uploadsFolderPath, IFile file)
         {
             if (!Directory.Exists(uploadsFolderPath))
             {
@@ -25,7 +24,7 @@ namespace Warehouse.Services
             return fileName;
         }
 
-        public void Validate(IFormFile file, FileSettings fileSettings)
+        public void Validate(IFile file, FileSettings fileSettings)
         {
             if (file == null)
             {

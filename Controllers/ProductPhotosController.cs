@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Warehouse.Configuration.FileUpload;
@@ -53,7 +52,7 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost("{productId:int}")]
-        public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
+        public async Task<IActionResult> UploadPhoto(int productId, IFile photoToUpload)
         {
             try
             {
