@@ -11,8 +11,8 @@ using Warehouse.Configuration.FileUpload;
 using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
@@ -20,7 +20,7 @@ namespace Warehouse.Controllers
     [Route("/api/v1/products/photos/")]
     public class ProductPhotosController : ControllerBase
     {
-        private readonly IProductRepository _productRepository; // TODO: remove this to photo service...
+        private readonly ProductService _productService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _host;
@@ -28,7 +28,7 @@ namespace Warehouse.Controllers
         private readonly FileSettings _fileSettings;
 
         public ProductPhotosController(
-            IProductRepository productRepository,
+            ProductService productService,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IWebHostEnvironment host,
@@ -36,7 +36,7 @@ namespace Warehouse.Controllers
             IOptions<FileSettings> options
         )
         {
-            _productRepository = productRepository;
+            _productService = productService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _host = host;
@@ -47,50 +47,69 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotos()
         {
-            var photos = await _productRepository.GetPhotos();
+            var photos =
+                await _productService.GetPhotos();
 
-            var photoResources =
+            var response =
                 _mapper.Map<IEnumerable<ProductPhoto>, IEnumerable<ProductPhotoResource>>(photos);
 
-            return Ok(photoResources);
+            return Ok(response);
         }
 
         [HttpPost("{productId:int}")]
         public async Task<IActionResult> UploadPhoto(int productId, IFormFile photoToUpload)
         {
-            var product = await _productRepository.GetProduct(productId, includeRelated: false);
-
-            if (product == null) // TODO: null-check goes to service ...
-            {
-                return NotFound();
-            }
-
             try
             {
+                var product =
+                    await _productService.GetProduct(productId);
+
                 _photoService.Validate(photoToUpload, _fileSettings);
+
+                var uploadsFolderPath =
+                    Path.Combine(_host.WebRootPath, "uploads/products");
+
+                var fileName =
+                    await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
+
+                var photo = new ProductPhoto
+                {
+                    FileName = fileName
+                };
+
+                product.Photos.Add(photo);
+
+                await _unitOfWork.CompleteAsync();
+
+                var response =
+                    _mapper.Map<ProductPhoto, PhotoResource>(photo);
+
+                return Ok(response);
             }
-            catch (Exception ex)
+            catch (ProductNotFoundException productNotFoundException)
             {
-                return BadRequest(ex.Message);
+                return NotFound(productNotFoundException.Message);
             }
-
-            var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads/products");
-
-            var fileName = await _photoService.StorePhoto(uploadsFolderPath, photoToUpload);
-
-            var photo = new ProductPhoto
+            catch (NullFileException nullFileException)
             {
-                FileName = fileName
-            };
-
-            product.Photos.Add(photo);
-
-            await _unitOfWork.CompleteAsync();
-
-            var result =
-                _mapper.Map<ProductPhoto, PhotoResource>(photo);
-
-            return Ok(result);
+                return BadRequest(nullFileException.Message);
+            }
+            catch (EmptyFileException emptyFileException)
+            {
+                return BadRequest(emptyFileException.Message);
+            }
+            catch (MaximumFileSizeExceededException maximumFileSizeExceededException)
+            {
+                return BadRequest(maximumFileSizeExceededException.Message);
+            }
+            catch (InvalidFileTypeException invalidFileTypeException)
+            {
+                return BadRequest(invalidFileTypeException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }
