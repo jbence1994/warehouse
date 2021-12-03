@@ -9,7 +9,7 @@ namespace Warehouse.Controllers.Resources.Mapping
     {
         public MappingProfile()
         {
-            // Model to API resource
+            // Models to API response resources
 
             CreateMap<Product, GetProductRequestResource>()
                 .ForMember(getProductRequestResource => getProductRequestResource.MerchantName,
@@ -28,7 +28,7 @@ namespace Warehouse.Controllers.Resources.Mapping
             CreateMap<Order, OrderResource>();
             CreateMap<OrderDetail, OrderDetailResource>();
 
-            // API resource to model
+            // API request resources to models
 
             CreateMap<CreateMerchantRequestResource, Merchant>();
             CreateMap<SaveSupplyEntryResource, SupplyEntry>();
