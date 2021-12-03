@@ -1,57 +1,64 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Resources.Requests;
-using Warehouse.Resources.Responses;
-using Warehouse.Core;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
 using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("/api/v1/[controller]/")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ProductOperations _productOperations;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ProductService _productService;
         private readonly IMapper _mapper;
 
         public ProductsController(
-            IProductRepository productRepository,
-            ProductOperations productOperations,
-            IUnitOfWork unitOfWork,
+            ProductService productService,
             IMapper mapper
         )
         {
-            _productRepository = productRepository;
-            _productOperations = productOperations;
-            _unitOfWork = unitOfWork;
+            _productService = productService;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] SaveProductResource productResource)
+        public async Task<IActionResult> CreateProduct(
+            [FromBody] CreateProductRequestResource request
+        )
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var product =
+                    _mapper.Map<CreateProductRequestResource, Product>(request);
+
+                await _productService.Add(product);
+
+                product =
+                    await _productService.GetProduct(product.Id);
+
+                var response =
+                    _mapper.Map<Product, GetProductRequestResource>(product);
+
+                return Ok(response);
             }
-
-            var product =
-                _mapper.Map<SaveProductResource, Product>(productResource);
-
-            await _productOperations.Add(product);
-            await _unitOfWork.CompleteAsync();
-
-            product = await _productRepository.GetProduct(product.Id);
-
-            var result =
-                _mapper.Map<Product, ProductResource>(product);
-
-            return Ok(result);
+            catch (ProductNotFoundException productNotFoundException)
+            {
+                return NotFound(productNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

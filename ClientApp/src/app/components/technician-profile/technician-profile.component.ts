@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import TechnicianService from "src/app/services/technician.service";
-import PhotoService from "src/app/services/photo.service";
-import Technician from "src/app/models/technician";
-import Photo from "src/app/models/photo";
-import Order from "src/app/models/order";
+import TechnicianService from "../../services/technician.service";
+import PhotoService from "../../services/photo.service";
+import Technician from "../../models/responses/technician";
+import Photo from "../../models/responses/photo";
+import Order from "../../models/responses/order";
 
 @Component({
   selector: "app-technician-profile",

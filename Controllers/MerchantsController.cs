@@ -1,75 +1,91 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Resources.Requests;
-using Warehouse.Resources.Responses;
-using Warehouse.Core;
+using Warehouse.Controllers.Resources.Requests;
+using Warehouse.Controllers.Resources.Responses;
 using Warehouse.Core.Models;
-using Warehouse.Core.Repositories;
+using Warehouse.Services;
+using Warehouse.Services.Exceptions;
 
 namespace Warehouse.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("/api/v1/[controller]/")]
     public class MerchantsController : ControllerBase
     {
-        private readonly IMerchantRepository _merchantRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly MerchantService _merchantService;
         private readonly IMapper _mapper;
 
         public MerchantsController(
-            IMerchantRepository merchantRepository,
-            IUnitOfWork unitOfWork,
+            MerchantService merchantService,
             IMapper mapper
         )
         {
-            _merchantRepository = merchantRepository;
-            _unitOfWork = unitOfWork;
+            _merchantService = merchantService;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMerchants()
         {
-            var merchants = await _merchantRepository.GetMerchants();
+            var merchants =
+                await _merchantService.GetMerchants();
 
-            var merchantResources =
-                _mapper.Map<IEnumerable<Merchant>, IEnumerable<MerchantResource>>(merchants);
+            var response =
+                _mapper.Map<IEnumerable<Merchant>, IEnumerable<GetMerchantResponseResource>>(merchants);
 
-            return Ok(merchantResources);
+            return Ok(response);
         }
 
         [HttpGet("merchantKeyValuePairs")]
         public async Task<IActionResult> GetMerchantKeyValuePairs()
         {
-            var merchants = await _merchantRepository.GetMerchants(includeRelated: false);
+            var merchants =
+                await _merchantService.GetMerchants(includeRelated: false);
 
-            var merchantResources =
-                _mapper.Map<IEnumerable<Merchant>, IEnumerable<KeyValuePairResource>>(merchants);
+            var response =
+                _mapper
+                    .Map<IEnumerable<Merchant>,
+                        IEnumerable<GetKeyValuePairResponseResource>>(merchants);
 
-            return Ok(merchantResources);
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMerchant([FromBody] SaveMerchantResource saveMerchantResource)
+        public async Task<IActionResult> CreateMerchant(
+            [FromBody] CreateMerchantRequestResource request
+        )
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var merchant =
+                    _mapper.Map<CreateMerchantRequestResource, Merchant>(request);
+
+                await _merchantService.Add(merchant);
+
+                merchant =
+                    await _merchantService.GetMerchant(merchant.Id);
+
+                var response =
+                    _mapper.Map<Merchant, GetMerchantResponseResource>(merchant);
+
+                return Ok(response);
             }
-
-            var merchant = _mapper.Map<SaveMerchantResource, Merchant>(saveMerchantResource);
-
-            await _merchantRepository.Add(merchant);
-            await _unitOfWork.CompleteAsync();
-
-            merchant = await _merchantRepository.GetMerchant(merchant.Id);
-
-            var result =
-                _mapper.Map<Merchant, MerchantResource>(merchant);
-
-            return Ok(result);
+            catch (MerchantNotFoundException merchantNotFoundException)
+            {
+                return NotFound(merchantNotFoundException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }
