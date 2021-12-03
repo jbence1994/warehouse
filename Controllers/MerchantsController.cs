@@ -32,7 +32,8 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMerchants()
         {
-            var merchants = await _merchantRepository.GetMerchants();
+            var merchants =
+                await _merchantRepository.GetMerchants();
 
             var merchantResources =
                 _mapper.Map<IEnumerable<Merchant>, IEnumerable<MerchantResource>>(merchants);
@@ -43,7 +44,8 @@ namespace Warehouse.Controllers
         [HttpGet("merchantKeyValuePairs")]
         public async Task<IActionResult> GetMerchantKeyValuePairs()
         {
-            var merchants = await _merchantRepository.GetMerchants(includeRelated: false);
+            var merchants =
+                await _merchantRepository.GetMerchants(includeRelated: false);
 
             var merchantResources =
                 _mapper.Map<IEnumerable<Merchant>, IEnumerable<KeyValuePairResource>>(merchants);
@@ -52,24 +54,28 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMerchant([FromBody] SaveMerchantResource saveMerchantResource)
+        public async Task<IActionResult> CreateMerchant(
+            [FromBody] CreateMerchantRequestResource request
+        )
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var merchant = _mapper.Map<SaveMerchantResource, Merchant>(saveMerchantResource);
+            var merchant =
+                _mapper.Map<CreateMerchantRequestResource, Merchant>(request);
 
             await _merchantRepository.Add(merchant);
             await _unitOfWork.CompleteAsync();
 
-            merchant = await _merchantRepository.GetMerchant(merchant.Id);
+            merchant =
+                await _merchantRepository.GetMerchant(merchant.Id);
 
-            var result =
+            var response =
                 _mapper.Map<Merchant, MerchantResource>(merchant);
 
-            return Ok(result);
+            return Ok(response);
         }
     }
 }

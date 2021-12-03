@@ -30,7 +30,7 @@ namespace Warehouse.Resources.Mapping
 
             // API resource to model
 
-            CreateMap<SaveMerchantResource, Merchant>();
+            CreateMap<CreateMerchantRequestResource, Merchant>();
             CreateMap<SaveSupplyEntryResource, SupplyEntry>();
             CreateMap<CreateProductRequestResource, Product>();
             CreateMap<SaveOrderResource, Order>();
