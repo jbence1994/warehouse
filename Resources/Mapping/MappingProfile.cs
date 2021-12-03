@@ -17,10 +17,10 @@ namespace Warehouse.Resources.Mapping
                         memberOptions.MapFrom(product => product.Merchant.Name));
 
             CreateMap<Supply, SupplyResource>();
-            CreateMap<Product, KeyValuePairResource>();
-            CreateMap<Merchant, MerchantKeyValuePairWithProductKeyValuePairsResource>();
-            CreateMap<Merchant, KeyValuePairResource>();
-            CreateMap<Merchant, MerchantResource>();
+            CreateMap<Product, GetKeyValuePairResponseResource>();
+            CreateMap<Merchant, GetMerchantKeyValuePairWithProductKeyValuePairsResponseResource>();
+            CreateMap<Merchant, GetKeyValuePairResponseResource>();
+            CreateMap<Merchant, GetMerchantResponseResource>();
             CreateMap<SupplyEntry, SupplyEntryResource>();
             CreateMap<ProductPhoto, ProductPhotoResource>();
             CreateMap<Technician, GetTechnicianResponseResource>();
