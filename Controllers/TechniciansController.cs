@@ -30,7 +30,8 @@ namespace Warehouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTechnicians()
         {
-            var technicians = await _technicianService.GetTechnicians();
+            var technicians =
+                await _technicianService.GetTechnicians();
 
             var response =
                 _mapper.Map<IEnumerable<Technician>, IEnumerable<GetTechnicianResponseResource>>(technicians);
@@ -43,7 +44,8 @@ namespace Warehouse.Controllers
         {
             try
             {
-                var technician = await _technicianService.GetTechnician(id);
+                var technician =
+                    await _technicianService.GetTechnician(id);
 
                 var response =
                     _mapper.Map<Technician, GetTechnicianResponseResource>(technician);
@@ -61,7 +63,9 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTechnician([FromBody] CreateTechnicianRequestResource request)
+        public async Task<IActionResult> CreateTechnician(
+            [FromBody] CreateTechnicianRequestResource request
+        )
         {
             try
             {
@@ -75,7 +79,8 @@ namespace Warehouse.Controllers
 
                 await _technicianService.Add(technician);
 
-                technician = await _technicianService.GetTechnician(technician.Id);
+                technician =
+                    await _technicianService.GetTechnician(technician.Id);
 
                 var response =
                     _mapper.Map<Technician, GetTechnicianResponseResource>(technician);
