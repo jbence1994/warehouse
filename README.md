@@ -1,3 +1,5 @@
+# :warning: :exclamation: THIS APP IS DEPRECATED AND NO LONGER MAINTAINED :exclamation: :warning:
+
 # Warehouse
 
 Netsurf Távközlési Szolgáltató Kft. stock management application.
